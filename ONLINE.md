@@ -3,6 +3,9 @@
 Serve un server Linux con **almeno 4 GB di RAM** (es. un VPS da qualche euro al mese, oppure Oracle Cloud "always free").
 Un video da 30 s si renderizza in 1–3 minuti; una giornata intera (4 video + 8 locandine) in 5–12 minuti.
 
+## Via rapida
+Sul server: `curl -fsSL -H "Authorization: token TOKEN" https://raw.githubusercontent.com/Mandrade2030/fantacalcio-highlight/main/installa-server.sh -o installa-server.sh && bash installa-server.sh` (fa tutto lui e ti chiede token e password).
+
 ## 1. Sul server (una volta sola)
 ```bash
 curl -fsSL https://get.docker.com | sh
