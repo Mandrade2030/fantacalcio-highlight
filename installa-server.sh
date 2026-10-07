@@ -12,10 +12,13 @@ fi
 SUDO=""; [ "$(id -u)" -ne 0 ] && SUDO="sudo"
 
 if [ ! -d "$DIR/.git" ]; then
-  echo "Il repository è privato: incolla il token GitHub (sola lettura, github.com → Settings → Developer settings → Personal access tokens) e premi Invio."
-  read -rs -p "Token: " TOKEN; echo
-  git clone "https://x-access-token:${TOKEN}@github.com/${REPO}.git" "$DIR"
-  git -C "$DIR" remote set-url origin "https://github.com/${REPO}.git"   # non lascia il token salvato nel repo
+  read -rs -p "Token GitHub (premi solo Invio se il repository è pubblico): " TOKEN; echo
+  if [ -n "$TOKEN" ]; then
+    git clone "https://x-access-token:${TOKEN}@github.com/${REPO}.git" "$DIR"
+    git -C "$DIR" remote set-url origin "https://github.com/${REPO}.git"   # non lascia il token salvato nel repo
+  else
+    git clone "https://github.com/${REPO}.git" "$DIR"
+  fi
 else
   git -C "$DIR" pull
 fi
