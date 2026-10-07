@@ -1,0 +1,7 @@
+node_modules
+out
+.DS_Store
+dati/impostazioni.json
+public/voce/
+.env
+voce/

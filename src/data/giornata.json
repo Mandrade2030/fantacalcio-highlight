@@ -1,0 +1,81 @@
+{
+  "_nota": "ESEMPIO con squadre e giocatori veri ma risultati INVENTATI. Squadre e rose arrivano da lega.json: qui scrivi solo gli scontri. I nomi dei giocatori vanno scritti come su fantacalcio.it (il ruolo si ricava dalla rosa).",
+  "giornata": 1,
+  "stagione": "2026/27",
+  "soglie": { "base": 66, "passo": 4 },
+  "scontri": [
+    {
+      "casa": "pan-fc",
+      "trasferta": "si-gonfia-la-rete",
+      "punteggioCasa": 74,
+      "punteggioTrasferta": 67.5,
+      "formazioneCasa": [
+        { "nome": "Kean", "voto": 7.5, "fantavoto": 13.5, "gol": 2 },
+        { "nome": "Dimarco", "voto": 7, "fantavoto": 8, "assist": 1 },
+        { "nome": "Mora", "voto": 6.5, "fantavoto": 7.5, "assist": 1 },
+        { "nome": "Vicario", "voto": 6.5, "fantavoto": 5.5, "golSubiti": 1 },
+        { "nome": "Rabiot", "voto": 6, "fantavoto": 5.5, "ammonizione": true }
+      ],
+      "formazioneTrasferta": [
+        { "nome": "Hojlund", "voto": 7, "fantavoto": 10, "gol": 1 },
+        { "nome": "Baturina", "voto": 6.5, "fantavoto": 7.5, "assist": 1 },
+        { "nome": "Yildiz", "voto": 5, "fantavoto": 2, "rigoreSbagliato": 1 },
+        { "nome": "Falcone", "voto": 6, "fantavoto": 4, "golSubiti": 2 }
+      ]
+    },
+    {
+      "casa": "atletico-madrink",
+      "trasferta": "milano-boys",
+      "punteggioCasa": 78.5,
+      "punteggioTrasferta": 79,
+      "formazioneCasa": [
+        { "nome": "Diao", "voto": 7.5, "fantavoto": 13.5, "gol": 2 },
+        { "nome": "Orsolini", "voto": 7, "fantavoto": 10, "gol": 1 },
+        { "nome": "Bastoni", "voto": 7, "fantavoto": 9, "assist": 2 },
+        { "nome": "Carnesecchi", "voto": 6, "fantavoto": 3, "golSubiti": 3 }
+      ],
+      "formazioneTrasferta": [
+        { "nome": "Douvikas", "voto": 8, "fantavoto": 15, "gol": 2, "assist": 1 },
+        { "nome": "Esposito F.P.", "voto": 7, "fantavoto": 10, "gol": 1 },
+        { "nome": "Calhanoglu", "voto": 6.5, "fantavoto": 7.5, "assist": 1 },
+        { "nome": "Bremer", "voto": 5, "fantavoto": 4.5, "ammonizione": true },
+        { "nome": "Muric", "voto": 7, "fantavoto": 7, "golSubiti": 3, "rigoreParato": 1 }
+      ]
+    },
+    {
+      "casa": "aston-birra",
+      "trasferta": "do-flamengo",
+      "punteggioCasa": 85,
+      "punteggioTrasferta": 60,
+      "formazioneCasa": [
+        { "nome": "Thuram", "voto": 8.5, "fantavoto": 18.5, "gol": 3 },
+        { "nome": "Dybala", "voto": 7.5, "fantavoto": 11.5, "gol": 1, "assist": 1 },
+        { "nome": "Barella", "voto": 7, "fantavoto": 9, "assist": 2 },
+        { "nome": "Mandas", "voto": 6.5, "fantavoto": 7.5 }
+      ],
+      "formazioneTrasferta": [
+        { "nome": "Martinez L.", "voto": 4.5, "fantavoto": 4.5 },
+        { "nome": "Cristante", "voto": 4.5, "fantavoto": 1.5, "espulsione": true },
+        { "nome": "Maignan", "voto": 4, "fantavoto": 0, "golSubiti": 4 },
+        { "nome": "Paz N.", "voto": 6, "fantavoto": 6 }
+      ]
+    },
+    {
+      "casa": "aquafan",
+      "trasferta": "manchester-squiddi",
+      "punteggioCasa": 65.5,
+      "punteggioTrasferta": 70,
+      "formazioneCasa": [
+        { "nome": "De Bruyne", "voto": 6, "fantavoto": 6 },
+        { "nome": "Malen", "voto": 5.5, "fantavoto": 2.5, "rigoreSbagliato": 1 },
+        { "nome": "Stones", "voto": 4.5, "fantavoto": 2.5, "autogol": 1 },
+        { "nome": "Caprile", "voto": 6.5, "fantavoto": 5.5, "golSubiti": 1 }
+      ],
+      "formazioneTrasferta": [
+        { "nome": "Kolo Muani", "voto": 7, "fantavoto": 10, "gol": 1 },
+        { "nome": "Mctominay", "voto": 6.5, "fantavoto": 7.5, "assist": 1 },
+        { "nome": "Svilar", "voto": 6, "fantavoto": 6 }
+      ]
+    }
+  ]
+}

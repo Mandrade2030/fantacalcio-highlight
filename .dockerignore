@@ -1,0 +1,6 @@
+node_modules
+out
+.git
+dati/impostazioni.json
+public/voce
+.env

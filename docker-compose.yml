@@ -1,0 +1,23 @@
+# Avvio:  docker compose up -d --build
+# Online con indirizzo https gratuito (senza aprire porte):  docker compose --profile online up -d --build
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env            # contiene FH_PASSWORD (copia .env.example in .env)
+    ports:
+      - "${FH_PORTA:-4321}:4321"
+    shm_size: "1gb"           # Chrome ne ha bisogno per i video
+    volumes:
+      - ./dati:/app/dati          # giornate salvate + impostazioni (chiave voce)
+      - ./out:/app/out            # video e locandine generati
+      - ./voce:/app/public/voce   # frasi già sintetizzate (cache)
+
+  # Facoltativo: indirizzo https pubblico tipo https://xxxx.trycloudflare.com, gratis, nessuna porta da aprire.
+  # L'indirizzo compare nei log:  docker compose logs tunnel
+  tunnel:
+    profiles: ["online"]
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate --url http://app:4321
+    depends_on: [app]

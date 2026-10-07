@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fanta Highlights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,800;0,900;1,900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/ui/style.css" />
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <span class="dot"></span>
+    <div>
+      <div class="brand-t">FANTA HIGHLIGHTS</div>
+      <div class="brand-s" id="nomeLega">…</div>
+    </div>
+  </div>
+  <div class="top-r">
+    <label class="campo-g">Giornata
+      <input type="number" id="numGiornata" min="1" value="1" />
+    </label>
+    <select id="caricaGiornata" title="Apri una giornata salvata">
+      <option value="">Giornate salvate…</option>
+    </select>
+    <button class="btn ghost" id="btnNuova" title="Svuota il modulo">Nuova</button>
+  </div>
+</header>
+
+<main>
+  <section class="blocco">
+    <details id="boxVoce">
+      <summary>
+        <span>🎙 Telecronaca parlata</span>
+        <span class="hint" id="statoVoce">disattivata</span>
+      </summary>
+      <div class="voce">
+        <label class="chk"><input type="checkbox" id="voceAttiva" /> Aggiungi la voce del telecronista ai video</label>
+        <div class="voce-riga">
+          <label>Servizio
+            <select id="voceProvider">
+              <option value="gemini">Google Gemini — gratis, voce migliore (serve una chiave gratuita)</option>
+              <option value="windows">Voci di Windows — gratis, offline, più robotiche</option>
+              <option value="elevenlabs">ElevenLabs — anche con la tua voce clonata (a pagamento)</option>
+            </select>
+          </label>
+        </div>
+        <div class="voce-riga" id="rigaChiave">
+          <label><span id="etichettaChiave">Chiave API</span>
+            <input type="password" id="voceChiave" placeholder="incolla qui la chiave" autocomplete="off" />
+          </label>
+          <button class="btn ghost small" id="voceSalvaChiave">Salva chiave</button>
+        </div>
+        <div class="voce-riga">
+          <label>Voce
+            <select id="voceScelta"></select>
+          </label>
+          <button class="btn ghost small" id="voceCarica">Aggiorna elenco</button>
+          <button class="btn ghost small" id="voceProva">▶ Prova</button>
+        </div>
+        <div class="voce-riga" id="rigaStile">
+          <label style="flex:1">Come deve parlare (solo Gemini)
+            <textarea id="voceStile" rows="2"></textarea>
+          </label>
+        </div>
+        <audio id="voceAudio" controls hidden></audio>
+        <p class="legenda" id="voceAiuto"></p>
+      </div>
+    </details>
+  </section>
+
+  <section class="blocco">
+    <details id="boxClassifica">
+      <summary>
+        <span>Classifica prima della giornata</span>
+        <span class="hint">facoltativa · serve per i tag "vertice" e "salvezza"</span>
+      </summary>
+      <div class="classifica" id="classifica"></div>
+    </details>
+  </section>
+
+  <section id="scontri"></section>
+
+  <section class="blocco" id="boxLavori" hidden>
+    <h2>Generazione</h2>
+    <div id="lavori"></div>
+  </section>
+
+  <section class="blocco" id="boxGalleria">
+    <div class="riga-titolo">
+      <h2>File della giornata <span id="galleriaNum"></span></h2>
+      <button class="btn ghost" id="btnCartella">Apri cartella</button>
+    </div>
+    <div class="galleria" id="galleria"><p class="vuoto">Ancora niente. Compila gli scontri e premi "Genera".</p></div>
+  </section>
+</main>
+
+<footer class="azioni">
+  <div class="msg" id="msg"></div>
+  <div class="azioni-r">
+    <label class="chk"><input type="checkbox" id="optVideo" checked /> Video</label>
+    <label class="chk"><input type="checkbox" id="optLoc" checked /> Locandine</label>
+    <button class="btn ghost" id="btnSalva">Salva</button>
+    <button class="btn primary" id="btnGenera">Genera tutto</button>
+  </div>
+</footer>
+
+<template id="tplScontro">
+  <article class="scontro">
+    <div class="sc-head">
+      <div class="sc-num"></div>
+      <div class="sc-score"></div>
+      <div class="sc-opts">
+        <label class="chk"><input type="checkbox" class="derby" /> Derby</label>
+        <input type="text" class="nomeSfida" placeholder="Nome sfida (facoltativo)" />
+        <button class="btn small ghost genUno">Genera solo questo</button>
+      </div>
+    </div>
+    <div class="sc-lati">
+      <div class="lato" data-lato="casa"></div>
+      <div class="lato" data-lato="trasferta"></div>
+    </div>
+  </article>
+</template>
+
+<script src="/ui/app.js"></script>
+</body>
+</html>
