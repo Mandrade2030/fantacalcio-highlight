@@ -184,3 +184,12 @@ npm run render:giornata -- percorso/altra-giornata.json
 
 ## Online (server)
 `Dockerfile` + `docker-compose.yml` + `ONLINE.md`. Con `FH_SERVER=1` l'app esige `FH_PASSWORD` (login con cookie firmato, 5 tentativi sbagliati = blocco 1 minuto), nasconde "Apri cartella" e le voci di Windows. `/healthz` è pubblico. Volumi: `dati/`, `out/`, `voce/`. Tunnel https gratuito con `--profile online` (cloudflared). L'import automatico da leghe.fantacalcio.it NON gira sul server (usa il login del browser di Claude).
+
+## Bot WhatsApp (non ufficiale)
+- `app/whatsapp.mjs`: libreria Baileys, si collega come "dispositivo collegato" (QR). Sessione in `dati/whatsapp/` (volume, in .gitignore). Pensato per un numero dedicato al bot: WhatsApp può bloccarlo.
+- Pannello "📲 Bot WhatsApp" nell'app: QR, scelta del gruppo (salvato in `dati/impostazioni.json` → `whatsapp.gruppo`), invio di un file caricato + didascalia; tasto 📲 su ogni file della galleria.
+- API: `GET /api/whatsapp` (stato + QR), `GET /api/whatsapp/gruppi`, `POST /api/whatsapp/gruppo`, `POST /api/whatsapp/esci`, `POST /api/whatsapp/invia` (JSON `{testo, file:"giornata-N/x.mp4"}` oppure corpo binario immagine/video con `?testo=`).
+- Prova rapida sul server: `sudo docker exec fantacalcio-highlight-app-1 node tools/prova-whatsapp.mjs`.
+
+## Locandina pre-giornata
+`tools/pregiornata/`: cast delle caricature, istruzioni e prompt per Gemini, `etichette.py` per scrivere posizione e punti esatti.
