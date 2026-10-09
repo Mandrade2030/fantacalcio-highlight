@@ -12,4 +12,7 @@ Genera un'immagine. Usando i personaggi caricaturali dell'immagine allegata (ogn
 
 Idee per le note: capolista con la corona; ultimo in classifica preoccupato e sudato; chi e' a 0 punti si consola con la birra; scontro diretto = fronte contro fronte da pugili; chi viene da una goleada subita con un cerotto in testa.
 
-4. Scarica l'immagine e salvala in `out/giornata-N/pregiornata.jpg`.
+   Chiedi a Gemini SOLO titolo e nomi delle squadre (nessuna etichetta di classifica: le sbaglia).
+4. Scarica l'immagine e aggiungi le etichette esatte di posizione e punti con
+   `python tools/pregiornata/etichette.py grezza.jpg out/giornata-N/pregiornata.jpg '[["5","3"],["1","6"],...]'`
+   (8 coppie [posizione, punti], ordine: sinistra/destra di ogni fascia dall'alto). 1° = etichetta oro, ultimo = rossa.
