@@ -65,7 +65,9 @@ const impostazioniPubbliche = () => {
 const VOCE_DIR = join(ROOT, "public", "voce");
 const ELEVEN = process.env.FH_ELEVEN_URL || "https://api.elevenlabs.io/v1"; // variabili solo per i test
 const GEMINI = process.env.FH_GEMINI_URL || "https://generativelanguage.googleapis.com/v1beta";
-const GEMINI_MODELLO = "gemini-3.8-flash-tts";
+const GEMINI_MODELLI = ["gemini-3.8-flash-tts", "gemini-3.8-flash-lite-tts"]; // il secondo è più leggero: serve da riserva
+const bloccatoFino = {}; // modello -> ora fino a cui saltarlo (limite raggiunto)
+const pausa = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // Voci predefinite di Gemini: solo quelle MASCHILI (parlano tutte italiano), con il carattere indicato da Google
 const VOCI_GEMINI = [
@@ -77,7 +79,7 @@ const VOCI_GEMINI = [
 
 const leggiErrore = async (r, chi) => {
   const t = await r.text().catch(() => "");
-  if (r.status === 429) return new Error(`${chi}: limite gratuito raggiunto per ora, riprova più tardi.`);
+  if (r.status === 429) return new Error(`${chi}: limite gratuito raggiunto (429). ${t.slice(0, 200)}`);
   if (r.status === 401 || r.status === 403) return new Error(`${chi}: chiave non valida (${r.status}).`);
   return new Error(`${chi} ${r.status}: ${t.slice(0, 300)}`);
 };
@@ -131,21 +133,53 @@ const trovaAudio = (x) => {
 
 const ttsGemini = async (testo, voce) => {
   if (!voce.chiavi.gemini) throw new Error("Manca la chiave Google AI Studio: inseriscila in Telecronaca parlata.");
-  const r = await fetch(`${GEMINI}/interactions`, {
-    method: "POST",
-    headers: { "x-goog-api-key": voce.chiavi.gemini, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: GEMINI_MODELLO,
-      input: [{ type: "user_input", content: [{ type: "text", text: testo, annotations: [{ type: "speech_metadata", style: voce.stile || STILE_DEFAULT }] }] }],
-      response_format: { type: "audio" },
-      generation_config: { speech_config: [{ voice: voce.voce.gemini || "Fenrir" }] },
-    }),
-  });
-  if (!r.ok) throw await leggiErrore(r, "Gemini");
-  const audio = trovaAudio(await r.json());
-  if (!audio) throw new Error("Gemini non ha restituito audio.");
-  const buf = Buffer.from(audio.data, "base64");
-  return { buf: buf.toString("ascii", 0, 4) === "RIFF" ? buf : pcmToWav(buf), ext: "wav" };
+  let ultimo;
+  // prova il modello migliore, poi quello leggero; su limite/sovraccarico riprova con un po' di attesa
+  for (const modello of GEMINI_MODELLI) {
+    if ((bloccatoFino[modello] || 0) > Date.now() && modello !== GEMINI_MODELLI.at(-1)) continue;
+    for (let tentativo = 0; tentativo < 3; tentativo++) {
+      try {
+        const r = await fetch(`${GEMINI}/interactions`, {
+          method: "POST",
+          headers: { "x-goog-api-key": voce.chiavi.gemini, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: modello,
+            input: [{ type: "user_input", content: [{ type: "text", text: testo, annotations: [{ type: "speech_metadata", style: voce.stile || STILE_DEFAULT }] }] }],
+            response_format: { type: "audio" },
+            generation_config: { speech_config: [{ voice: voce.voce.gemini || "Fenrir" }] },
+          }),
+        });
+        if (!r.ok) {
+          const e = await leggiErrore(r, `Gemini (${modello})`);
+          console.error("[voce]", e.message);
+          ultimo = e;
+          if (r.status === 401 || r.status === 403) throw e; // la chiave non va: inutile riprovare
+          if (r.status === 429 || r.status >= 500) {
+            if (r.status === 429 && tentativo === 1) {
+              bloccatoFino[modello] = Date.now() + 120000; // per 2 minuti usa direttamente l'altro modello
+              break;
+            }
+            await pausa(3000 * (tentativo + 1));
+            continue;
+          }
+          break; // errore sul modello (es. 400/404): passa al successivo
+        }
+        const audio = trovaAudio(await r.json());
+        if (!audio) {
+          ultimo = new Error(`Gemini (${modello}) non ha restituito audio.`);
+          break;
+        }
+        const buf = Buffer.from(audio.data, "base64");
+        return { buf: buf.toString("ascii", 0, 4) === "RIFF" ? buf : pcmToWav(buf), ext: "wav" };
+      } catch (e) {
+        if (/chiave non valida/.test(e.message)) throw e;
+        ultimo = e;
+        console.error("[voce]", e.message);
+        await pausa(2000);
+      }
+    }
+  }
+  throw ultimo || new Error("Gemini non risponde.");
 };
 
 const ttsEleven = async (testo, voce) => {
