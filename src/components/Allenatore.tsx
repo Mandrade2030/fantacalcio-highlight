@@ -751,12 +751,35 @@ export const AvatarAllenatore: React.FC<{
 
   const png = allenatore.immagini?.[emozione];
   if (png) {
+    // Caricature disegnate (PNG/WebP trasparenti): sono frontali, quindi niente specchio
+    // (scritte e numeri sulle maglie resterebbero al contrario).
     return (
-      <div style={wrapStyle}>
+      <div style={{ ...wrapStyle, transform: `translate(${dx}px, ${dy}px) rotate(${rot}deg)` }}>
         <Img
           src={png.startsWith("http") ? png : staticFile(png)}
-          style={{ width: "100%", height: "100%", objectFit: "contain", transform: `scaleY(${respiro})`, transformOrigin: "50% 100%" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            objectPosition: "50% 100%",
+            transform: `scaleY(${respiro})`,
+            transformOrigin: "50% 100%",
+            filter: "drop-shadow(0 10px 18px rgba(0,0,0,.45))",
+          }}
         />
+        {effetti && emozione === "esultanza" && (
+          <svg viewBox="0 0 240 300" width="100%" height="100%" style={{ position: "absolute", inset: 0, overflow: "visible" }}>
+            {[0, 1, 2, 3].map((i) => {
+              const p = ((t + i * 9) % 36) / 36;
+              const ang = (i / 4) * Math.PI * 2 + 0.6;
+              const r = 90 + p * 40;
+              const s = Math.sin(p * Math.PI) * 10;
+              const x = 120 + Math.cos(ang) * r;
+              const y = 120 + Math.sin(ang) * r * 0.8;
+              return <path key={i} d={`M${x} ${y - s} L${x + s * 0.3} ${y} L${x} ${y + s} L${x - s * 0.3} ${y} Z M${x - s} ${y} L${x} ${y + s * 0.3} L${x + s} ${y} L${x} ${y - s * 0.3} Z`} fill="#FFE066" />;
+            })}
+          </svg>
+        )}
       </div>
     );
   }

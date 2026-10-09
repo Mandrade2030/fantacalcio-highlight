@@ -176,7 +176,15 @@
           "costo": 10
         }
       ],
-      "idFantacalcio": 11170711
+      "idFantacalcio": 11170711,
+      "immagini": {
+        "neutro": "allenatori/do-flamengo/neutro.webp",
+        "esultanza": "allenatori/do-flamengo/esultanza.webp",
+        "tristezza": "allenatori/do-flamengo/tristezza.webp",
+        "pianto": "allenatori/do-flamengo/pianto.webp",
+        "rabbia": "allenatori/do-flamengo/rabbia.webp",
+        "grinta": "allenatori/do-flamengo/grinta.webp"
+      }
     },
     {
       "id": "manchester-squiddi",
@@ -344,7 +352,15 @@
           "costo": 59
         }
       ],
-      "idFantacalcio": 6414064
+      "idFantacalcio": 6414064,
+      "immagini": {
+        "neutro": "allenatori/manchester-squiddi/neutro.webp",
+        "esultanza": "allenatori/manchester-squiddi/esultanza.webp",
+        "tristezza": "allenatori/manchester-squiddi/tristezza.webp",
+        "pianto": "allenatori/manchester-squiddi/pianto.webp",
+        "rabbia": "allenatori/manchester-squiddi/rabbia.webp",
+        "grinta": "allenatori/manchester-squiddi/grinta.webp"
+      }
     },
     {
       "id": "milano-boys",
@@ -512,7 +528,15 @@
           "costo": 1
         }
       ],
-      "idFantacalcio": 6414048
+      "idFantacalcio": 6414048,
+      "immagini": {
+        "neutro": "allenatori/milano-boys/neutro.webp",
+        "esultanza": "allenatori/milano-boys/esultanza.webp",
+        "tristezza": "allenatori/milano-boys/tristezza.webp",
+        "pianto": "allenatori/milano-boys/pianto.webp",
+        "rabbia": "allenatori/milano-boys/rabbia.webp",
+        "grinta": "allenatori/milano-boys/grinta.webp"
+      }
     },
     {
       "id": "atletico-madrink",
@@ -678,7 +702,15 @@
           "costo": 9
         }
       ],
-      "idFantacalcio": 6414066
+      "idFantacalcio": 6414066,
+      "immagini": {
+        "neutro": "allenatori/atletico-madrink/neutro.webp",
+        "esultanza": "allenatori/atletico-madrink/esultanza.webp",
+        "tristezza": "allenatori/atletico-madrink/tristezza.webp",
+        "pianto": "allenatori/atletico-madrink/pianto.webp",
+        "rabbia": "allenatori/atletico-madrink/rabbia.webp",
+        "grinta": "allenatori/atletico-madrink/grinta.webp"
+      }
     },
     {
       "id": "pan-fc",
@@ -850,7 +882,15 @@
           "costo": 1
         }
       ],
-      "idFantacalcio": 6414063
+      "idFantacalcio": 6414063,
+      "immagini": {
+        "neutro": "allenatori/pan-fc/neutro.webp",
+        "esultanza": "allenatori/pan-fc/esultanza.webp",
+        "tristezza": "allenatori/pan-fc/tristezza.webp",
+        "pianto": "allenatori/pan-fc/pianto.webp",
+        "rabbia": "allenatori/pan-fc/rabbia.webp",
+        "grinta": "allenatori/pan-fc/grinta.webp"
+      }
     },
     {
       "id": "aston-birra",
@@ -1019,7 +1059,15 @@
           "costo": 1
         }
       ],
-      "idFantacalcio": 6414062
+      "idFantacalcio": 6414062,
+      "immagini": {
+        "neutro": "allenatori/aston-birra/neutro.webp",
+        "esultanza": "allenatori/aston-birra/esultanza.webp",
+        "tristezza": "allenatori/aston-birra/tristezza.webp",
+        "pianto": "allenatori/aston-birra/pianto.webp",
+        "rabbia": "allenatori/aston-birra/rabbia.webp",
+        "grinta": "allenatori/aston-birra/grinta.webp"
+      }
     },
     {
       "id": "aquafan",
@@ -1191,7 +1239,15 @@
           "costo": 1
         }
       ],
-      "idFantacalcio": 20055292
+      "idFantacalcio": 20055292,
+      "immagini": {
+        "neutro": "allenatori/aquafan/neutro.webp",
+        "esultanza": "allenatori/aquafan/esultanza.webp",
+        "tristezza": "allenatori/aquafan/tristezza.webp",
+        "pianto": "allenatori/aquafan/pianto.webp",
+        "rabbia": "allenatori/aquafan/rabbia.webp",
+        "grinta": "allenatori/aquafan/grinta.webp"
+      }
     },
     {
       "id": "si-gonfia-la-rete",
@@ -1363,7 +1419,15 @@
           "costo": 1
         }
       ],
-      "idFantacalcio": 7344149
+      "idFantacalcio": 7344149,
+      "immagini": {
+        "neutro": "allenatori/si-gonfia-la-rete/neutro.webp",
+        "esultanza": "allenatori/si-gonfia-la-rete/esultanza.webp",
+        "tristezza": "allenatori/si-gonfia-la-rete/tristezza.webp",
+        "pianto": "allenatori/si-gonfia-la-rete/pianto.webp",
+        "rabbia": "allenatori/si-gonfia-la-rete/rabbia.webp",
+        "grinta": "allenatori/si-gonfia-la-rete/grinta.webp"
+      }
     }
   ],
   "fantacalcio": {
