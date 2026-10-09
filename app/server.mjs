@@ -9,6 +9,7 @@ import { dirname, extname, join, normalize, resolve, sep } from "node:path";
 import { createRequire } from "node:module";
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { avviaWhatsApp, esciWhatsApp, gruppiWhatsApp, inviaWhatsApp, statoWhatsApp } from "./whatsapp.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const DATI = join(ROOT, "dati");
@@ -597,6 +598,55 @@ const server = http.createServer(async (req, res) => {
     if (req.method === "GET" && path.startsWith("/public/")) return servi(req, res, PUBLIC, path.slice(8));
 
     if (req.method === "GET" && path === "/api/lega") return json(res, 200, leggiLega());
+
+    /* ---- bot WhatsApp ---- */
+    if (req.method === "GET" && path === "/api/whatsapp") {
+      avviaWhatsApp(DATI);
+      return json(res, 200, { ...statoWhatsApp(), gruppo: leggiImpostazioni().whatsapp?.gruppo || null });
+    }
+    if (req.method === "GET" && path === "/api/whatsapp/gruppi") return json(res, 200, await gruppiWhatsApp());
+    if (req.method === "POST" && path === "/api/whatsapp/gruppo") {
+      const b = await corpo(req);
+      const cur = leggiImpostazioni();
+      salvaImpostazioni({ ...cur, whatsapp: { ...(cur.whatsapp || {}), gruppo: String(b.gruppo || "") } });
+      return json(res, 200, { ok: true });
+    }
+    if (req.method === "POST" && path === "/api/whatsapp/esci") {
+      await esciWhatsApp();
+      return json(res, 200, { ok: true });
+    }
+    if (req.method === "POST" && path === "/api/whatsapp/invia") {
+      const gruppoDef = leggiImpostazioni().whatsapp?.gruppo;
+      const tipo = (req.headers["content-type"] || "").split(";")[0];
+      if (tipo === "application/json") {
+        // {gruppo?, testo?, file?: "giornata-3/highlight-1.mp4"} -> file già generato in out/
+        const b = await corpo(req);
+        let buffer = null, mime = null;
+        if (b.file) {
+          const f = normalize(join(OUT, String(b.file)));
+          if (!f.startsWith(OUT + sep) || !existsSync(f)) throw new Error("File non trovato.");
+          buffer = readFileSync(f);
+          mime = MIME[extname(f).toLowerCase()] || "application/octet-stream";
+        }
+        await inviaWhatsApp({ gruppo: b.gruppo || gruppoDef, testo: String(b.testo || ""), buffer, tipo: mime });
+        return json(res, 200, { ok: true });
+      }
+      // file caricato dal browser (immagine o video), testo e gruppo nella query
+      const pezzi = [];
+      let n = 0;
+      for await (const c of req) {
+        n += c.length;
+        if (n > 64e6) throw new Error("File troppo grande (max 64 MB).");
+        pezzi.push(c);
+      }
+      await inviaWhatsApp({
+        gruppo: url.searchParams.get("gruppo") || gruppoDef,
+        testo: url.searchParams.get("testo") || "",
+        buffer: Buffer.concat(pezzi),
+        tipo,
+      });
+      return json(res, 200, { ok: true });
+    }
 
     if (req.method === "GET" && path === "/api/impostazioni") return json(res, 200, impostazioniPubbliche());
     if (req.method === "POST" && path === "/api/impostazioni") {

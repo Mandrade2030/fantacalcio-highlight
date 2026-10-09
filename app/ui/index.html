@@ -71,6 +71,40 @@
   </section>
 
   <section class="blocco">
+    <details id="boxWa">
+      <summary>
+        <span>📲 Bot WhatsApp</span>
+        <span class="hint" id="waStato">…</span>
+      </summary>
+      <div class="voce">
+        <div id="waQr" hidden>
+          <p class="legenda">Sul telefono col numero del bot: WhatsApp → Impostazioni → Dispositivi collegati → Collega un dispositivo, e inquadra questo codice.</p>
+          <img id="waQrImg" alt="QR WhatsApp" style="width:240px;height:240px;background:#fff;border-radius:12px;padding:8px" />
+        </div>
+        <div id="waOk" hidden>
+          <div class="voce-riga">
+            <label style="flex:1">Gruppo dove mandare
+              <select id="waGruppo"><option value="">Scegli il gruppo…</option></select>
+            </label>
+            <button class="btn ghost small" id="waEsci">Scollega</button>
+          </div>
+          <div class="voce-riga">
+            <label style="flex:1">Messaggio
+              <textarea id="waTesto" rows="2" placeholder="Es. 🔥 Si parte! Giornata 3, ecco le sfide…"></textarea>
+            </label>
+          </div>
+          <div class="voce-riga">
+            <input type="file" id="waFile" accept="image/*,video/mp4" />
+            <button class="btn primary small" id="waInvia">Manda nel gruppo</button>
+          </div>
+          <p class="legenda">Per i video e le locandine già generati usa il tasto 📲 sotto ogni file. Il messaggio scritto qui va come didascalia.</p>
+        </div>
+        <p class="legenda" id="waErr"></p>
+      </div>
+    </details>
+  </section>
+
+  <section class="blocco">
     <details id="boxClassifica">
       <summary>
         <span>Classifica prima della giornata</span>
@@ -125,5 +159,6 @@
 </template>
 
 <script src="/ui/app.js"></script>
+<script src="/ui/whatsapp.js"></script>
 </body>
 </html>

@@ -379,7 +379,7 @@
               f.nome.endsWith(".mp4")
                 ? `<video src="${f.url}?t=${t}#t=3" controls preload="metadata" playsinline></video>`
                 : `<a href="${f.url}?t=${t}" target="_blank"><img src="${f.url}?t=${t}" alt="" loading="lazy"></a>`
-            }<div class="file-b"><span title="${esc(f.nome)}">${esc(f.nome)}</span><a href="${f.url}" download>Scarica</a></div></div>`,
+            }<div class="file-b"><span title="${esc(f.nome)}">${esc(f.nome)}</span><a href="${f.url}" download>Scarica</a><button class="wa-send" title="Manda nel gruppo WhatsApp" data-file="${esc(f.url.replace(/^\/out\//, ""))}">📲</button></div></div>`,
           )
           .join("")
       : `<p class="vuoto">Ancora niente. Compila gli scontri e premi "Genera".</p>`;

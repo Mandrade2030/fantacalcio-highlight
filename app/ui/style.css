@@ -187,3 +187,5 @@ pre.err { white-space: pre-wrap; background: #1b0d12; border: 1px solid #5a1d28;
 .voce-riga textarea { width: 100%; min-height: 56px; background: var(--bg2); border: 1px solid var(--line); border-radius: 9px; padding: 8px 10px; color: var(--ink); font: inherit; text-transform: none; font-weight: 500; resize: vertical; }
 
 .legenda a { color: var(--lime); }
+.wa-send { background: none; border: 0; cursor: pointer; font-size: 16px; padding: 0 2px; }
+.wa-send:disabled { opacity: .4; }
