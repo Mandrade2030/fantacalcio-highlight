@@ -10,35 +10,171 @@
       "nome": "Do Flamengo",
       "sigla": "DFL",
       "presidente": "elgringo95",
-      "colori": { "primario": "#7E3FD1", "secondario": "#FFFFFF" },
+      "colori": {
+        "primario": "#7E3FD1",
+        "secondario": "#FFFFFF"
+      },
       "creditiResidui": 0,
-      "avatar": { "pelle": "#D9A07A", "capelli": "#111111", "acconciatura": "ricci", "barba": "corta", "occhiali": false },
+      "avatar": {
+        "pelle": "#E3B08C",
+        "capelli": "#6B4A33",
+        "acconciatura": "pelato",
+        "barba": "corta",
+        "coloreBarba": "#5A4332",
+        "densitaBarba": 0.55,
+        "occhiali": true,
+        "montatura": {
+          "tipo": "rettangolari",
+          "colore": "#27384F",
+          "spessore": 1.8
+        },
+        "coloreOcchi": "#4C7A5A",
+        "coloreSopracciglia": "#4A3524",
+        "viso": {
+          "larghezza": 1.12,
+          "altezza": 1.0,
+          "mascella": 1.08,
+          "mento": 0.95,
+          "guance": 1.15
+        },
+        "sopracciglia": {
+          "spessore": 1.1,
+          "arco": 0.9
+        },
+        "naso": 1.05,
+        "bocca": 1.15,
+        "corporatura": 1.2,
+        "vestito": {
+          "tipo": "henley",
+          "colore": "#17171B"
+        }
+      },
       "rosa": [
-        { "nome": "Maignan", "ruolo": "P", "costo": 28 },
-        { "nome": "Torriani", "ruolo": "P", "costo": 1 },
-        { "nome": "Meret", "ruolo": "P", "costo": 15 },
-        { "nome": "Ramon", "ruolo": "D", "costo": 15 },
-        { "nome": "Mancini", "ruolo": "D", "costo": 19 },
-        { "nome": "Doekhi", "ruolo": "D", "costo": 5 },
-        { "nome": "Scalvini", "ruolo": "D", "costo": 5 },
-        { "nome": "Belghali", "ruolo": "D", "costo": 1 },
-        { "nome": "Rrahmani", "ruolo": "D", "costo": 6 },
-        { "nome": "Obrador", "ruolo": "D", "costo": 1 },
-        { "nome": "De Winter", "ruolo": "D", "costo": 2 },
-        { "nome": "Paz N.", "ruolo": "C", "costo": 71 },
-        { "nome": "Pulisic", "ruolo": "C", "costo": 31 },
-        { "nome": "Zaccagni", "ruolo": "C", "costo": 29 },
-        { "nome": "Cristante", "ruolo": "C", "costo": 4 },
-        { "nome": "Romano", "ruolo": "C", "costo": 2 },
-        { "nome": "Vlasic", "ruolo": "C", "costo": 7 },
-        { "nome": "Jones C.", "ruolo": "C", "costo": 1 },
-        { "nome": "Volpato", "ruolo": "C", "costo": 1 },
-        { "nome": "Scamacca", "ruolo": "A", "costo": 42 },
-        { "nome": "Martinez L.", "ruolo": "A", "costo": 198 },
-        { "nome": "Varela G.", "ruolo": "A", "costo": 1 },
-        { "nome": "Adams A.", "ruolo": "A", "costo": 4 },
-        { "nome": "Geubbels", "ruolo": "A", "costo": 1 },
-        { "nome": "Colombo", "ruolo": "A", "costo": 10 }
+        {
+          "nome": "Maignan",
+          "ruolo": "P",
+          "costo": 28
+        },
+        {
+          "nome": "Torriani",
+          "ruolo": "P",
+          "costo": 1
+        },
+        {
+          "nome": "Meret",
+          "ruolo": "P",
+          "costo": 15
+        },
+        {
+          "nome": "Ramon",
+          "ruolo": "D",
+          "costo": 15
+        },
+        {
+          "nome": "Mancini",
+          "ruolo": "D",
+          "costo": 19
+        },
+        {
+          "nome": "Doekhi",
+          "ruolo": "D",
+          "costo": 5
+        },
+        {
+          "nome": "Scalvini",
+          "ruolo": "D",
+          "costo": 5
+        },
+        {
+          "nome": "Belghali",
+          "ruolo": "D",
+          "costo": 1
+        },
+        {
+          "nome": "Rrahmani",
+          "ruolo": "D",
+          "costo": 6
+        },
+        {
+          "nome": "Obrador",
+          "ruolo": "D",
+          "costo": 1
+        },
+        {
+          "nome": "De Winter",
+          "ruolo": "D",
+          "costo": 2
+        },
+        {
+          "nome": "Paz N.",
+          "ruolo": "C",
+          "costo": 71
+        },
+        {
+          "nome": "Pulisic",
+          "ruolo": "C",
+          "costo": 31
+        },
+        {
+          "nome": "Zaccagni",
+          "ruolo": "C",
+          "costo": 29
+        },
+        {
+          "nome": "Cristante",
+          "ruolo": "C",
+          "costo": 4
+        },
+        {
+          "nome": "Romano",
+          "ruolo": "C",
+          "costo": 2
+        },
+        {
+          "nome": "Vlasic",
+          "ruolo": "C",
+          "costo": 7
+        },
+        {
+          "nome": "Jones C.",
+          "ruolo": "C",
+          "costo": 1
+        },
+        {
+          "nome": "Volpato",
+          "ruolo": "C",
+          "costo": 1
+        },
+        {
+          "nome": "Scamacca",
+          "ruolo": "A",
+          "costo": 42
+        },
+        {
+          "nome": "Martinez L.",
+          "ruolo": "A",
+          "costo": 198
+        },
+        {
+          "nome": "Varela G.",
+          "ruolo": "A",
+          "costo": 1
+        },
+        {
+          "nome": "Adams A.",
+          "ruolo": "A",
+          "costo": 4
+        },
+        {
+          "nome": "Geubbels",
+          "ruolo": "A",
+          "costo": 1
+        },
+        {
+          "nome": "Colombo",
+          "ruolo": "A",
+          "costo": 10
+        }
       ],
       "idFantacalcio": 11170711
     },
@@ -48,35 +184,165 @@
       "nome": "Manchester Squiddi",
       "sigla": "MSQ",
       "presidente": "Peppe Guardia",
-      "colori": { "primario": "#6CABDD", "secondario": "#1C2C5B" },
+      "colori": {
+        "primario": "#6CABDD",
+        "secondario": "#1C2C5B"
+      },
       "creditiResidui": 1,
-      "avatar": { "pelle": "#F1C6A3", "capelli": "#3A2A1F", "acconciatura": "pelato", "barba": "folta", "occhiali": false },
+      "avatar": {
+        "pelle": "#E2B692",
+        "capelli": "#1E1512",
+        "acconciatura": "mossi",
+        "barba": "baffi",
+        "coloreBarba": "#3A2A25",
+        "densitaBarba": 0.3,
+        "occhiali": false,
+        "coloreOcchi": "#3B2A1E",
+        "coloreSopracciglia": "#1B1210",
+        "viso": {
+          "larghezza": 0.96,
+          "altezza": 1.04,
+          "mascella": 0.95,
+          "mento": 0.95
+        },
+        "sopracciglia": {
+          "spessore": 1.35,
+          "arco": 0.8
+        },
+        "naso": 1.1,
+        "orecchie": 1.1,
+        "corporatura": 0.95,
+        "vestito": {
+          "tipo": "tshirt",
+          "colore": "#16161A"
+        }
+      },
       "rosa": [
-        { "nome": "Svilar", "ruolo": "P", "costo": 31 },
-        { "nome": "Gollini", "ruolo": "P", "costo": 1 },
-        { "nome": "Corvi", "ruolo": "P", "costo": 3 },
-        { "nome": "Molina N.", "ruolo": "D", "costo": 20 },
-        { "nome": "Spence", "ruolo": "D", "costo": 12 },
-        { "nome": "Di Lorenzo", "ruolo": "D", "costo": 15 },
-        { "nome": "Couto", "ruolo": "D", "costo": 16 },
-        { "nome": "Kaiki", "ruolo": "D", "costo": 1 },
-        { "nome": "Bellanova", "ruolo": "D", "costo": 4 },
-        { "nome": "Valeri", "ruolo": "D", "costo": 4 },
-        { "nome": "Diego Carlos", "ruolo": "D", "costo": 1 },
-        { "nome": "Chukwueze", "ruolo": "C", "costo": 15 },
-        { "nome": "Diouf", "ruolo": "C", "costo": 20 },
-        { "nome": "Mctominay", "ruolo": "C", "costo": 33 },
-        { "nome": "Atta", "ruolo": "C", "costo": 16 },
-        { "nome": "Goncalves P.", "ruolo": "C", "costo": 10 },
-        { "nome": "Moreira", "ruolo": "C", "costo": 4 },
-        { "nome": "Rodriguez Je.", "ruolo": "C", "costo": 5 },
-        { "nome": "Cancellieri", "ruolo": "C", "costo": 1 },
-        { "nome": "Laurientè", "ruolo": "A", "costo": 29 },
-        { "nome": "Woltemade", "ruolo": "A", "costo": 71 },
-        { "nome": "Kolo Muani", "ruolo": "A", "costo": 79 },
-        { "nome": "Adams C.", "ruolo": "A", "costo": 36 },
-        { "nome": "Kvernadze", "ruolo": "A", "costo": 13 },
-        { "nome": "De Ketelaere", "ruolo": "A", "costo": 59 }
+        {
+          "nome": "Svilar",
+          "ruolo": "P",
+          "costo": 31
+        },
+        {
+          "nome": "Gollini",
+          "ruolo": "P",
+          "costo": 1
+        },
+        {
+          "nome": "Corvi",
+          "ruolo": "P",
+          "costo": 3
+        },
+        {
+          "nome": "Molina N.",
+          "ruolo": "D",
+          "costo": 20
+        },
+        {
+          "nome": "Spence",
+          "ruolo": "D",
+          "costo": 12
+        },
+        {
+          "nome": "Di Lorenzo",
+          "ruolo": "D",
+          "costo": 15
+        },
+        {
+          "nome": "Couto",
+          "ruolo": "D",
+          "costo": 16
+        },
+        {
+          "nome": "Kaiki",
+          "ruolo": "D",
+          "costo": 1
+        },
+        {
+          "nome": "Bellanova",
+          "ruolo": "D",
+          "costo": 4
+        },
+        {
+          "nome": "Valeri",
+          "ruolo": "D",
+          "costo": 4
+        },
+        {
+          "nome": "Diego Carlos",
+          "ruolo": "D",
+          "costo": 1
+        },
+        {
+          "nome": "Chukwueze",
+          "ruolo": "C",
+          "costo": 15
+        },
+        {
+          "nome": "Diouf",
+          "ruolo": "C",
+          "costo": 20
+        },
+        {
+          "nome": "Mctominay",
+          "ruolo": "C",
+          "costo": 33
+        },
+        {
+          "nome": "Atta",
+          "ruolo": "C",
+          "costo": 16
+        },
+        {
+          "nome": "Goncalves P.",
+          "ruolo": "C",
+          "costo": 10
+        },
+        {
+          "nome": "Moreira",
+          "ruolo": "C",
+          "costo": 4
+        },
+        {
+          "nome": "Rodriguez Je.",
+          "ruolo": "C",
+          "costo": 5
+        },
+        {
+          "nome": "Cancellieri",
+          "ruolo": "C",
+          "costo": 1
+        },
+        {
+          "nome": "Laurientè",
+          "ruolo": "A",
+          "costo": 29
+        },
+        {
+          "nome": "Woltemade",
+          "ruolo": "A",
+          "costo": 71
+        },
+        {
+          "nome": "Kolo Muani",
+          "ruolo": "A",
+          "costo": 79
+        },
+        {
+          "nome": "Adams C.",
+          "ruolo": "A",
+          "costo": 36
+        },
+        {
+          "nome": "Kvernadze",
+          "ruolo": "A",
+          "costo": 13
+        },
+        {
+          "nome": "De Ketelaere",
+          "ruolo": "A",
+          "costo": 59
+        }
       ],
       "idFantacalcio": 6414064
     },
@@ -86,35 +352,165 @@
       "nome": "Milano Boys",
       "sigla": "MIB",
       "presidente": "Gian Marco il Bello",
-      "colori": { "primario": "#1E4FD8", "secondario": "#111111" },
+      "colori": {
+        "primario": "#1E4FD8",
+        "secondario": "#111111"
+      },
       "creditiResidui": 31,
-      "avatar": { "pelle": "#EBC09B", "capelli": "#C9A15A", "acconciatura": "cresta", "barba": "nessuna", "occhiali": false },
+      "avatar": {
+        "pelle": "#E0B08C",
+        "capelli": "#B08A55",
+        "acconciatura": "ciuffo",
+        "barba": "corta",
+        "coloreBarba": "#A88C62",
+        "densitaBarba": 0.35,
+        "occhiali": false,
+        "coloreOcchi": "#6E8CA8",
+        "coloreSopracciglia": "#8E6E42",
+        "viso": {
+          "larghezza": 1.05,
+          "altezza": 0.97,
+          "mascella": 1.05,
+          "mento": 1.0
+        },
+        "sopracciglia": {
+          "spessore": 1.0,
+          "arco": 1.0
+        },
+        "naso": 0.95,
+        "corporatura": 1.1,
+        "collana": true,
+        "vestito": {
+          "tipo": "maglia",
+          "colore": "#0B0B10"
+        }
+      },
       "rosa": [
-        { "nome": "Stankovic F.", "ruolo": "P", "costo": 3 },
-        { "nome": "Muric", "ruolo": "P", "costo": 3 },
-        { "nome": "Thiam", "ruolo": "P", "costo": 1 },
-        { "nome": "Vasquez", "ruolo": "D", "costo": 6 },
-        { "nome": "Bremer", "ruolo": "D", "costo": 22 },
-        { "nome": "Dodò", "ruolo": "D", "costo": 5 },
-        { "nome": "Akanji", "ruolo": "D", "costo": 20 },
-        { "nome": "Gabbia", "ruolo": "D", "costo": 4 },
-        { "nome": "Hermoso", "ruolo": "D", "costo": 10 },
-        { "nome": "N'dicka", "ruolo": "D", "costo": 8 },
-        { "nome": "Pavard", "ruolo": "D", "costo": 1 },
-        { "nome": "Calhanoglu", "ruolo": "C", "costo": 42 },
-        { "nome": "Alajbegovic", "ruolo": "C", "costo": 10 },
-        { "nome": "Da Cunha", "ruolo": "C", "costo": 21 },
-        { "nome": "Gudmundsson A.", "ruolo": "C", "costo": 9 },
-        { "nome": "Mandragora", "ruolo": "C", "costo": 5 },
-        { "nome": "Zielinski", "ruolo": "C", "costo": 14 },
-        { "nome": "Locatelli", "ruolo": "C", "costo": 3 },
-        { "nome": "Konè M.", "ruolo": "C", "costo": 9 },
-        { "nome": "Douvikas", "ruolo": "A", "costo": 116 },
-        { "nome": "Esposito F.P.", "ruolo": "A", "costo": 99 },
-        { "nome": "Raspadori", "ruolo": "A", "costo": 35 },
-        { "nome": "Stulic", "ruolo": "A", "costo": 4 },
-        { "nome": "Santos A.", "ruolo": "A", "costo": 18 },
-        { "nome": "Yeboah J.", "ruolo": "A", "costo": 1 }
+        {
+          "nome": "Stankovic F.",
+          "ruolo": "P",
+          "costo": 3
+        },
+        {
+          "nome": "Muric",
+          "ruolo": "P",
+          "costo": 3
+        },
+        {
+          "nome": "Thiam",
+          "ruolo": "P",
+          "costo": 1
+        },
+        {
+          "nome": "Vasquez",
+          "ruolo": "D",
+          "costo": 6
+        },
+        {
+          "nome": "Bremer",
+          "ruolo": "D",
+          "costo": 22
+        },
+        {
+          "nome": "Dodò",
+          "ruolo": "D",
+          "costo": 5
+        },
+        {
+          "nome": "Akanji",
+          "ruolo": "D",
+          "costo": 20
+        },
+        {
+          "nome": "Gabbia",
+          "ruolo": "D",
+          "costo": 4
+        },
+        {
+          "nome": "Hermoso",
+          "ruolo": "D",
+          "costo": 10
+        },
+        {
+          "nome": "N'dicka",
+          "ruolo": "D",
+          "costo": 8
+        },
+        {
+          "nome": "Pavard",
+          "ruolo": "D",
+          "costo": 1
+        },
+        {
+          "nome": "Calhanoglu",
+          "ruolo": "C",
+          "costo": 42
+        },
+        {
+          "nome": "Alajbegovic",
+          "ruolo": "C",
+          "costo": 10
+        },
+        {
+          "nome": "Da Cunha",
+          "ruolo": "C",
+          "costo": 21
+        },
+        {
+          "nome": "Gudmundsson A.",
+          "ruolo": "C",
+          "costo": 9
+        },
+        {
+          "nome": "Mandragora",
+          "ruolo": "C",
+          "costo": 5
+        },
+        {
+          "nome": "Zielinski",
+          "ruolo": "C",
+          "costo": 14
+        },
+        {
+          "nome": "Locatelli",
+          "ruolo": "C",
+          "costo": 3
+        },
+        {
+          "nome": "Konè M.",
+          "ruolo": "C",
+          "costo": 9
+        },
+        {
+          "nome": "Douvikas",
+          "ruolo": "A",
+          "costo": 116
+        },
+        {
+          "nome": "Esposito F.P.",
+          "ruolo": "A",
+          "costo": 99
+        },
+        {
+          "nome": "Raspadori",
+          "ruolo": "A",
+          "costo": 35
+        },
+        {
+          "nome": "Stulic",
+          "ruolo": "A",
+          "costo": 4
+        },
+        {
+          "nome": "Santos A.",
+          "ruolo": "A",
+          "costo": 18
+        },
+        {
+          "nome": "Yeboah J.",
+          "ruolo": "A",
+          "costo": 1
+        }
       ],
       "idFantacalcio": 6414048
     },
@@ -124,35 +520,163 @@
       "nome": "Atletico Madrink",
       "sigla": "ATM",
       "presidente": "Luca",
-      "colori": { "primario": "#CB3524", "secondario": "#1B3A8C" },
+      "colori": {
+        "primario": "#CB3524",
+        "secondario": "#1B3A8C"
+      },
       "creditiResidui": 8,
-      "avatar": { "pelle": "#E8B48F", "capelli": "#2B1B12", "acconciatura": "corti", "barba": "baffi", "occhiali": true },
+      "avatar": {
+        "pelle": "#D9AE8E",
+        "capelli": "#1F1814",
+        "acconciatura": "corti",
+        "barba": "nessuna",
+        "occhiali": true,
+        "montatura": {
+          "tipo": "sole",
+          "colore": "#0C0C0E"
+        },
+        "coloreOcchi": "#3A2A1E",
+        "coloreSopracciglia": "#1F1814",
+        "viso": {
+          "larghezza": 1.0,
+          "altezza": 1.02,
+          "mascella": 1.0,
+          "mento": 1.0
+        },
+        "naso": 1.0,
+        "bocca": 1.1,
+        "corporatura": 1.0,
+        "vestito": {
+          "tipo": "jeans",
+          "colore": "#3E5675"
+        }
+      },
       "rosa": [
-        { "nome": "Carnesecchi", "ruolo": "P", "costo": 31 },
-        { "nome": "Martinez Jo.", "ruolo": "P", "costo": 25 },
-        { "nome": "Okoye", "ruolo": "P", "costo": 11 },
-        { "nome": "Bernasconi", "ruolo": "D", "costo": 12 },
-        { "nome": "Carlos Augusto", "ruolo": "D", "costo": 11 },
-        { "nome": "Bastoni", "ruolo": "D", "costo": 25 },
-        { "nome": "Mangas", "ruolo": "D", "costo": 10 },
-        { "nome": "Bisseck", "ruolo": "D", "costo": 21 },
-        { "nome": "Doig", "ruolo": "D", "costo": 5 },
-        { "nome": "Hien", "ruolo": "D", "costo": 5 },
-        { "nome": "Kempf", "ruolo": "D", "costo": 5 },
-        { "nome": "Ederson D.S.", "ruolo": "C", "costo": 20 },
-        { "nome": "Orsolini", "ruolo": "C", "costo": 34 },
-        { "nome": "Musah", "ruolo": "C", "costo": 7 },
-        { "nome": "Fazzini", "ruolo": "C", "costo": 5 },
-        { "nome": "Pobega", "ruolo": "C", "costo": 3 },
-        { "nome": "Frattesi", "ruolo": "C", "costo": 22 },
-        { "nome": "Dominguez B.", "ruolo": "C", "costo": 3 },
-        { "nome": "Bakola", "ruolo": "C", "costo": 1 },
-        { "nome": "Raimondo", "ruolo": "A", "costo": 27 },
-        { "nome": "Diao", "ruolo": "A", "costo": 138 },
-        { "nome": "Piccoli", "ruolo": "A", "costo": 18 },
-        { "nome": "Dovbyk", "ruolo": "A", "costo": 26 },
-        { "nome": "Bonny", "ruolo": "A", "costo": 18 },
-        { "nome": "Lang", "ruolo": "A", "costo": 9 }
+        {
+          "nome": "Carnesecchi",
+          "ruolo": "P",
+          "costo": 31
+        },
+        {
+          "nome": "Martinez Jo.",
+          "ruolo": "P",
+          "costo": 25
+        },
+        {
+          "nome": "Okoye",
+          "ruolo": "P",
+          "costo": 11
+        },
+        {
+          "nome": "Bernasconi",
+          "ruolo": "D",
+          "costo": 12
+        },
+        {
+          "nome": "Carlos Augusto",
+          "ruolo": "D",
+          "costo": 11
+        },
+        {
+          "nome": "Bastoni",
+          "ruolo": "D",
+          "costo": 25
+        },
+        {
+          "nome": "Mangas",
+          "ruolo": "D",
+          "costo": 10
+        },
+        {
+          "nome": "Bisseck",
+          "ruolo": "D",
+          "costo": 21
+        },
+        {
+          "nome": "Doig",
+          "ruolo": "D",
+          "costo": 5
+        },
+        {
+          "nome": "Hien",
+          "ruolo": "D",
+          "costo": 5
+        },
+        {
+          "nome": "Kempf",
+          "ruolo": "D",
+          "costo": 5
+        },
+        {
+          "nome": "Ederson D.S.",
+          "ruolo": "C",
+          "costo": 20
+        },
+        {
+          "nome": "Orsolini",
+          "ruolo": "C",
+          "costo": 34
+        },
+        {
+          "nome": "Musah",
+          "ruolo": "C",
+          "costo": 7
+        },
+        {
+          "nome": "Fazzini",
+          "ruolo": "C",
+          "costo": 5
+        },
+        {
+          "nome": "Pobega",
+          "ruolo": "C",
+          "costo": 3
+        },
+        {
+          "nome": "Frattesi",
+          "ruolo": "C",
+          "costo": 22
+        },
+        {
+          "nome": "Dominguez B.",
+          "ruolo": "C",
+          "costo": 3
+        },
+        {
+          "nome": "Bakola",
+          "ruolo": "C",
+          "costo": 1
+        },
+        {
+          "nome": "Raimondo",
+          "ruolo": "A",
+          "costo": 27
+        },
+        {
+          "nome": "Diao",
+          "ruolo": "A",
+          "costo": 138
+        },
+        {
+          "nome": "Piccoli",
+          "ruolo": "A",
+          "costo": 18
+        },
+        {
+          "nome": "Dovbyk",
+          "ruolo": "A",
+          "costo": 26
+        },
+        {
+          "nome": "Bonny",
+          "ruolo": "A",
+          "costo": 18
+        },
+        {
+          "nome": "Lang",
+          "ruolo": "A",
+          "costo": 9
+        }
       ],
       "idFantacalcio": 6414066
     },
@@ -162,35 +686,169 @@
       "nome": "Pan Fc",
       "sigla": "PAN",
       "presidente": "Mandrade",
-      "colori": { "primario": "#C8102E", "secondario": "#F2F2F2" },
+      "colori": {
+        "primario": "#C8102E",
+        "secondario": "#F2F2F2"
+      },
       "creditiResidui": 24,
-      "avatar": { "pelle": "#E8B48F", "capelli": "#2B1B12", "acconciatura": "corti", "barba": "corta", "occhiali": false },
+      "avatar": {
+        "pelle": "#D9A27C",
+        "capelli": "#2A1B14",
+        "acconciatura": "ricci",
+        "barba": "folta",
+        "coloreBarba": "#2E1E17",
+        "densitaBarba": 0.75,
+        "occhiali": true,
+        "montatura": {
+          "tipo": "sole",
+          "colore": "#101012"
+        },
+        "coloreOcchi": "#3B2A1E",
+        "coloreSopracciglia": "#22160F",
+        "viso": {
+          "larghezza": 1.0,
+          "altezza": 1.0,
+          "mascella": 1.0,
+          "mento": 1.0
+        },
+        "sopracciglia": {
+          "spessore": 1.15,
+          "arco": 1.0
+        },
+        "naso": 1.0,
+        "bocca": 1.05,
+        "corporatura": 1.0,
+        "vestito": {
+          "tipo": "canotta",
+          "colore": "#F4F4F2"
+        }
+      },
       "rosa": [
-        { "nome": "Vicario", "ruolo": "P", "costo": 32 },
-        { "nome": "Provedel", "ruolo": "P", "costo": 1 },
-        { "nome": "Perri", "ruolo": "P", "costo": 1 },
-        { "nome": "Dimarco", "ruolo": "D", "costo": 45 },
-        { "nome": "Vojvoda", "ruolo": "D", "costo": 10 },
-        { "nome": "Zappacosta", "ruolo": "D", "costo": 3 },
-        { "nome": "Spinazzola", "ruolo": "D", "costo": 4 },
-        { "nome": "Celik", "ruolo": "D", "costo": 3 },
-        { "nome": "Zortea", "ruolo": "D", "costo": 1 },
-        { "nome": "Lulli", "ruolo": "D", "costo": 2 },
-        { "nome": "Miranda J.", "ruolo": "D", "costo": 1 },
-        { "nome": "Rabiot", "ruolo": "C", "costo": 33 },
-        { "nome": "Mora", "ruolo": "C", "costo": 41 },
-        { "nome": "Taylor K.", "ruolo": "C", "costo": 15 },
-        { "nome": "Mckennie", "ruolo": "C", "costo": 16 },
-        { "nome": "Modric", "ruolo": "C", "costo": 13 },
-        { "nome": "Rowe", "ruolo": "C", "costo": 2 },
-        { "nome": "Busio", "ruolo": "C", "costo": 1 },
-        { "nome": "Mbangula", "ruolo": "C", "costo": 1 },
-        { "nome": "Krstovic", "ruolo": "A", "costo": 25 },
-        { "nome": "Ramos G.", "ruolo": "A", "costo": 115 },
-        { "nome": "Kean", "ruolo": "A", "costo": 97 },
-        { "nome": "Pellegrino M.", "ruolo": "A", "costo": 4 },
-        { "nome": "Vitinha O.", "ruolo": "A", "costo": 9 },
-        { "nome": "Mota", "ruolo": "A", "costo": 1 }
+        {
+          "nome": "Vicario",
+          "ruolo": "P",
+          "costo": 32
+        },
+        {
+          "nome": "Provedel",
+          "ruolo": "P",
+          "costo": 1
+        },
+        {
+          "nome": "Perri",
+          "ruolo": "P",
+          "costo": 1
+        },
+        {
+          "nome": "Dimarco",
+          "ruolo": "D",
+          "costo": 45
+        },
+        {
+          "nome": "Vojvoda",
+          "ruolo": "D",
+          "costo": 10
+        },
+        {
+          "nome": "Zappacosta",
+          "ruolo": "D",
+          "costo": 3
+        },
+        {
+          "nome": "Spinazzola",
+          "ruolo": "D",
+          "costo": 4
+        },
+        {
+          "nome": "Celik",
+          "ruolo": "D",
+          "costo": 3
+        },
+        {
+          "nome": "Zortea",
+          "ruolo": "D",
+          "costo": 1
+        },
+        {
+          "nome": "Lulli",
+          "ruolo": "D",
+          "costo": 2
+        },
+        {
+          "nome": "Miranda J.",
+          "ruolo": "D",
+          "costo": 1
+        },
+        {
+          "nome": "Rabiot",
+          "ruolo": "C",
+          "costo": 33
+        },
+        {
+          "nome": "Mora",
+          "ruolo": "C",
+          "costo": 41
+        },
+        {
+          "nome": "Taylor K.",
+          "ruolo": "C",
+          "costo": 15
+        },
+        {
+          "nome": "Mckennie",
+          "ruolo": "C",
+          "costo": 16
+        },
+        {
+          "nome": "Modric",
+          "ruolo": "C",
+          "costo": 13
+        },
+        {
+          "nome": "Rowe",
+          "ruolo": "C",
+          "costo": 2
+        },
+        {
+          "nome": "Busio",
+          "ruolo": "C",
+          "costo": 1
+        },
+        {
+          "nome": "Mbangula",
+          "ruolo": "C",
+          "costo": 1
+        },
+        {
+          "nome": "Krstovic",
+          "ruolo": "A",
+          "costo": 25
+        },
+        {
+          "nome": "Ramos G.",
+          "ruolo": "A",
+          "costo": 115
+        },
+        {
+          "nome": "Kean",
+          "ruolo": "A",
+          "costo": 97
+        },
+        {
+          "nome": "Pellegrino M.",
+          "ruolo": "A",
+          "costo": 4
+        },
+        {
+          "nome": "Vitinha O.",
+          "ruolo": "A",
+          "costo": 9
+        },
+        {
+          "nome": "Mota",
+          "ruolo": "A",
+          "costo": 1
+        }
       ],
       "idFantacalcio": 6414063
     },
@@ -200,35 +858,166 @@
       "nome": "Aston Birra",
       "sigla": "AST",
       "presidente": "ErikB95",
-      "colori": { "primario": "#C9A227", "secondario": "#111111" },
+      "colori": {
+        "primario": "#C9A227",
+        "secondario": "#111111"
+      },
       "creditiResidui": 0,
-      "avatar": { "pelle": "#C98E62", "capelli": "#151515", "acconciatura": "rasati", "barba": "folta", "occhiali": false },
+      "avatar": {
+        "pelle": "#D8A584",
+        "capelli": "#1C1410",
+        "acconciatura": "sfumati",
+        "barba": "corta",
+        "coloreBarba": "#2A1D17",
+        "densitaBarba": 0.7,
+        "occhiali": false,
+        "coloreOcchi": "#3A2A1E",
+        "coloreSopracciglia": "#1C1410",
+        "viso": {
+          "larghezza": 1.06,
+          "altezza": 1.0,
+          "mascella": 1.1,
+          "mento": 1.0,
+          "guance": 1.05
+        },
+        "sopracciglia": {
+          "spessore": 1.25,
+          "arco": 0.9
+        },
+        "naso": 1.0,
+        "orecchie": 1.05,
+        "corporatura": 1.15,
+        "vestito": {
+          "tipo": "tshirt",
+          "colore": "#1F1F24"
+        }
+      },
       "rosa": [
-        { "nome": "Mandas", "ruolo": "P", "costo": 22 },
-        { "nome": "Motta", "ruolo": "P", "costo": 1 },
-        { "nome": "Butez", "ruolo": "P", "costo": 18 },
-        { "nome": "Chalobah T.", "ruolo": "D", "costo": 13 },
-        { "nome": "Comuzzo", "ruolo": "D", "costo": 6 },
-        { "nome": "Gila", "ruolo": "D", "costo": 21 },
-        { "nome": "Kristensen T.", "ruolo": "D", "costo": 3 },
-        { "nome": "Kolasinac", "ruolo": "D", "costo": 3 },
-        { "nome": "Valle", "ruolo": "D", "costo": 5 },
-        { "nome": "Bartesaghi", "ruolo": "D", "costo": 1 },
-        { "nome": "Oyono A.", "ruolo": "D", "costo": 1 },
-        { "nome": "Barella", "ruolo": "C", "costo": 32 },
-        { "nome": "Gonzalez N.", "ruolo": "C", "costo": 15 },
-        { "nome": "Zaniolo", "ruolo": "C", "costo": 18 },
-        { "nome": "Pisilli", "ruolo": "C", "costo": 5 },
-        { "nome": "Kessiè", "ruolo": "C", "costo": 9 },
-        { "nome": "Saelemaekers", "ruolo": "C", "costo": 8 },
-        { "nome": "Koopmeiners", "ruolo": "C", "costo": 5 },
-        { "nome": "El Shaarawy", "ruolo": "C", "costo": 1 },
-        { "nome": "Thuram", "ruolo": "A", "costo": 137 },
-        { "nome": "Soulè", "ruolo": "A", "costo": 56 },
-        { "nome": "Berardi", "ruolo": "A", "costo": 21 },
-        { "nome": "Dybala", "ruolo": "A", "costo": 97 },
-        { "nome": "Boga", "ruolo": "A", "costo": 1 },
-        { "nome": "Gnonto", "ruolo": "A", "costo": 1 }
+        {
+          "nome": "Mandas",
+          "ruolo": "P",
+          "costo": 22
+        },
+        {
+          "nome": "Motta",
+          "ruolo": "P",
+          "costo": 1
+        },
+        {
+          "nome": "Butez",
+          "ruolo": "P",
+          "costo": 18
+        },
+        {
+          "nome": "Chalobah T.",
+          "ruolo": "D",
+          "costo": 13
+        },
+        {
+          "nome": "Comuzzo",
+          "ruolo": "D",
+          "costo": 6
+        },
+        {
+          "nome": "Gila",
+          "ruolo": "D",
+          "costo": 21
+        },
+        {
+          "nome": "Kristensen T.",
+          "ruolo": "D",
+          "costo": 3
+        },
+        {
+          "nome": "Kolasinac",
+          "ruolo": "D",
+          "costo": 3
+        },
+        {
+          "nome": "Valle",
+          "ruolo": "D",
+          "costo": 5
+        },
+        {
+          "nome": "Bartesaghi",
+          "ruolo": "D",
+          "costo": 1
+        },
+        {
+          "nome": "Oyono A.",
+          "ruolo": "D",
+          "costo": 1
+        },
+        {
+          "nome": "Barella",
+          "ruolo": "C",
+          "costo": 32
+        },
+        {
+          "nome": "Gonzalez N.",
+          "ruolo": "C",
+          "costo": 15
+        },
+        {
+          "nome": "Zaniolo",
+          "ruolo": "C",
+          "costo": 18
+        },
+        {
+          "nome": "Pisilli",
+          "ruolo": "C",
+          "costo": 5
+        },
+        {
+          "nome": "Kessiè",
+          "ruolo": "C",
+          "costo": 9
+        },
+        {
+          "nome": "Saelemaekers",
+          "ruolo": "C",
+          "costo": 8
+        },
+        {
+          "nome": "Koopmeiners",
+          "ruolo": "C",
+          "costo": 5
+        },
+        {
+          "nome": "El Shaarawy",
+          "ruolo": "C",
+          "costo": 1
+        },
+        {
+          "nome": "Thuram",
+          "ruolo": "A",
+          "costo": 137
+        },
+        {
+          "nome": "Soulè",
+          "ruolo": "A",
+          "costo": 56
+        },
+        {
+          "nome": "Berardi",
+          "ruolo": "A",
+          "costo": 21
+        },
+        {
+          "nome": "Dybala",
+          "ruolo": "A",
+          "costo": 97
+        },
+        {
+          "nome": "Boga",
+          "ruolo": "A",
+          "costo": 1
+        },
+        {
+          "nome": "Gnonto",
+          "ruolo": "A",
+          "costo": 1
+        }
       ],
       "idFantacalcio": 6414062
     },
@@ -238,35 +1027,169 @@
       "nome": "Aquafan",
       "sigla": "AQF",
       "presidente": "Pres Ente",
-      "colori": { "primario": "#F2C230", "secondario": "#1E88E5" },
+      "colori": {
+        "primario": "#F2C230",
+        "secondario": "#1E88E5"
+      },
       "creditiResidui": 7,
-      "avatar": { "pelle": "#F3CFB0", "capelli": "#8B5A2B", "acconciatura": "lunghi", "barba": "nessuna", "occhiali": true },
+      "avatar": {
+        "pelle": "#E8C4A6",
+        "capelli": "#6A4A32",
+        "acconciatura": "pelato",
+        "barba": "corta",
+        "coloreBarba": "#6A5038",
+        "densitaBarba": 0.5,
+        "occhiali": true,
+        "montatura": {
+          "tipo": "tondi",
+          "colore": "#C9A24E",
+          "spessore": 0.8
+        },
+        "coloreOcchi": "#5B6A55",
+        "coloreSopracciglia": "#4A3524",
+        "viso": {
+          "larghezza": 0.97,
+          "altezza": 1.05,
+          "mascella": 0.95,
+          "mento": 1.0
+        },
+        "sopracciglia": {
+          "spessore": 1.15,
+          "arco": 1.1
+        },
+        "naso": 1.1,
+        "corporatura": 0.95,
+        "vestito": {
+          "tipo": "lino",
+          "colore": "#E9E3D6"
+        }
+      },
       "rosa": [
-        { "nome": "Caprile", "ruolo": "P", "costo": 18 },
-        { "nome": "Sportiello", "ruolo": "P", "costo": 1 },
-        { "nome": "Bijlow", "ruolo": "P", "costo": 3 },
-        { "nome": "Solet", "ruolo": "D", "costo": 20 },
-        { "nome": "Delprato", "ruolo": "D", "costo": 9 },
-        { "nome": "Lucumì", "ruolo": "D", "costo": 6 },
-        { "nome": "Kelly L.", "ruolo": "D", "costo": 3 },
-        { "nome": "Tiago Gabriel", "ruolo": "D", "costo": 7 },
-        { "nome": "Stones", "ruolo": "D", "costo": 3 },
-        { "nome": "Ostigard", "ruolo": "D", "costo": 8 },
-        { "nome": "Theate", "ruolo": "D", "costo": 3 },
-        { "nome": "Conceicao", "ruolo": "C", "costo": 36 },
-        { "nome": "De Bruyne", "ruolo": "C", "costo": 32 },
-        { "nome": "Samardzic", "ruolo": "C", "costo": 8 },
-        { "nome": "Calò", "ruolo": "C", "costo": 2 },
-        { "nome": "Politano", "ruolo": "C", "costo": 16 },
-        { "nome": "Cacciamani", "ruolo": "C", "costo": 2 },
-        { "nome": "Unai Gomez", "ruolo": "C", "costo": 1 },
-        { "nome": "Vergara", "ruolo": "C", "costo": 1 },
-        { "nome": "Malen", "ruolo": "A", "costo": 219 },
-        { "nome": "Simeone", "ruolo": "A", "costo": 18 },
-        { "nome": "Castro S.", "ruolo": "A", "costo": 42 },
-        { "nome": "Pinamonti", "ruolo": "A", "costo": 33 },
-        { "nome": "Noslin", "ruolo": "A", "costo": 1 },
-        { "nome": "Bowie", "ruolo": "A", "costo": 1 }
+        {
+          "nome": "Caprile",
+          "ruolo": "P",
+          "costo": 18
+        },
+        {
+          "nome": "Sportiello",
+          "ruolo": "P",
+          "costo": 1
+        },
+        {
+          "nome": "Bijlow",
+          "ruolo": "P",
+          "costo": 3
+        },
+        {
+          "nome": "Solet",
+          "ruolo": "D",
+          "costo": 20
+        },
+        {
+          "nome": "Delprato",
+          "ruolo": "D",
+          "costo": 9
+        },
+        {
+          "nome": "Lucumì",
+          "ruolo": "D",
+          "costo": 6
+        },
+        {
+          "nome": "Kelly L.",
+          "ruolo": "D",
+          "costo": 3
+        },
+        {
+          "nome": "Tiago Gabriel",
+          "ruolo": "D",
+          "costo": 7
+        },
+        {
+          "nome": "Stones",
+          "ruolo": "D",
+          "costo": 3
+        },
+        {
+          "nome": "Ostigard",
+          "ruolo": "D",
+          "costo": 8
+        },
+        {
+          "nome": "Theate",
+          "ruolo": "D",
+          "costo": 3
+        },
+        {
+          "nome": "Conceicao",
+          "ruolo": "C",
+          "costo": 36
+        },
+        {
+          "nome": "De Bruyne",
+          "ruolo": "C",
+          "costo": 32
+        },
+        {
+          "nome": "Samardzic",
+          "ruolo": "C",
+          "costo": 8
+        },
+        {
+          "nome": "Calò",
+          "ruolo": "C",
+          "costo": 2
+        },
+        {
+          "nome": "Politano",
+          "ruolo": "C",
+          "costo": 16
+        },
+        {
+          "nome": "Cacciamani",
+          "ruolo": "C",
+          "costo": 2
+        },
+        {
+          "nome": "Unai Gomez",
+          "ruolo": "C",
+          "costo": 1
+        },
+        {
+          "nome": "Vergara",
+          "ruolo": "C",
+          "costo": 1
+        },
+        {
+          "nome": "Malen",
+          "ruolo": "A",
+          "costo": 219
+        },
+        {
+          "nome": "Simeone",
+          "ruolo": "A",
+          "costo": 18
+        },
+        {
+          "nome": "Castro S.",
+          "ruolo": "A",
+          "costo": 42
+        },
+        {
+          "nome": "Pinamonti",
+          "ruolo": "A",
+          "costo": 33
+        },
+        {
+          "nome": "Noslin",
+          "ruolo": "A",
+          "costo": 1
+        },
+        {
+          "nome": "Bowie",
+          "ruolo": "A",
+          "costo": 1
+        }
       ],
       "idFantacalcio": 20055292
     },
@@ -276,35 +1199,169 @@
       "nome": "Si Gonfia La Rete",
       "sigla": "SGR",
       "presidente": "Ema",
-      "colori": { "primario": "#E1261C", "secondario": "#FFFFFF" },
+      "colori": {
+        "primario": "#E1261C",
+        "secondario": "#FFFFFF"
+      },
       "creditiResidui": 45,
-      "avatar": { "pelle": "#DDAA85", "capelli": "#4A2C17", "acconciatura": "ricci", "barba": "baffi", "occhiali": false },
+      "avatar": {
+        "pelle": "#E7C2A2",
+        "capelli": "#6A4A32",
+        "acconciatura": "stempiato",
+        "barba": "folta",
+        "coloreBarba": "#5A4332",
+        "densitaBarba": 0.8,
+        "occhiali": true,
+        "montatura": {
+          "tipo": "rettangolari",
+          "colore": "#7A2A25",
+          "spessore": 1.2
+        },
+        "coloreOcchi": "#5B6A55",
+        "coloreSopracciglia": "#5A4332",
+        "viso": {
+          "larghezza": 1.0,
+          "altezza": 1.02,
+          "mascella": 1.0,
+          "mento": 1.0
+        },
+        "sopracciglia": {
+          "spessore": 0.9,
+          "arco": 0.9
+        },
+        "naso": 1.0,
+        "corporatura": 0.95,
+        "vestito": {
+          "tipo": "lino",
+          "colore": "#C9BFAE"
+        }
+      },
       "rosa": [
-        { "nome": "Falcone", "ruolo": "P", "costo": 6 },
-        { "nome": "De Gea", "ruolo": "P", "costo": 13 },
-        { "nome": "Skorupski", "ruolo": "P", "costo": 8 },
-        { "nome": "Wesley", "ruolo": "D", "costo": 30 },
-        { "nome": "Kamara H.", "ruolo": "D", "costo": 11 },
-        { "nome": "Obert", "ruolo": "D", "costo": 3 },
-        { "nome": "Kalulu", "ruolo": "D", "costo": 16 },
-        { "nome": "Pavlovic", "ruolo": "D", "costo": 14 },
-        { "nome": "Tavares N.", "ruolo": "D", "costo": 11 },
-        { "nome": "Leysen F.", "ruolo": "D", "costo": 1 },
-        { "nome": "Bracaglia", "ruolo": "D", "costo": 1 },
-        { "nome": "Bernardeschi", "ruolo": "C", "costo": 6 },
-        { "nome": "Baturina", "ruolo": "C", "costo": 64 },
-        { "nome": "Ekkelenkamp", "ruolo": "C", "costo": 18 },
-        { "nome": "Sucic P.", "ruolo": "C", "costo": 10 },
-        { "nome": "Cissè A.", "ruolo": "C", "costo": 16 },
-        { "nome": "Mastantuono", "ruolo": "C", "costo": 10 },
-        { "nome": "Baldanzi", "ruolo": "C", "costo": 2 },
-        { "nome": "Adzic", "ruolo": "C", "costo": 1 },
-        { "nome": "Davis K.", "ruolo": "A", "costo": 42 },
-        { "nome": "Hojlund", "ruolo": "A", "costo": 118 },
-        { "nome": "Maldini", "ruolo": "A", "costo": 15 },
-        { "nome": "Beto", "ruolo": "A", "costo": 24 },
-        { "nome": "Yildiz", "ruolo": "A", "costo": 14 },
-        { "nome": "Robinson J.", "ruolo": "A", "costo": 1 }
+        {
+          "nome": "Falcone",
+          "ruolo": "P",
+          "costo": 6
+        },
+        {
+          "nome": "De Gea",
+          "ruolo": "P",
+          "costo": 13
+        },
+        {
+          "nome": "Skorupski",
+          "ruolo": "P",
+          "costo": 8
+        },
+        {
+          "nome": "Wesley",
+          "ruolo": "D",
+          "costo": 30
+        },
+        {
+          "nome": "Kamara H.",
+          "ruolo": "D",
+          "costo": 11
+        },
+        {
+          "nome": "Obert",
+          "ruolo": "D",
+          "costo": 3
+        },
+        {
+          "nome": "Kalulu",
+          "ruolo": "D",
+          "costo": 16
+        },
+        {
+          "nome": "Pavlovic",
+          "ruolo": "D",
+          "costo": 14
+        },
+        {
+          "nome": "Tavares N.",
+          "ruolo": "D",
+          "costo": 11
+        },
+        {
+          "nome": "Leysen F.",
+          "ruolo": "D",
+          "costo": 1
+        },
+        {
+          "nome": "Bracaglia",
+          "ruolo": "D",
+          "costo": 1
+        },
+        {
+          "nome": "Bernardeschi",
+          "ruolo": "C",
+          "costo": 6
+        },
+        {
+          "nome": "Baturina",
+          "ruolo": "C",
+          "costo": 64
+        },
+        {
+          "nome": "Ekkelenkamp",
+          "ruolo": "C",
+          "costo": 18
+        },
+        {
+          "nome": "Sucic P.",
+          "ruolo": "C",
+          "costo": 10
+        },
+        {
+          "nome": "Cissè A.",
+          "ruolo": "C",
+          "costo": 16
+        },
+        {
+          "nome": "Mastantuono",
+          "ruolo": "C",
+          "costo": 10
+        },
+        {
+          "nome": "Baldanzi",
+          "ruolo": "C",
+          "costo": 2
+        },
+        {
+          "nome": "Adzic",
+          "ruolo": "C",
+          "costo": 1
+        },
+        {
+          "nome": "Davis K.",
+          "ruolo": "A",
+          "costo": 42
+        },
+        {
+          "nome": "Hojlund",
+          "ruolo": "A",
+          "costo": 118
+        },
+        {
+          "nome": "Maldini",
+          "ruolo": "A",
+          "costo": 15
+        },
+        {
+          "nome": "Beto",
+          "ruolo": "A",
+          "costo": 24
+        },
+        {
+          "nome": "Yildiz",
+          "ruolo": "A",
+          "costo": 14
+        },
+        {
+          "nome": "Robinson J.",
+          "ruolo": "A",
+          "costo": 1
+        }
       ],
       "idFantacalcio": 7344149
     }
@@ -312,6 +1369,9 @@
   "fantacalcio": {
     "alias": "ciempions-fig",
     "competizione": 645622,
-    "soglie": { "base": 66, "passo": 4 }
+    "soglie": {
+      "base": 66,
+      "passo": 4
+    }
   }
 }

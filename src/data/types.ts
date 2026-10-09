@@ -33,9 +33,39 @@ export interface Giocatore {
 export interface StileAvatar {
   pelle: string;
   capelli: string;
-  acconciatura: "corti" | "ricci" | "pelato" | "cresta" | "lunghi" | "rasati";
-  barba?: "nessuna" | "corta" | "folta" | "baffi";
+  acconciatura:
+    | "corti"
+    | "ricci"
+    | "pelato"
+    | "cresta"
+    | "lunghi"
+    | "rasati"
+    | "mossi"
+    | "ciuffo"
+    | "sfumati"
+    | "stempiato";
+  barba?: "nessuna" | "corta" | "folta" | "baffi" | "pizzetto";
   occhiali?: boolean;
+
+  /* ---- dettagli per la somiglianza (tutti facoltativi) ---- */
+  /** colore e densità della barba (0-1: 0.3 = barba di un giorno, 0.9 = folta) */
+  coloreBarba?: string;
+  densitaBarba?: number;
+  coloreOcchi?: string;
+  coloreSopracciglia?: string;
+  /** proporzioni del viso, 1 = standard */
+  viso?: { larghezza?: number; altezza?: number; mascella?: number; mento?: number; guance?: number };
+  sopracciglia?: { spessore?: number; arco?: number };
+  naso?: number;
+  bocca?: number;
+  orecchie?: number;
+  /** spalle: 1 = standard */
+  corporatura?: number;
+  montatura?: { tipo: "sole" | "tondi" | "rettangolari"; colore: string; spessore?: number };
+  vestito?: { tipo: "tuta" | "tshirt" | "canotta" | "lino" | "jeans" | "henley" | "maglia"; colore?: string };
+  collana?: boolean;
+  /** parole d'ordine per la tinta del cranio rasato (pelato/stempiato) */
+  ombraCranio?: number;
 }
 
 export interface Allenatore {

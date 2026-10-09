@@ -74,7 +74,7 @@ dati/rose.csv            le stesse rose in CSV (apribile con Excel/Sheets)
 
 - I presidenti sono i nickname dell'app: da sostituire con i nomi veri se si preferisce.
 - Stemmi in `public/loghi/<id>.png` (campo `logo`). Quelli attuali sono ritagli PROVVISORI a bassa risoluzione dallo screenshot dell'app: Davide manderà gli originali, basta sovrascrivere i file con lo stesso nome. Compaiono in faccia a faccia, tabellone finale e locandine.
-- Avatar: Davide manderà una foto del volto di ogni presidente. Piano: adattare i parametri dell'avatar SVG (forma viso, capelli, barba, occhiali, pelle) per somigliare; in alternativa PNG per emozione in `public/allenatori/<id>/<emozione>.png` (campo `immagini`).
+- Avatar: ORA realistici, vettoriali (SVG), costruiti dalle foto dei presidenti: parametri per persona in `lega.json` → `avatar` (viso, capelli, barba, occhiali, vestito…, vedi `StileAvatar`). Le foto NON sono nel repo. (Piano originale:) Davide manderà una foto del volto di ogni presidente. Piano: adattare i parametri dell'avatar SVG (forma viso, capelli, barba, occhiali, pelle) per somigliare; in alternativa PNG per emozione in `public/allenatori/<id>/<emozione>.png` (campo `immagini`).
 - I colori sono ricavati dagli stemmi. Se due squadre in uno scontro hanno colori troppo simili, la trasferta usa il colore secondario (`analizzaScontro`).
 - Le rose sono quelle post-asta (6/10/2026), verificate: spesa + crediti residui = 500 per ogni squadra.
 - I nomi dei giocatori sono nel formato di fantacalcio.it ("Martinez L.", "Esposito F.P."). In giornata.json vanno scritti uguali, accenti esclusi (il confronto li ignora). Se un nome non è in rosa, il render si ferma con un errore chiaro.
