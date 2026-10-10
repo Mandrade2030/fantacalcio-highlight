@@ -199,6 +199,8 @@ npm run render:giornata -- percorso/altra-giornata.json
 - `dati/calendario.json`: tutte le giornate della lega (scontri). `dati/pregiornata-N.json`: scelte salvate (4 big, capitano).
 - App: pannello "🗓 Pre-giornata" → `GET /api/pregiornata` (prossima giornata), `GET /api/pregiornata/:n` (bozza: file salvato o i 4 più pagati, classifica calcolata dalle giornate salvate), `POST /api/pregiornata` (salva e mette in coda i render → `out/giornata-N/copertina-giornata-N.png` e `pregiornata-i-…png`).
 - Gemini NON disegna calciatori veri: per questo si usano i campioncini.
+- **Formazioni vere**: `dati/formazioni-N.json` (`{giornata, aggiornato, squadre:{<id>:{capitano,vice,modulo,titolari[]}}}`), prodotto da `tools/formazioni-browser.js` eseguito nella pagina di leghe.fantacalcio.it loggata (imposta prima `window.__giornata = N`). Il server prende la copia più recente tra locale e GitHub raw (`main/dati/formazioni-N.json`, o `FH_FORMAZIONI_URL`): quindi per aggiornare il server basta fare push del file.
+- Regola 4 big: capitano + 3 titolari più pagati; senza formazione i 4 più pagati della rosa. Le formazioni si applicano sia all'apertura del pannello sia a ogni "Genera" (`applicaFormazioni`), tranne sulle squadre cambiate a mano nell'app (`manuale: true`).
 
 ## App Android
 - `android/`: app nativa minima (Java, WebView) "Ciempions Fig", `it.ciempionsfig.app`. Apre l'app web del server; l'indirizzo lo legge da `server-url.txt` (raw GitHub) → **aggiornare quel file se cambia il tunnel**. Scarica video/immagini di `/out/` in Download/Ciempions Fig e apre "Condividi". Upload file (pannello WhatsApp) supportato.

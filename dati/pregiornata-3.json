@@ -1,7 +1,7 @@
 {
   "lega": "Ciempions Fig",
   "giornata": 3,
-  "nota": "4 big per squadra: capitano + i 3 titolari piu pagati. Atletico Madrink senza formazione: i 4 piu pagati della rosa.",
+  "nota": "4 big per squadra: capitano + i 3 titolari piu pagati, dalle formazioni inserite su fantacalcio.it.",
   "sfide": [
     {
       "casa": {
@@ -30,7 +30,8 @@
             "ruolo": "P",
             "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4360.png"
           }
-        ]
+        ],
+        "daFormazione": true
       },
       "trasferta": {
         "id": "do-flamengo",
@@ -58,7 +59,8 @@
             "ruolo": "A",
             "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2137.png"
           }
-        ]
+        ],
+        "daFormazione": true
       }
     },
     {
@@ -88,7 +90,8 @@
             "ruolo": "D",
             "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2788.png"
           }
-        ]
+        ],
+        "daFormazione": true
       },
       "trasferta": {
         "id": "pan-fc",
@@ -116,7 +119,8 @@
             "ruolo": "A",
             "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6435.png"
           }
-        ]
+        ],
+        "daFormazione": true
       }
     },
     {
@@ -146,7 +150,8 @@
             "ruolo": "A",
             "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5734.png"
           }
-        ]
+        ],
+        "daFormazione": true
       },
       "trasferta": {
         "id": "si-gonfia-la-rete",
@@ -174,7 +179,8 @@
             "ruolo": "A",
             "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5637.png"
           }
-        ]
+        ],
+        "daFormazione": true
       }
     },
     {
@@ -184,14 +190,15 @@
         "punti": 3,
         "stelle": [
           {
+            "nome": "Orsolini",
+            "ruolo": "C",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2167.png",
+            "capitano": true
+          },
+          {
             "nome": "Diao",
             "ruolo": "A",
             "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6967.png"
-          },
-          {
-            "nome": "Orsolini",
-            "ruolo": "C",
-            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2167.png"
           },
           {
             "nome": "Carnesecchi",
@@ -203,7 +210,8 @@
             "ruolo": "A",
             "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5436.png"
           }
-        ]
+        ],
+        "daFormazione": true
       },
       "trasferta": {
         "id": "manchester-squiddi",
@@ -231,8 +239,10 @@
             "ruolo": "A",
             "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6060.png"
           }
-        ]
+        ],
+        "daFormazione": true
       }
     }
-  ]
+  ],
+  "formazioniAggiornate": "2026-10-10T13:09:23.147Z"
 }

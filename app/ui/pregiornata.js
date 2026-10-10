@@ -25,7 +25,7 @@
     const ord = cap > 0 ? [l.stelle[cap], ...l.stelle.filter((_, j) => j !== cap)] : l.stelle;
     return `<div class="pre-lato"><b>${esc(sq.nome)}</b><div class="info">${l.posizione ?? "–"}° posto · ${l.punti ?? 0} pt · Mister ${esc(sq.presidente)}</div>
       ${[0, 1, 2, 3].map((j) => `<select data-s="${i}" data-l="${k}" data-j="${j}" title="${j === 0 ? "Capitano" : "Big " + (j + 1)}">${j === 0 ? "" : ""}${opzioni(l.id, ord[j]?.nome)}</select>`).join("")}
-      <div class="info">Il primo è il capitano (C)</div></div>`;
+      <div class="info">${l.daFormazione ? "✔ dalla formazione inserita (capitano + 3 titolari più pagati)" : l.manuale ? "✎ scelti a mano" : "Formazione non ancora inserita: i 4 più pagati"} · il primo è il capitano (C)</div></div>`;
   };
 
   const disegna = () => {
@@ -44,7 +44,10 @@
   };
 
   const leggiScelte = () => {
-    const sfide = PRE.sfide.map((s) => ({ casa: { id: s.casa.id, stelle: [] }, trasferta: { id: s.trasferta.id, stelle: [] } }));
+    const sfide = PRE.sfide.map((s) => ({
+      casa: { id: s.casa.id, stelle: [], ...(s.casa.manuale ? { manuale: true } : {}) },
+      trasferta: { id: s.trasferta.id, stelle: [], ...(s.trasferta.manuale ? { manuale: true } : {}) },
+    }));
     document.querySelectorAll("#preSfide select").forEach((el) => {
       const l = sfide[+el.dataset.s][el.dataset.l];
       l.stelle[+el.dataset.j] = { nome: el.value, ...(el.dataset.j === "0" ? { capitano: true } : {}) };
@@ -68,6 +71,17 @@
       $("#preMsg").textContent = e.message;
     }
   };
+
+  // cambiare a mano un giocatore "blocca" quella squadra: le formazioni importate non la sovrascrivono
+  $("#preSfide").addEventListener("change", (e) => {
+    const el = e.target.closest("select");
+    if (!el) return;
+    const l = PRE.sfide[+el.dataset.s][el.dataset.l];
+    l.manuale = true;
+    delete l.daFormazione;
+    const info = el.parentElement.querySelector(".info:last-child");
+    if (info) info.textContent = "✎ scelti a mano · il primo è il capitano (C)";
+  });
 
   $("#preCarica").addEventListener("click", () => carica(+$("#preNum").value));
   $("#preGenera").addEventListener("click", async () => {

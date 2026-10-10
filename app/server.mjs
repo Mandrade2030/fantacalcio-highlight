@@ -381,6 +381,57 @@ const bozzaPre = (n) => {
   return { lega: lega.lega || "Ciempions Fig", giornata: n, sfide: gc.scontri.map((x) => ({ casa: lato(x.casa), trasferta: lato(x.trasferta) })) };
 };
 
+/* Formazioni vere della giornata (capitano + titolari), importate da leghe.fantacalcio.it.
+ * File dati/formazioni-N.json: { giornata, aggiornato, squadre: { <id>: { capitano, vice, titolari:[nomi] } } }.
+ * Il server non può leggere fantacalcio (serve il login): il file lo scrive l'import (Claude) sul PC
+ * e su GitHub; qui si prende la copia più recente tra quella locale e quella su GitHub. */
+const fileFormazioni = (n) => join(DATI, `formazioni-${n}.json`);
+const URL_FORMAZIONI = (n) =>
+  `${process.env.FH_FORMAZIONI_URL || "https://raw.githubusercontent.com/Mandrade2030/fantacalcio-highlight/main/dati"}/formazioni-${n}.json`;
+const leggiFormazioni = async (n) => {
+  let locale = null;
+  try {
+    if (existsSync(fileFormazioni(n))) locale = JSON.parse(readFileSync(fileFormazioni(n), "utf8"));
+  } catch {}
+  try {
+    const r = await fetch(`${URL_FORMAZIONI(n)}?t=${Date.now()}`, { signal: AbortSignal.timeout(6000), headers: { "Cache-Control": "no-cache" } });
+    if (r.ok) {
+      const remoto = await r.json();
+      if (remoto?.squadre && (!locale || String(remoto.aggiornato || "") > String(locale.aggiornato || ""))) {
+        writeFileSync(fileFormazioni(n), JSON.stringify(remoto, null, 2));
+        return remoto;
+      }
+    }
+  } catch {}
+  return locale;
+};
+
+/** I 4 big dalla formazione: il capitano + i 3 titolari più pagati */
+const bigDaFormazione = (sq, f) => {
+  const norm = (s) => String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const trova = (nome) => sq.rosa.find((p) => norm(p.nome) === norm(nome));
+  const titolari = (f.titolari || []).map(trova).filter(Boolean);
+  const cap = (f.capitano && trova(f.capitano)) || null;
+  const altri = titolari.filter((p) => p !== cap).sort((a, b) => b.costo - a.costo);
+  const scelti = (cap ? [cap, ...altri] : altri).slice(0, 4);
+  if (scelti.length < 4) return null;
+  return scelti.map((p, i) => ({ nome: p.nome, ruolo: p.ruolo, immagine: URL_CAMPIONCINO(p.img), ...(i === 0 && cap ? { capitano: true } : {}) }));
+};
+
+/** Mette le formazioni vere nei lati non modificati a mano */
+const applicaFormazioni = (pre, form) => {
+  if (!form?.squadre) return pre;
+  const lega = leggiLega();
+  const lato = (l) => {
+    const f = form.squadre[l.id];
+    const sq = lega.squadre.find((s) => s.id === l.id);
+    if (!f || !sq || l.manuale) return l;
+    const stelle = bigDaFormazione(sq, f);
+    return stelle ? { ...l, stelle, daFormazione: true } : l;
+  };
+  return { ...pre, formazioniAggiornate: form.aggiornato || null, sfide: pre.sfide.map((s) => ({ casa: lato(s.casa), trasferta: lato(s.trasferta) })) };
+};
+
 /** Completa i dati inviati dall'app: immagini dalla rosa, classifica aggiornata */
 const normalizzaPre = (b) => {
   const lega = leggiLega();
@@ -396,7 +447,7 @@ const normalizzaPre = (b) => {
       return { nome: p.nome, ruolo: p.ruolo, immagine: URL_CAMPIONCINO(p.img), ...(st.capitano ? { capitano: true } : {}) };
     });
     if (stelle.length < 4) throw new Error(`Scegli 4 giocatori per ${sq.nome}.`);
-    return { id: l.id, ...cl[l.id], stelle };
+    return { id: l.id, ...cl[l.id], stelle, ...(l.manuale ? { manuale: true } : {}) };
   };
   return { lega: lega.lega || "Ciempions Fig", giornata: n, sfide: b.sfide.map((s) => ({ casa: lato(s.casa), trasferta: lato(s.trasferta) })) };
 };
@@ -804,7 +855,7 @@ const server = http.createServer(async (req, res) => {
     const mP = path.match(/^\/api\/pregiornata\/(\d+)$/);
     if (req.method === "GET" && mP) {
       const n = Number(mP[1]);
-      const b = bozzaPre(n);
+      const b = applicaFormazioni(bozzaPre(n), await leggiFormazioni(n));
       const cartella = join(OUT, `giornata-${n}`);
       const file = existsSync(cartella) ? readdirSync(cartella).filter((f) => /^(copertina|pregiornata)/.test(f)) : [];
       return json(res, 200, { ...b, classifica: classificaPrima(n), file: file.map((f) => ({ nome: f, url: `/out/giornata-${n}/${f}` })) });
@@ -816,7 +867,9 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { prossima, totale: cal.length });
     }
     if (req.method === "POST" && path === "/api/pregiornata") {
-      const pre = normalizzaPre(await corpo(req));
+      // prima di generare ricontrolla le formazioni: chi le ha inserite nel frattempo entra con capitano e titolari veri
+      const inviato = normalizzaPre(await corpo(req));
+      const pre = applicaFormazioni(inviato, await leggiFormazioni(inviato.giornata));
       writeFileSync(filePre(pre.giornata), JSON.stringify(pre, null, 2));
       const job = creaJobPre(pre);
       return json(res, 200, { id: job.id });
