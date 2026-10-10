@@ -3,6 +3,7 @@ import { Composition, Still } from "remotion";
 import { Highlight, type HighlightProps } from "./compositions/Highlight";
 import { Locandina, type LocandinaProps } from "./compositions/Locandina";
 import { Sfida, type SfidaProps } from "./compositions/Sfida";
+import { CopertinaGiornata, type CopertinaProps } from "./compositions/CopertinaGiornata";
 import preGiornata from "../dati/pregiornata-3.json";
 import datiGiornata from "./data/giornata.json";
 import type { GiornataInput } from "./data/types";
@@ -53,6 +54,14 @@ export const RemotionRoot: React.FC = () => (
         />
       </React.Fragment>
     ))}
+    {/* Copertina della giornata: i 4 scontri in un'unica immagine verticale */}
+    <Still<any, CopertinaProps>
+      id="Copertina"
+      component={CopertinaGiornata}
+      width={1080}
+      height={1920}
+      defaultProps={{ lega: (preGiornata as any).lega, giornata: (preGiornata as any).giornata, sfide: (preGiornata as any).sfide }}
+    />
     {/* Locandine pre-giornata: i 4 big per squadra (dati/pregiornata-N.json, sostituibili con --props) */}
     {(preGiornata as any).sfide.map((sf: any, i: number) => (
       <Still<any, SfidaProps>
