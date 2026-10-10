@@ -2,6 +2,8 @@ import React from "react";
 import { Composition, Still } from "remotion";
 import { Highlight, type HighlightProps } from "./compositions/Highlight";
 import { Locandina, type LocandinaProps } from "./compositions/Locandina";
+import { Sfida, type SfidaProps } from "./compositions/Sfida";
+import preGiornata from "../dati/pregiornata-3.json";
 import datiGiornata from "./data/giornata.json";
 import type { GiornataInput } from "./data/types";
 import { preparaGiornata } from "./lib/lega";
@@ -50,6 +52,17 @@ export const RemotionRoot: React.FC = () => (
           defaultProps={{ giornata, indice: i, mostraRisultato: false }}
         />
       </React.Fragment>
+    ))}
+    {/* Locandine pre-giornata: i 4 big per squadra (dati/pregiornata-N.json, sostituibili con --props) */}
+    {(preGiornata as any).sfide.map((sf: any, i: number) => (
+      <Still<any, SfidaProps>
+        key={`sfida-${i}`}
+        id={`Sfida-${i + 1}`}
+        component={Sfida}
+        width={1080}
+        height={1350}
+        defaultProps={{ lega: (preGiornata as any).lega, giornata: (preGiornata as any).giornata, indice: i, totale: (preGiornata as any).sfide.length, casa: sf.casa, trasferta: sf.trasferta }}
+      />
     ))}
   </>
 );

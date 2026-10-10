@@ -1,0 +1,238 @@
+{
+  "lega": "Ciempions Fig",
+  "giornata": 3,
+  "nota": "4 big per squadra: capitano + i 3 titolari piu pagati. Atletico Madrink senza formazione: i 4 piu pagati della rosa.",
+  "sfide": [
+    {
+      "casa": {
+        "id": "aquafan",
+        "posizione": 5,
+        "punti": 3,
+        "stelle": [
+          {
+            "nome": "De Bruyne",
+            "ruolo": "C",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2517.png",
+            "capitano": true
+          },
+          {
+            "nome": "Malen",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5585.png"
+          },
+          {
+            "nome": "Conceicao",
+            "ruolo": "C",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6884.png"
+          },
+          {
+            "nome": "Caprile",
+            "ruolo": "P",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4360.png"
+          }
+        ]
+      },
+      "trasferta": {
+        "id": "do-flamengo",
+        "posizione": 1,
+        "punti": 6,
+        "stelle": [
+          {
+            "nome": "Pulisic",
+            "ruolo": "C",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2423.png",
+            "capitano": true
+          },
+          {
+            "nome": "Martinez L.",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2764.png"
+          },
+          {
+            "nome": "Paz N.",
+            "ruolo": "C",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6875.png"
+          },
+          {
+            "nome": "Scamacca",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2137.png"
+          }
+        ]
+      }
+    },
+    {
+      "casa": {
+        "id": "milano-boys",
+        "posizione": 7,
+        "punti": 0,
+        "stelle": [
+          {
+            "nome": "Calhanoglu",
+            "ruolo": "C",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2194.png",
+            "capitano": true
+          },
+          {
+            "nome": "Douvikas",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7017.png"
+          },
+          {
+            "nome": "Esposito F.P.",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7071.png"
+          },
+          {
+            "nome": "Bremer",
+            "ruolo": "D",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2788.png"
+          }
+        ]
+      },
+      "trasferta": {
+        "id": "pan-fc",
+        "posizione": 4,
+        "punti": 3,
+        "stelle": [
+          {
+            "nome": "Rabiot",
+            "ruolo": "C",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2379.png",
+            "capitano": true
+          },
+          {
+            "nome": "Ramos G.",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6397.png"
+          },
+          {
+            "nome": "Dimarco",
+            "ruolo": "D",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/254.png"
+          },
+          {
+            "nome": "Krstovic",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6435.png"
+          }
+        ]
+      }
+    },
+    {
+      "casa": {
+        "id": "aston-birra",
+        "posizione": 8,
+        "punti": 0,
+        "stelle": [
+          {
+            "nome": "Barella",
+            "ruolo": "C",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/1870.png",
+            "capitano": true
+          },
+          {
+            "nome": "Thuram",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4871.png"
+          },
+          {
+            "nome": "Dybala",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/309.png"
+          },
+          {
+            "nome": "Soulè",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5734.png"
+          }
+        ]
+      },
+      "trasferta": {
+        "id": "si-gonfia-la-rete",
+        "posizione": 3,
+        "punti": 4,
+        "stelle": [
+          {
+            "nome": "Tavares N.",
+            "ruolo": "D",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5620.png",
+            "capitano": true
+          },
+          {
+            "nome": "Hojlund",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6052.png"
+          },
+          {
+            "nome": "Baturina",
+            "ruolo": "C",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7126.png"
+          },
+          {
+            "nome": "Davis K.",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5637.png"
+          }
+        ]
+      }
+    },
+    {
+      "casa": {
+        "id": "atletico-madrink",
+        "posizione": 6,
+        "punti": 3,
+        "stelle": [
+          {
+            "nome": "Diao",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6967.png"
+          },
+          {
+            "nome": "Orsolini",
+            "ruolo": "C",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2167.png"
+          },
+          {
+            "nome": "Carnesecchi",
+            "ruolo": "P",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4431.png"
+          },
+          {
+            "nome": "Raimondo",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5436.png"
+          }
+        ]
+      },
+      "trasferta": {
+        "id": "manchester-squiddi",
+        "posizione": 2,
+        "punti": 4,
+        "stelle": [
+          {
+            "nome": "Diouf",
+            "ruolo": "C",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6274.png",
+            "capitano": true
+          },
+          {
+            "nome": "Kolo Muani",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5951.png"
+          },
+          {
+            "nome": "Svilar",
+            "ruolo": "P",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5841.png"
+          },
+          {
+            "nome": "Laurientè",
+            "ruolo": "A",
+            "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6060.png"
+          }
+        ]
+      }
+    }
+  ]
+}
