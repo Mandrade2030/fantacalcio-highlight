@@ -199,3 +199,8 @@ npm run render:giornata -- percorso/altra-giornata.json
 - `dati/calendario.json`: tutte le giornate della lega (scontri). `dati/pregiornata-N.json`: scelte salvate (4 big, capitano).
 - App: pannello "🗓 Pre-giornata" → `GET /api/pregiornata` (prossima giornata), `GET /api/pregiornata/:n` (bozza: file salvato o i 4 più pagati, classifica calcolata dalle giornate salvate), `POST /api/pregiornata` (salva e mette in coda i render → `out/giornata-N/copertina-giornata-N.png` e `pregiornata-i-…png`).
 - Gemini NON disegna calciatori veri: per questo si usano i campioncini.
+
+## App Android
+- `android/`: app nativa minima (Java, WebView) "Ciempions Fig", `it.ciempionsfig.app`. Apre l'app web del server; l'indirizzo lo legge da `server-url.txt` (raw GitHub) → **aggiornare quel file se cambia il tunnel**. Scarica video/immagini di `/out/` in Download/Ciempions Fig e apre "Condividi". Upload file (pannello WhatsApp) supportato.
+- Build e firma su GitHub Actions (`.github/workflows/android.yml`) a ogni push in `android/`: release `app-vN`. Link fisso: https://github.com/Mandrade2030/fantacalcio-highlight/releases/latest/download/ciempions-fig.apk
+- Firma: `android/release.jks` + `android/keystore.properties` (nel repo: se il repo resta pubblico, chiunque può firmare APK "compatibili"; spostarli in secrets quando si rende privato).
