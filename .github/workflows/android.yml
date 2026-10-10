@@ -30,7 +30,7 @@ jobs:
         run: |
           set -o pipefail
           gradle --no-daemon assembleRelease 2>&1 | tee build.log || {
-            grep -E "error|What went wrong|FAILURE|Could not|>" build.log | grep -v "^> Task" | tail -25 | while read -r l; do echo "::error::$l"; done
+            grep -v "^> Task" build.log | grep -E "error:|\.java:|What went wrong|Value is null|Execution failed|property|Caused" | head -30 | while read -r l; do echo "::error::$l"; done
             exit 1
           }
       - name: Rinomina
