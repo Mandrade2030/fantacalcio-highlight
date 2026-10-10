@@ -105,6 +105,28 @@
   </section>
 
   <section class="blocco">
+    <details id="boxPre">
+      <summary>
+        <span>🗓 Pre-giornata: copertina e sfide</span>
+        <span class="hint" id="preStato">da mandare prima della giornata</span>
+      </summary>
+      <div class="voce">
+        <div class="voce-riga">
+          <label>Giornata <input type="number" id="preNum" min="1" max="38" style="width:80px" /></label>
+          <button class="btn ghost small" id="preCarica">Carica</button>
+        </div>
+        <p class="legenda">Per ogni squadra scegli i 4 big (il primo è il capitano, in primo piano). Di partenza ci sono i 4 più pagati della rosa: cambiali con la formazione vera.</p>
+        <div id="preSfide"></div>
+        <div class="voce-riga">
+          <button class="btn primary small" id="preGenera">Genera copertina e locandine</button>
+        </div>
+        <p class="legenda" id="preMsg"></p>
+        <div class="galleria" id="preGalleria"></div>
+      </div>
+    </details>
+  </section>
+
+  <section class="blocco">
     <details id="boxClassifica">
       <summary>
         <span>Classifica prima della giornata</span>
@@ -160,5 +182,6 @@
 
 <script src="/ui/app.js"></script>
 <script src="/ui/whatsapp.js"></script>
+<script src="/ui/pregiornata.js"></script>
 </body>
 </html>

@@ -336,6 +336,89 @@ const creaJob = (g, scontri, tipi) => {
   return job;
 };
 
+/* ------------------------------------------------------------------ */
+/* Pre-giornata: copertina con i 4 scontri + una locandina per sfida    */
+/* ------------------------------------------------------------------ */
+const FILE_CALENDARIO = join(DATI, "calendario.json");
+const filePre = (n) => join(DATI, `pregiornata-${n}.json`);
+const URL_CAMPIONCINO = (img) => `https://content.fantacalcio.it/web/campioncini/21/large/${img}.png`;
+const golDa = (pt, s = { base: 66, passo: 4 }) => (pt < s.base ? 0 : Math.floor((pt - s.base) / s.passo) + 1);
+
+/** Classifica dopo le giornate < n (3 punti vittoria, 1 pareggio; a pari punti contano i fantapunti totali) */
+const classificaPrima = (n) => {
+  const lega = leggiLega();
+  const t = Object.fromEntries(lega.squadre.map((s) => [s.id, { id: s.id, punti: 0, fp: 0 }]));
+  for (let k = 1; k < n; k++) {
+    if (!existsSync(fileGiornata(k))) continue;
+    const g = JSON.parse(readFileSync(fileGiornata(k), "utf8"));
+    for (const sc of g.scontri || []) {
+      const gc = sc.golCasa ?? golDa(sc.punteggioCasa, g.soglie);
+      const gt = sc.golTrasferta ?? golDa(sc.punteggioTrasferta, g.soglie);
+      if (!t[sc.casa] || !t[sc.trasferta]) continue;
+      t[sc.casa].fp += sc.punteggioCasa || 0;
+      t[sc.trasferta].fp += sc.punteggioTrasferta || 0;
+      if (gc > gt) t[sc.casa].punti += 3;
+      else if (gc < gt) t[sc.trasferta].punti += 3;
+      else { t[sc.casa].punti += 1; t[sc.trasferta].punti += 1; }
+    }
+  }
+  const ord = Object.values(t).sort((a, b) => b.punti - a.punti || b.fp - a.fp);
+  return Object.fromEntries(ord.map((x, i) => [x.id, { posizione: i + 1, punti: x.punti }]));
+};
+
+/** Bozza della pre-giornata: file salvato se c'è, altrimenti calendario + i 4 più pagati di ogni rosa */
+const bozzaPre = (n) => {
+  if (existsSync(filePre(n))) return JSON.parse(readFileSync(filePre(n), "utf8"));
+  const lega = leggiLega();
+  const cal = existsSync(FILE_CALENDARIO) ? JSON.parse(readFileSync(FILE_CALENDARIO, "utf8")) : { giornate: [] };
+  const gc = cal.giornate.find((x) => x.giornata === n);
+  if (!gc) throw new Error(`Giornata ${n} non trovata nel calendario.`);
+  const cl = classificaPrima(n);
+  const lato = (id) => {
+    const rosa = [...(lega.squadre.find((s) => s.id === id)?.rosa || [])].sort((a, b) => b.costo - a.costo).slice(0, 4);
+    return { id, ...cl[id], stelle: rosa.map((p, i) => ({ nome: p.nome, ruolo: p.ruolo, immagine: URL_CAMPIONCINO(p.img), ...(i === 0 ? { capitano: true } : {}) })) };
+  };
+  return { lega: lega.lega || "Ciempions Fig", giornata: n, sfide: gc.scontri.map((x) => ({ casa: lato(x.casa), trasferta: lato(x.trasferta) })) };
+};
+
+/** Completa i dati inviati dall'app: immagini dalla rosa, classifica aggiornata */
+const normalizzaPre = (b) => {
+  const lega = leggiLega();
+  const n = Number(b.giornata);
+  if (!n || !Array.isArray(b.sfide) || !b.sfide.length) throw new Error("Dati della pre-giornata incompleti.");
+  const cl = classificaPrima(n);
+  const lato = (l) => {
+    const sq = lega.squadre.find((s) => s.id === l.id);
+    if (!sq) throw new Error(`Squadra sconosciuta: ${l.id}`);
+    const stelle = (l.stelle || []).slice(0, 4).map((st) => {
+      const p = sq.rosa.find((x) => x.nome === st.nome);
+      if (!p) throw new Error(`${st.nome} non è nella rosa di ${sq.nome}.`);
+      return { nome: p.nome, ruolo: p.ruolo, immagine: URL_CAMPIONCINO(p.img), ...(st.capitano ? { capitano: true } : {}) };
+    });
+    if (stelle.length < 4) throw new Error(`Scegli 4 giocatori per ${sq.nome}.`);
+    return { id: l.id, ...cl[l.id], stelle };
+  };
+  return { lega: lega.lega || "Ciempions Fig", giornata: n, sfide: b.sfide.map((s) => ({ casa: lato(s.casa), trasferta: lato(s.trasferta) })) };
+};
+
+const creaJobPre = (pre) => {
+  const cartella = join(OUT, `giornata-${pre.giornata}`);
+  mkdirSync(cartella, { recursive: true });
+  const propsFile = join(cartella, "_pregiornata.json");
+  writeFileSync(propsFile, JSON.stringify(pre));
+  const passo = (nome, composizione, file) => ({
+    tipo: "pre", nome, composizione, file,
+    url: `/out/giornata-${pre.giornata}/${file}`, percorso: join(cartella, file), stato: "in coda", progresso: 0,
+  });
+  const passi = [passo("Copertina giornata", "Copertina", `copertina-giornata-${pre.giornata}.png`)];
+  pre.sfide.forEach((s, i) => passi.push(passo(`Sfida ${i + 1}`, `Sfida-${i + 1}`, `pregiornata-${i + 1}-${slug(s.casa.id)}-vs-${slug(s.trasferta.id)}.png`)));
+  const job = { id: Date.now().toString(36), giornata: pre.giornata, propsFile, passi, stato: "in coda", creato: Date.now() };
+  jobs.unshift(job);
+  if (jobs.length > 20) jobs.length = 20;
+  setImmediate(prossimo);
+  return job;
+};
+
 const attesa = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /** Sposta il file appena renderizzato al suo posto. Se il vecchio è bloccato (aperto in un player,
@@ -715,6 +798,27 @@ const server = http.createServer(async (req, res) => {
       const idx = Array.isArray(scontri) && scontri.length ? scontri : g.scontri.map((_, i) => i);
       const t = Array.isArray(tipi) && tipi.length ? tipi : ["locandina", "presentazione", "video"];
       const job = creaJob(g, idx, t);
+      return json(res, 200, { id: job.id });
+    }
+
+    const mP = path.match(/^\/api\/pregiornata\/(\d+)$/);
+    if (req.method === "GET" && mP) {
+      const n = Number(mP[1]);
+      const b = bozzaPre(n);
+      const cartella = join(OUT, `giornata-${n}`);
+      const file = existsSync(cartella) ? readdirSync(cartella).filter((f) => /^(copertina|pregiornata)/.test(f)) : [];
+      return json(res, 200, { ...b, classifica: classificaPrima(n), file: file.map((f) => ({ nome: f, url: `/out/giornata-${n}/${f}` })) });
+    }
+    if (req.method === "GET" && path === "/api/pregiornata") {
+      // prossima giornata da presentare: la prima del calendario senza risultati salvati
+      const cal = existsSync(FILE_CALENDARIO) ? JSON.parse(readFileSync(FILE_CALENDARIO, "utf8")).giornate : [];
+      const prossima = cal.find((g) => !existsSync(fileGiornata(g.giornata)))?.giornata || 1;
+      return json(res, 200, { prossima, totale: cal.length });
+    }
+    if (req.method === "POST" && path === "/api/pregiornata") {
+      const pre = normalizzaPre(await corpo(req));
+      writeFileSync(filePre(pre.giornata), JSON.stringify(pre, null, 2));
+      const job = creaJobPre(pre);
       return json(res, 200, { id: job.id });
     }
 

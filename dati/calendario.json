@@ -1,0 +1,776 @@
+{
+ "competizione": 645622,
+ "nota": "importato da leghe.fantacalcio.it",
+ "giornate": [
+  {
+   "giornata": 1,
+   "giornataSerieA": 4,
+   "scontri": [
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "pan-fc"
+    },
+    {
+     "casa": "aquafan",
+     "trasferta": "manchester-squiddi"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "atletico-madrink"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "do-flamengo"
+    }
+   ]
+  },
+  {
+   "giornata": 2,
+   "giornataSerieA": 5,
+   "scontri": [
+    {
+     "casa": "pan-fc",
+     "trasferta": "aston-birra"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "si-gonfia-la-rete"
+    }
+   ]
+  },
+  {
+   "giornata": 3,
+   "giornataSerieA": 6,
+   "scontri": [
+    {
+     "casa": "aquafan",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "pan-fc"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "manchester-squiddi"
+    }
+   ]
+  },
+  {
+   "giornata": 4,
+   "giornataSerieA": 7,
+   "scontri": [
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "pan-fc",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "atletico-madrink"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "aston-birra"
+    }
+   ]
+  },
+  {
+   "giornata": 5,
+   "giornataSerieA": 8,
+   "scontri": [
+    {
+     "casa": "aquafan",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "aston-birra"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "manchester-squiddi"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "pan-fc"
+    }
+   ]
+  },
+  {
+   "giornata": 6,
+   "giornataSerieA": 9,
+   "scontri": [
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "atletico-madrink"
+    },
+    {
+     "casa": "pan-fc",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "manchester-squiddi"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "aquafan"
+    }
+   ]
+  },
+  {
+   "giornata": 7,
+   "giornataSerieA": 10,
+   "scontri": [
+    {
+     "casa": "aquafan",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "aston-birra"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "pan-fc"
+    }
+   ]
+  },
+  {
+   "giornata": 8,
+   "giornataSerieA": 11,
+   "scontri": [
+    {
+     "casa": "pan-fc",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "aston-birra"
+    }
+   ]
+  },
+  {
+   "giornata": 9,
+   "giornataSerieA": 12,
+   "scontri": [
+    {
+     "casa": "aston-birra",
+     "trasferta": "pan-fc"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "aquafan",
+     "trasferta": "atletico-madrink"
+    },
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "manchester-squiddi"
+    }
+   ]
+  },
+  {
+   "giornata": 10,
+   "giornataSerieA": 13,
+   "scontri": [
+    {
+     "casa": "do-flamengo",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "pan-fc",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "aston-birra"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "atletico-madrink"
+    }
+   ]
+  },
+  {
+   "giornata": 11,
+   "giornataSerieA": 14,
+   "scontri": [
+    {
+     "casa": "milano-boys",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "aquafan",
+     "trasferta": "pan-fc"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "manchester-squiddi"
+    }
+   ]
+  },
+  {
+   "giornata": 12,
+   "giornataSerieA": 15,
+   "scontri": [
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "pan-fc",
+     "trasferta": "atletico-madrink"
+    }
+   ]
+  },
+  {
+   "giornata": 13,
+   "giornataSerieA": 16,
+   "scontri": [
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "pan-fc"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "aquafan",
+     "trasferta": "aston-birra"
+    }
+   ]
+  },
+  {
+   "giornata": 14,
+   "giornataSerieA": 17,
+   "scontri": [
+    {
+     "casa": "milano-boys",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "atletico-madrink"
+    },
+    {
+     "casa": "pan-fc",
+     "trasferta": "manchester-squiddi"
+    }
+   ]
+  },
+  {
+   "giornata": 15,
+   "giornataSerieA": 18,
+   "scontri": [
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "pan-fc"
+    },
+    {
+     "casa": "aquafan",
+     "trasferta": "manchester-squiddi"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "atletico-madrink"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "do-flamengo"
+    }
+   ]
+  },
+  {
+   "giornata": 16,
+   "giornataSerieA": 19,
+   "scontri": [
+    {
+     "casa": "pan-fc",
+     "trasferta": "aston-birra"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "si-gonfia-la-rete"
+    }
+   ]
+  },
+  {
+   "giornata": 17,
+   "giornataSerieA": 20,
+   "scontri": [
+    {
+     "casa": "aquafan",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "pan-fc"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "manchester-squiddi"
+    }
+   ]
+  },
+  {
+   "giornata": 18,
+   "giornataSerieA": 21,
+   "scontri": [
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "pan-fc",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "atletico-madrink"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "aston-birra"
+    }
+   ]
+  },
+  {
+   "giornata": 19,
+   "giornataSerieA": 22,
+   "scontri": [
+    {
+     "casa": "aquafan",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "aston-birra"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "manchester-squiddi"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "pan-fc"
+    }
+   ]
+  },
+  {
+   "giornata": 20,
+   "giornataSerieA": 23,
+   "scontri": [
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "atletico-madrink"
+    },
+    {
+     "casa": "pan-fc",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "manchester-squiddi"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "aquafan"
+    }
+   ]
+  },
+  {
+   "giornata": 21,
+   "giornataSerieA": 24,
+   "scontri": [
+    {
+     "casa": "aquafan",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "aston-birra"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "pan-fc"
+    }
+   ]
+  },
+  {
+   "giornata": 22,
+   "giornataSerieA": 25,
+   "scontri": [
+    {
+     "casa": "pan-fc",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "aston-birra"
+    }
+   ]
+  },
+  {
+   "giornata": 23,
+   "giornataSerieA": 26,
+   "scontri": [
+    {
+     "casa": "aston-birra",
+     "trasferta": "pan-fc"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "aquafan",
+     "trasferta": "atletico-madrink"
+    },
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "manchester-squiddi"
+    }
+   ]
+  },
+  {
+   "giornata": 24,
+   "giornataSerieA": 27,
+   "scontri": [
+    {
+     "casa": "do-flamengo",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "pan-fc",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "aston-birra"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "atletico-madrink"
+    }
+   ]
+  },
+  {
+   "giornata": 25,
+   "giornataSerieA": 28,
+   "scontri": [
+    {
+     "casa": "milano-boys",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "aquafan",
+     "trasferta": "pan-fc"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "manchester-squiddi"
+    }
+   ]
+  },
+  {
+   "giornata": 26,
+   "giornataSerieA": 29,
+   "scontri": [
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "pan-fc",
+     "trasferta": "atletico-madrink"
+    }
+   ]
+  },
+  {
+   "giornata": 27,
+   "giornataSerieA": 30,
+   "scontri": [
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "pan-fc"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "aquafan",
+     "trasferta": "aston-birra"
+    }
+   ]
+  },
+  {
+   "giornata": 28,
+   "giornataSerieA": 31,
+   "scontri": [
+    {
+     "casa": "milano-boys",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "atletico-madrink"
+    },
+    {
+     "casa": "pan-fc",
+     "trasferta": "manchester-squiddi"
+    }
+   ]
+  },
+  {
+   "giornata": 29,
+   "giornataSerieA": 32,
+   "scontri": [
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "pan-fc"
+    },
+    {
+     "casa": "aquafan",
+     "trasferta": "manchester-squiddi"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "atletico-madrink"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "do-flamengo"
+    }
+   ]
+  },
+  {
+   "giornata": 30,
+   "giornataSerieA": 33,
+   "scontri": [
+    {
+     "casa": "pan-fc",
+     "trasferta": "aston-birra"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "si-gonfia-la-rete"
+    }
+   ]
+  },
+  {
+   "giornata": 31,
+   "giornataSerieA": 34,
+   "scontri": [
+    {
+     "casa": "aquafan",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "pan-fc"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "manchester-squiddi"
+    }
+   ]
+  },
+  {
+   "giornata": 32,
+   "giornataSerieA": 35,
+   "scontri": [
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "pan-fc",
+     "trasferta": "aquafan"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "atletico-madrink"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "aston-birra"
+    }
+   ]
+  },
+  {
+   "giornata": 33,
+   "giornataSerieA": 36,
+   "scontri": [
+    {
+     "casa": "aquafan",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "aston-birra"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "manchester-squiddi"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "pan-fc"
+    }
+   ]
+  },
+  {
+   "giornata": 34,
+   "giornataSerieA": 37,
+   "scontri": [
+    {
+     "casa": "si-gonfia-la-rete",
+     "trasferta": "atletico-madrink"
+    },
+    {
+     "casa": "pan-fc",
+     "trasferta": "do-flamengo"
+    },
+    {
+     "casa": "milano-boys",
+     "trasferta": "manchester-squiddi"
+    },
+    {
+     "casa": "aston-birra",
+     "trasferta": "aquafan"
+    }
+   ]
+  },
+  {
+   "giornata": 35,
+   "giornataSerieA": 38,
+   "scontri": [
+    {
+     "casa": "aquafan",
+     "trasferta": "milano-boys"
+    },
+    {
+     "casa": "do-flamengo",
+     "trasferta": "si-gonfia-la-rete"
+    },
+    {
+     "casa": "atletico-madrink",
+     "trasferta": "aston-birra"
+    },
+    {
+     "casa": "manchester-squiddi",
+     "trasferta": "pan-fc"
+    }
+   ]
+  }
+ ]
+}

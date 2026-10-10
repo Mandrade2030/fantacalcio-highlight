@@ -193,3 +193,9 @@ npm run render:giornata -- percorso/altra-giornata.json
 
 ## Locandina pre-giornata
 `tools/pregiornata/`: cast delle caricature, istruzioni e prompt per Gemini, `etichette.py` per scrivere posizione e punti esatti.
+
+## Pre-giornata (copertina + sfide)
+- Composizioni `Copertina` (1080x1920, i 4 scontri) e `Sfida-N` (1080x1350, una sfida): per ogni squadra il capitano grande + 3 big, presidente piccolo, posizione e punti. Figure = "campioncini" di fantacalcio.it (`https://content.fantacalcio.it/web/campioncini/21/large/{img}.png`, SENZA `?v=`), `img` salvato per ogni giocatore in `lega.json` → rosa.
+- `dati/calendario.json`: tutte le giornate della lega (scontri). `dati/pregiornata-N.json`: scelte salvate (4 big, capitano).
+- App: pannello "🗓 Pre-giornata" → `GET /api/pregiornata` (prossima giornata), `GET /api/pregiornata/:n` (bozza: file salvato o i 4 più pagati, classifica calcolata dalle giornate salvate), `POST /api/pregiornata` (salva e mette in coda i render → `out/giornata-N/copertina-giornata-N.png` e `pregiornata-i-…png`).
+- Gemini NON disegna calciatori veri: per questo si usano i campioncini.

@@ -26,8 +26,10 @@ export interface SfidaProps {
   giornata: number;
   indice: number;
   totale?: number;
-  casa: LatoSfida;
-  trasferta: LatoSfida;
+  casa?: LatoSfida;
+  trasferta?: LatoSfida;
+  /** alternativa a casa/trasferta: tutte le sfide della giornata (stesso file della copertina) */
+  sfide?: { casa: LatoSfida; trasferta: LatoSfida }[];
   [key: string]: unknown;
 }
 
@@ -178,7 +180,10 @@ const Fascia: React.FC<{ lato: LatoSfida; destra: boolean; col: string }> = ({ l
   );
 };
 
-export const Sfida: React.FC<SfidaProps> = ({ lega: nomeLega = "Ciempions Fig", giornata, indice, totale = 4, casa, trasferta }) => {
+export const Sfida: React.FC<SfidaProps> = ({ lega: nomeLega = "Ciempions Fig", giornata, indice, totale: tot, sfide, ...resto }) => {
+  const casa = (sfide?.[indice]?.casa ?? resto.casa) as LatoSfida;
+  const trasferta = (sfide?.[indice]?.trasferta ?? resto.trasferta) as LatoSfida;
+  const totale = tot ?? sfide?.length ?? 4;
   const A = squadra(casa.id);
   const B = squadra(trasferta.id);
   let colA = accendi(A.colori.primario, 0.3);
