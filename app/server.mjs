@@ -9,6 +9,7 @@ import { dirname, extname, join, normalize, resolve, sep } from "node:path";
 import { createRequire } from "node:module";
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { messaggiPregiornata } from "./messaggi.mjs";
 import { avviaWhatsApp, esciWhatsApp, gruppiWhatsApp, inviaWhatsApp, statoWhatsApp } from "./whatsapp.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -744,6 +745,26 @@ const server = http.createServer(async (req, res) => {
       const cur = leggiImpostazioni();
       salvaImpostazioni({ ...cur, whatsapp: { ...(cur.whatsapp || {}), gruppo: String(b.gruppo || "") } });
       return json(res, 200, { ok: true });
+    }
+    // messaggi pre-giornata: anteprima e invio (testo di carica + copertina + programma)
+    const mWa = path.match(/^\/api\/whatsapp\/pregiornata\/(\d+)$/);
+    if (req.method === "GET" && mWa) {
+      const n = Number(mWa[1]);
+      return json(res, 200, messaggiPregiornata(applicaFormazioni(bozzaPre(n), await leggiFormazioni(n)), leggiLega()));
+    }
+    if (req.method === "POST" && path === "/api/whatsapp/pregiornata") {
+      const b = await corpo(req);
+      const n = Number(b.giornata);
+      const dest = b.chat || leggiImpostazioni().whatsapp?.gruppo;
+      const passi = messaggiPregiornata(applicaFormazioni(bozzaPre(n), await leggiFormazioni(n)), leggiLega());
+      const manca = passi.find((p) => p.file && !existsSync(join(OUT, p.file)));
+      if (manca) throw new Error(`Prima genera la copertina (${manca.file.split("/").pop()}).`);
+      for (const p of passi) {
+        const buffer = p.file ? readFileSync(join(OUT, p.file)) : null;
+        await inviaWhatsApp({ gruppo: dest, testo: p.testo, buffer, tipo: p.file ? MIME[extname(p.file).toLowerCase()] : null, scrive: p.file ? 1500 : Math.min(5000, 1200 + p.testo.length * 12) });
+        await attesa(1500);
+      }
+      return json(res, 200, { ok: true, messaggi: passi.length });
     }
     if (req.method === "POST" && path === "/api/whatsapp/esci") {
       await esciWhatsApp();

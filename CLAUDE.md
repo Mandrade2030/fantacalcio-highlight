@@ -189,6 +189,8 @@ npm run render:giornata -- percorso/altra-giornata.json
 - `app/whatsapp.mjs`: libreria Baileys, si collega come "dispositivo collegato" (QR). Sessione in `dati/whatsapp/` (volume, in .gitignore). Pensato per un numero dedicato al bot: WhatsApp può bloccarlo.
 - Pannello "📲 Bot WhatsApp" nell'app: QR, scelta del gruppo (salvato in `dati/impostazioni.json` → `whatsapp.gruppo`), invio di un file caricato + didascalia; tasto 📲 su ogni file della galleria.
 - API: `GET /api/whatsapp` (stato + QR), `GET /api/whatsapp/gruppi`, `POST /api/whatsapp/gruppo`, `POST /api/whatsapp/esci`, `POST /api/whatsapp/invia` (JSON `{testo, file:"giornata-N/x.mp4"}` oppure corpo binario immagine/video con `?testo=`).
+- Destinazioni: gruppi + chat private di chi ha scritto al bot (salvate in `dati/whatsapp-chat.json`, utile per le prove); `inviaWhatsApp` accetta anche un numero. `scrive: ms` mostra "sta scrivendo…" prima del messaggio.
+- Carica pre-giornata: `app/messaggi.mjs` → `messaggiPregiornata(pre, lega)` (frasi deterministiche in base a classifica, capolista, ultimo, zero punti, capitani). `GET /api/whatsapp/pregiornata/:n` anteprima, `POST /api/whatsapp/pregiornata {giornata, chat?}` manda apertura + copertina + programma + chiusura. Pulsanti nel pannello del bot.
 - Prova rapida sul server: `sudo docker exec fantacalcio-highlight-app-1 node tools/prova-whatsapp.mjs`.
 
 ## Locandina pre-giornata

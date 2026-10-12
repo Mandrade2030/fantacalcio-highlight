@@ -28,8 +28,8 @@
         const g = await api("/api/whatsapp/gruppi");
         $("#waGruppo").innerHTML =
           `<option value="">Scegli il gruppo…</option>` +
-          g.map((x) => `<option value="${x.id}" ${x.id === gruppoSalvato ? "selected" : ""}>${x.nome.replace(/</g, "&lt;")} (${x.membri})</option>`).join("");
-        if (!g.length) nota("Il bot non è in nessun gruppo: aggiungi il suo numero al gruppo della lega.");
+          g.map((x) => `<option value="${x.id}" ${x.id === gruppoSalvato ? "selected" : ""}>${x.privata ? "👤 " : "👥 "}${x.nome.replace(/</g, "&lt;")}${x.privata ? " (privata)" : ` (${x.membri})`}</option>`).join("");
+        if (!g.some((x) => !x.privata)) nota("Il bot non è in nessun gruppo: aggiungi il suo numero al gruppo della lega.");
       }
       if (!s.connesso) gruppiCaricati = false;
     } catch (e) {
@@ -42,6 +42,37 @@
     await api("/api/whatsapp/gruppo", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ gruppo: e.target.value }) });
     gruppoSalvato = e.target.value;
     nota("Gruppo salvato.");
+  });
+  $("#waRicarica").addEventListener("click", () => {
+    gruppiCaricati = false;
+    aggiorna();
+  });
+  const preNum = () => +$("#waPreNum").value || 1;
+  api("/api/pregiornata").then((x) => ($("#waPreNum").value = x.prossima)).catch(() => {});
+  $("#waPreVedi").addEventListener("click", async () => {
+    try {
+      const m = await api(`/api/whatsapp/pregiornata/${preNum()}`);
+      $("#waPreAnteprima").hidden = false;
+      $("#waPreAnteprima").textContent = m.map((x) => (x.file ? `🖼 [${x.file.split("/").pop()}]\n` : "") + x.testo).join("\n\n— — —\n\n");
+    } catch (e) {
+      nota(e.message, true);
+    }
+  });
+  $("#waPreManda").addEventListener("click", async () => {
+    if (!gruppoSalvato) return nota("Prima scegli dove mandare.", true);
+    const dove = $("#waGruppo").selectedOptions[0]?.textContent || "";
+    if (!confirm(`Mandare i messaggi della giornata ${preNum()} a ${dove}?`)) return;
+    const b = $("#waPreManda");
+    b.disabled = true;
+    nota("Il bot sta scrivendo… (circa 30 secondi)");
+    try {
+      const r = await api("/api/whatsapp/pregiornata", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ giornata: preNum() }) });
+      nota(`Mandati ${r.messaggi} messaggi ✔`);
+    } catch (e) {
+      nota(e.message, true);
+    } finally {
+      b.disabled = false;
+    }
   });
   $("#waEsci").addEventListener("click", async () => {
     if (!confirm("Scollegare il bot da WhatsApp? Dovrai riscansionare il QR.")) return;
@@ -60,7 +91,7 @@
       } else {
         await api("/api/whatsapp/invia", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ testo }) });
       }
-      nota("Mandato nel gruppo ✔");
+      nota("Mandato ✔");
       $("#waFile").value = "";
     } catch (e) {
       nota(e.message, true);

@@ -83,11 +83,13 @@
         </div>
         <div id="waOk" hidden>
           <div class="voce-riga">
-            <label style="flex:1">Gruppo dove mandare
+            <label style="flex:1">Dove mandare
               <select id="waGruppo"><option value="">Scegli il gruppo…</option></select>
             </label>
+            <button class="btn ghost small" id="waRicarica" title="Aggiorna la lista">↻</button>
             <button class="btn ghost small" id="waEsci">Scollega</button>
           </div>
+          <p class="legenda">Per una prova in privato: scrivi un messaggio al numero del bot dal tuo WhatsApp e premi ↻, la tua chat compare nella lista (👤).</p>
           <div class="voce-riga">
             <label style="flex:1">Messaggio
               <textarea id="waTesto" rows="2" placeholder="Es. 🔥 Si parte! Giornata 3, ecco le sfide…"></textarea>
@@ -95,9 +97,15 @@
           </div>
           <div class="voce-riga">
             <input type="file" id="waFile" accept="image/*,video/mp4" />
-            <button class="btn primary small" id="waInvia">Manda nel gruppo</button>
+            <button class="btn primary small" id="waInvia">Manda</button>
           </div>
           <p class="legenda">Per i video e le locandine già generati usa il tasto 📲 sotto ogni file. Il messaggio scritto qui va come didascalia.</p>
+          <div class="voce-riga">
+            <label>Giornata <input type="number" id="waPreNum" min="1" max="38" style="width:80px" /></label>
+            <button class="btn ghost small" id="waPreVedi">Anteprima carica pre-giornata</button>
+            <button class="btn primary small" id="waPreManda">📣 Manda carica pre-giornata</button>
+          </div>
+          <pre id="waPreAnteprima" class="legenda" style="white-space:pre-wrap;max-height:320px;overflow:auto" hidden></pre>
         </div>
         <p class="legenda" id="waErr"></p>
       </div>
