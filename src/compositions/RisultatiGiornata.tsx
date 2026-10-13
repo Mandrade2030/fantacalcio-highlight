@@ -38,7 +38,7 @@ export interface RisultatiProps {
 const squadra = (id: string): Allenatore => {
   const s = (lega as any).squadre.find((x: any) => x.id === id);
   if (!s) throw new Error(`Squadra sconosciuta: ${id}`);
-  return { ...s, nome: s.presidente, squadra: s.nome } as Allenatore;
+  return { ...s, nome: s.persona?.nome || s.presidente, squadra: s.nome } as Allenatore;
 };
 const emozione = (fatti: number, subiti: number): Emozione => {
   const d = fatti - subiti;
