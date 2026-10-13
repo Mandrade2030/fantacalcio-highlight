@@ -1,0 +1,837 @@
+{
+  "giornata": 3,
+  "giornataSerieA": 6,
+  "stagione": "2026/27",
+  "soglie": {
+    "base": 66,
+    "passo": 4
+  },
+  "fonte": "leghe.fantacalcio.it",
+  "classificaPrima": [
+    {
+      "allenatore": "milano-boys",
+      "punti": 0
+    },
+    {
+      "allenatore": "aston-birra",
+      "punti": 0
+    },
+    {
+      "allenatore": "pan-fc",
+      "punti": 3
+    },
+    {
+      "allenatore": "manchester-squiddi",
+      "punti": 4
+    },
+    {
+      "allenatore": "atletico-madrink",
+      "punti": 3
+    },
+    {
+      "allenatore": "si-gonfia-la-rete",
+      "punti": 4
+    },
+    {
+      "allenatore": "do-flamengo",
+      "punti": 6
+    },
+    {
+      "allenatore": "aquafan",
+      "punti": 3
+    }
+  ],
+  "scontri": [
+    {
+      "casa": "aquafan",
+      "trasferta": "do-flamengo",
+      "punteggioCasa": 75,
+      "punteggioTrasferta": 67,
+      "golCasa": 3,
+      "golTrasferta": 1,
+      "formazioneCasa": [
+        {
+          "nome": "Caprile",
+          "ruolo": "P",
+          "voto": 7,
+          "fantavoto": 6,
+          "club": "Cagliari",
+          "golSubiti": 1,
+          "mvpLega": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4360.png"
+        },
+        {
+          "nome": "Tiago Gabriel",
+          "ruolo": "D",
+          "voto": 5.5,
+          "fantavoto": 5.5,
+          "club": "Lecce",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6989.png"
+        },
+        {
+          "nome": "Delprato",
+          "ruolo": "D",
+          "voto": 5.5,
+          "fantavoto": 5.5,
+          "club": "Parma",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6664.png"
+        },
+        {
+          "nome": "Ostigard",
+          "ruolo": "D",
+          "voto": 6.5,
+          "fantavoto": 6.5,
+          "club": "Genoa",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5750.png"
+        },
+        {
+          "nome": "Conceicao",
+          "ruolo": "C",
+          "voto": 5.5,
+          "fantavoto": 5.5,
+          "club": "Juventus",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6884.png"
+        },
+        {
+          "nome": "De Bruyne",
+          "ruolo": "C",
+          "voto": 7.5,
+          "fantavoto": 13.5,
+          "club": "Napoli",
+          "gol": 2,
+          "rigoreSegnato": 1,
+          "mvpLega": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2517.png"
+        },
+        {
+          "nome": "Samardzic",
+          "ruolo": "C",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Atalanta",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5119.png"
+        },
+        {
+          "nome": "Malen",
+          "ruolo": "A",
+          "voto": 4.5,
+          "fantavoto": 3.5,
+          "club": "Roma",
+          "espulsione": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5585.png"
+        },
+        {
+          "nome": "Noslin",
+          "ruolo": "A",
+          "voto": 7.5,
+          "fantavoto": 9.5,
+          "club": "Lazio",
+          "assist": 2,
+          "mvpLega": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6556.png"
+        },
+        {
+          "nome": "Simeone",
+          "ruolo": "A",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Torino",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2061.png"
+        },
+        {
+          "nome": "Calò",
+          "ruolo": "C",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Frosinone",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7472.png"
+        }
+      ],
+      "formazioneTrasferta": [
+        {
+          "nome": "Meret",
+          "ruolo": "P",
+          "voto": 6,
+          "fantavoto": 7,
+          "club": "Napoli",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/572.png"
+        },
+        {
+          "nome": "Rrahmani",
+          "ruolo": "D",
+          "voto": 6.5,
+          "fantavoto": 6,
+          "club": "Napoli",
+          "ammonizione": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4409.png"
+        },
+        {
+          "nome": "Belghali",
+          "ruolo": "D",
+          "voto": 5.5,
+          "fantavoto": 5.5,
+          "club": "Torino",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7220.png"
+        },
+        {
+          "nome": "Scalvini",
+          "ruolo": "D",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Atalanta",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5526.png"
+        },
+        {
+          "nome": "Ramon",
+          "ruolo": "D",
+          "voto": 7,
+          "fantavoto": 7,
+          "club": "Como",
+          "mvpLega": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6869.png"
+        },
+        {
+          "nome": "Zaccagni",
+          "ruolo": "C",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Lazio",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/632.png"
+        },
+        {
+          "nome": "Pulisic",
+          "ruolo": "C",
+          "voto": 5.5,
+          "fantavoto": 5.5,
+          "club": "Milan",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2423.png"
+        },
+        {
+          "nome": "Paz N.",
+          "ruolo": "C",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Como",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6875.png"
+        },
+        {
+          "nome": "Varela G.",
+          "ruolo": "A",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Monza",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7523.png"
+        },
+        {
+          "nome": "Martinez L.",
+          "ruolo": "A",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Inter",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2764.png"
+        },
+        {
+          "nome": "Adams A.",
+          "ruolo": "A",
+          "voto": 5.5,
+          "fantavoto": 5.5,
+          "club": "Venezia",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7484.png"
+        }
+      ]
+    },
+    {
+      "casa": "milano-boys",
+      "trasferta": "pan-fc",
+      "punteggioCasa": 70,
+      "punteggioTrasferta": 79,
+      "golCasa": 2,
+      "golTrasferta": 4,
+      "formazioneCasa": [
+        {
+          "nome": "Muric",
+          "ruolo": "P",
+          "voto": 6,
+          "fantavoto": 5,
+          "club": "Sassuolo",
+          "golSubiti": 1,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4236.png"
+        },
+        {
+          "nome": "Vasquez",
+          "ruolo": "D",
+          "voto": 5.5,
+          "fantavoto": 4,
+          "club": "Genoa",
+          "autogol": 1,
+          "ammonizione": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5514.png"
+        },
+        {
+          "nome": "Bremer",
+          "ruolo": "D",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Juventus",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2788.png"
+        },
+        {
+          "nome": "Da Cunha",
+          "ruolo": "C",
+          "voto": 6.5,
+          "fantavoto": 6.5,
+          "club": "Como",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5559.png"
+        },
+        {
+          "nome": "Calhanoglu",
+          "ruolo": "C",
+          "voto": 7,
+          "fantavoto": 10,
+          "club": "Inter",
+          "gol": 1,
+          "rigoreSegnato": 1,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2194.png"
+        },
+        {
+          "nome": "Konè M.",
+          "ruolo": "C",
+          "voto": 6,
+          "fantavoto": 5.5,
+          "club": "Roma",
+          "ammonizione": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5589.png"
+        },
+        {
+          "nome": "Mandragora",
+          "ruolo": "C",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Torino",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/1933.png"
+        },
+        {
+          "nome": "Esposito F.P.",
+          "ruolo": "A",
+          "voto": 7,
+          "fantavoto": 7,
+          "club": "Inter",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7071.png"
+        },
+        {
+          "nome": "Douvikas",
+          "ruolo": "A",
+          "voto": 5.5,
+          "fantavoto": 5.5,
+          "club": "Como",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7017.png"
+        },
+        {
+          "nome": "Hermoso",
+          "ruolo": "D",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Roma",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4807.png"
+        },
+        {
+          "nome": "Alajbegovic",
+          "ruolo": "C",
+          "voto": 6.5,
+          "fantavoto": 7.5,
+          "club": "Juventus",
+          "assist": 1,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7436.png"
+        }
+      ],
+      "formazioneTrasferta": [
+        {
+          "nome": "Vicario",
+          "ruolo": "P",
+          "voto": 6,
+          "fantavoto": 5,
+          "club": "Juventus",
+          "golSubiti": 1,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4964.png"
+        },
+        {
+          "nome": "Miranda J.",
+          "ruolo": "D",
+          "voto": 6.5,
+          "fantavoto": 6.5,
+          "club": "Bologna",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4734.png"
+        },
+        {
+          "nome": "Spinazzola",
+          "ruolo": "D",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Napoli",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/1852.png"
+        },
+        {
+          "nome": "Dimarco",
+          "ruolo": "D",
+          "voto": 6.5,
+          "fantavoto": 6.5,
+          "club": "Inter",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/254.png"
+        },
+        {
+          "nome": "Rowe",
+          "ruolo": "C",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Atalanta",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6844.png"
+        },
+        {
+          "nome": "Taylor K.",
+          "ruolo": "C",
+          "voto": 6.5,
+          "fantavoto": 6.5,
+          "club": "Lazio",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7314.png"
+        },
+        {
+          "nome": "Rabiot",
+          "ruolo": "C",
+          "voto": 7,
+          "fantavoto": 10,
+          "club": "Milan",
+          "gol": 1,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2379.png"
+        },
+        {
+          "nome": "McKennie",
+          "ruolo": "C",
+          "voto": 5.5,
+          "fantavoto": 5,
+          "club": "Juventus",
+          "ammonizione": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4973.png"
+        },
+        {
+          "nome": "Krstovic",
+          "ruolo": "A",
+          "voto": 8,
+          "fantavoto": 15,
+          "club": "Atalanta",
+          "gol": 2,
+          "assist": 1,
+          "mvpLega": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6435.png"
+        },
+        {
+          "nome": "Ramos G.",
+          "ruolo": "A",
+          "voto": 6,
+          "fantavoto": 5.5,
+          "club": "Milan",
+          "ammonizione": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6397.png"
+        },
+        {
+          "nome": "Pellegrino M.",
+          "ruolo": "A",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Fiorentina",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7023.png"
+        }
+      ]
+    },
+    {
+      "casa": "aston-birra",
+      "trasferta": "si-gonfia-la-rete",
+      "punteggioCasa": 74,
+      "punteggioTrasferta": 75,
+      "golCasa": 3,
+      "golTrasferta": 3,
+      "formazioneCasa": [
+        {
+          "nome": "Mandas",
+          "ruolo": "P",
+          "voto": 6.5,
+          "fantavoto": 5.5,
+          "club": "Lazio",
+          "golSubiti": 1,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6482.png"
+        },
+        {
+          "nome": "Comuzzo",
+          "ruolo": "D",
+          "voto": 5.5,
+          "fantavoto": 5.5,
+          "club": "Torino",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6495.png"
+        },
+        {
+          "nome": "Kristensen T.",
+          "ruolo": "D",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Atalanta",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6485.png"
+        },
+        {
+          "nome": "Gila",
+          "ruolo": "D",
+          "voto": 6.5,
+          "fantavoto": 6.5,
+          "club": "Milan",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5833.png"
+        },
+        {
+          "nome": "Gonzalez N.",
+          "ruolo": "C",
+          "voto": 5.5,
+          "fantavoto": 5.5,
+          "club": "Juventus",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4179.png"
+        },
+        {
+          "nome": "Kessiè",
+          "ruolo": "C",
+          "voto": 7,
+          "fantavoto": 10,
+          "club": "Atalanta",
+          "gol": 1,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/1850.png"
+        },
+        {
+          "nome": "Soulè",
+          "ruolo": "A",
+          "voto": 5.5,
+          "fantavoto": 5,
+          "club": "Roma",
+          "ammonizione": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5734.png"
+        },
+        {
+          "nome": "Dybala",
+          "ruolo": "A",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Roma",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/309.png"
+        },
+        {
+          "nome": "Thuram",
+          "ruolo": "A",
+          "voto": 7,
+          "fantavoto": 10,
+          "club": "Inter",
+          "gol": 1,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4871.png"
+        },
+        {
+          "nome": "Chalobah T.",
+          "ruolo": "D",
+          "voto": 6.5,
+          "fantavoto": 6.5,
+          "club": "Como",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5641.png"
+        },
+        {
+          "nome": "El Shaarawy",
+          "ruolo": "C",
+          "voto": 7,
+          "fantavoto": 7,
+          "club": "Genoa",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/795.png"
+        }
+      ],
+      "formazioneTrasferta": [
+        {
+          "nome": "De Gea",
+          "ruolo": "P",
+          "voto": 5.5,
+          "fantavoto": 3.5,
+          "club": "Fiorentina",
+          "golSubiti": 2,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2521.png"
+        },
+        {
+          "nome": "Tavares N.",
+          "ruolo": "D",
+          "voto": 7,
+          "fantavoto": 10,
+          "club": "Lazio",
+          "gol": 1,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5620.png"
+        },
+        {
+          "nome": "Pavlovic",
+          "ruolo": "D",
+          "voto": 6,
+          "fantavoto": 5.5,
+          "club": "Milan",
+          "ammonizione": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5022.png"
+        },
+        {
+          "nome": "Wesley",
+          "ruolo": "D",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Roma",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7181.png"
+        },
+        {
+          "nome": "Baturina",
+          "ruolo": "C",
+          "voto": 5.5,
+          "fantavoto": 5,
+          "club": "Como",
+          "ammonizione": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7126.png"
+        },
+        {
+          "nome": "Ekkelenkamp",
+          "ruolo": "C",
+          "voto": 7,
+          "fantavoto": 10,
+          "club": "Udinese",
+          "gol": 1,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6684.png"
+        },
+        {
+          "nome": "Mastantuono",
+          "ruolo": "C",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Fiorentina",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7078.png"
+        },
+        {
+          "nome": "Davis K.",
+          "ruolo": "A",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Udinese",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5637.png"
+        },
+        {
+          "nome": "Hojlund",
+          "ruolo": "A",
+          "voto": 6.5,
+          "fantavoto": 6.5,
+          "club": "Napoli",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6052.png"
+        },
+        {
+          "nome": "Beto",
+          "ruolo": "A",
+          "voto": 5.5,
+          "fantavoto": 5.5,
+          "club": "Fiorentina",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5694.png"
+        },
+        {
+          "nome": "Sucic P.",
+          "ruolo": "C",
+          "voto": 7,
+          "fantavoto": 10,
+          "club": "Inter",
+          "gol": 1,
+          "mvpLega": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7070.png"
+        }
+      ]
+    },
+    {
+      "casa": "atletico-madrink",
+      "trasferta": "manchester-squiddi",
+      "punteggioCasa": 72,
+      "punteggioTrasferta": 71.5,
+      "golCasa": 2,
+      "golTrasferta": 2,
+      "formazioneCasa": [
+        {
+          "nome": "Carnesecchi",
+          "ruolo": "P",
+          "voto": 6,
+          "fantavoto": 5,
+          "club": "Atalanta",
+          "golSubiti": 1,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4431.png"
+        },
+        {
+          "nome": "Carlos Augusto",
+          "ruolo": "D",
+          "voto": 6.5,
+          "fantavoto": 6.5,
+          "club": "Inter",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5877.png"
+        },
+        {
+          "nome": "Bisseck",
+          "ruolo": "D",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Inter",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6217.png"
+        },
+        {
+          "nome": "Mangas",
+          "ruolo": "D",
+          "voto": 6.5,
+          "fantavoto": 6.5,
+          "club": "Monza",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7485.png"
+        },
+        {
+          "nome": "Frattesi",
+          "ruolo": "C",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Lazio",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2848.png"
+        },
+        {
+          "nome": "Ederson D.S.",
+          "ruolo": "C",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Atalanta",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5792.png"
+        },
+        {
+          "nome": "Orsolini",
+          "ruolo": "C",
+          "voto": 7.5,
+          "fantavoto": 10.5,
+          "club": "Bologna",
+          "gol": 1,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2167.png"
+        },
+        {
+          "nome": "Diao",
+          "ruolo": "A",
+          "voto": 6,
+          "fantavoto": 5.5,
+          "club": "Como",
+          "ammonizione": true,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6967.png"
+        },
+        {
+          "nome": "Raimondo",
+          "ruolo": "A",
+          "voto": 5.5,
+          "fantavoto": 5.5,
+          "club": "Frosinone",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5436.png"
+        },
+        {
+          "nome": "Bonny",
+          "ruolo": "A",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Inter",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6669.png"
+        },
+        {
+          "nome": "Bernasconi",
+          "ruolo": "D",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Atalanta",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/7219.png"
+        }
+      ],
+      "formazioneTrasferta": [
+        {
+          "nome": "Couto",
+          "ruolo": "D",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Como",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6727.png"
+        },
+        {
+          "nome": "Di Lorenzo",
+          "ruolo": "D",
+          "voto": 6.5,
+          "fantavoto": 6.5,
+          "club": "Napoli",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/2816.png"
+        },
+        {
+          "nome": "Molina N.",
+          "ruolo": "D",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Roma",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4998.png"
+        },
+        {
+          "nome": "Moreira",
+          "ruolo": "C",
+          "voto": 6.5,
+          "fantavoto": 6.5,
+          "club": "Milan",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6372.png"
+        },
+        {
+          "nome": "Diouf",
+          "ruolo": "C",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Inter",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6274.png"
+        },
+        {
+          "nome": "Chukwueze",
+          "ruolo": "C",
+          "voto": 5.5,
+          "fantavoto": 5.5,
+          "club": "Milan",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4856.png"
+        },
+        {
+          "nome": "Laurientè",
+          "ruolo": "A",
+          "voto": 6.5,
+          "fantavoto": 6.5,
+          "club": "Sassuolo",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/6060.png"
+        },
+        {
+          "nome": "Kolo Muani",
+          "ruolo": "A",
+          "voto": 6,
+          "fantavoto": 9,
+          "club": "Juventus",
+          "gol": 1,
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5951.png"
+        },
+        {
+          "nome": "De Ketelaere",
+          "ruolo": "A",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Atalanta",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/5995.png"
+        },
+        {
+          "nome": "Gollini",
+          "ruolo": "P",
+          "voto": 6.5,
+          "fantavoto": 7.5,
+          "club": "Roma",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/610.png"
+        },
+        {
+          "nome": "McTominay",
+          "ruolo": "C",
+          "voto": 6,
+          "fantavoto": 6,
+          "club": "Napoli",
+          "immagine": "https://content.fantacalcio.it/web/campioncini/21/large/4777.png"
+        }
+      ]
+    }
+  ]
+}

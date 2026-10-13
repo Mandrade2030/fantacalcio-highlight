@@ -107,6 +107,7 @@ Le giornate in `dati/giornata-N.json` vengono importate dalla lega su leghe.fant
 - Indici di `b`: 0 ammonizioni, 1 espulsioni, 2 gol, 3 gol subiti, 4 rigori parati, 5 rigori sbagliati, 6 rigori segnati, 7 autogol, 8 gol vittoria, 9 gol pareggio, 10 porta inviolata, 11 ultimo passaggio, 12 assist soft, 13 assist, 14 assist gold, 15 MVP.
 - Giocatori: `GET /onboarding/v1/league/players` → `players[{id,name,fcrle(1 P,2 D,3 C,4 A),tname,img}]`. Squadre: `GET /onboarding/v1/league/teams` → `data[{id,n,nu,l}]`.
 - Header richiesti: `app_key` e `Authorization: Bearer <token di lega>` (li ha la sessione del sito).
+- Come prenderli (ott. 2026): sostituire `XMLHttpRequest.prototype.setRequestHeader` per registrare gli header, poi far navigare la SPA cliccando una voce del menu (es. "Classifica"): il vecchio trucco `history.pushState` + `popstate` non fa più partire le chiamate. Il calendario completo con i risultati è anche in `window.compData.fixtures` della vecchia pagina `/ciempions-fig/calendario?id=645622`.
 - Figurine: `https://content.fantacalcio.it/web/campioncini/21/large/{img}.png` (512×512, sfondo trasparente). Stemmi: `https://d2lhpso9w1g8dk.cloudfront.net/web/risorse/squadra_2026/{l}`.
 - Regola gol della lega: 66 = 1 gol, poi +1 ogni **4** punti (verificato su tutti gli scontri).
 - Id squadre fantacalcio → id progetto: in `lega.json` (`idFantacalcio`).
@@ -181,6 +182,10 @@ npm run render:giornata -- percorso/altra-giornata.json
 - Piccoli passi visibili: ogni modifica deve produrre qualcosa da guardare nello Studio.
 - Il movimento fa la qualità: spring, easing, timing. Niente animazioni lineari.
 - Non usare `Math.random()` nei componenti: il render deve restare deterministico.
+
+## Aggiornamento automatico del server
+- `tools/auto-aggiorna.sh` (cron ogni 5 minuti, installato una volta con `bash tools/installa-auto-aggiorna.sh`): se GitHub ha commit nuovi fa merge, tiene i file di `dati/` modificati sul server, e ricostruisce il container solo se è cambiato codice. Log in `~/fh-aggiorna.log`.
+- Quindi per portare qualcosa sul server (codice o `dati/giornata-N.json`, `formazioni-N.json`) basta il push su `main`.
 
 ## Online (server)
 `Dockerfile` + `docker-compose.yml` + `ONLINE.md`. Con `FH_SERVER=1` l'app esige `FH_PASSWORD` (login con cookie firmato, 5 tentativi sbagliati = blocco 1 minuto), nasconde "Apri cartella" e le voci di Windows. `/healthz` è pubblico. Volumi: `dati/`, `out/`, `voce/`. Tunnel https gratuito con `--profile online` (cloudflared). L'import automatico da leghe.fantacalcio.it NON gira sul server (usa il login del browser di Claude).
