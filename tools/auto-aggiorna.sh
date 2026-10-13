@@ -1,5 +1,5 @@
 #!/bin/bash
-# Aggiorna il server da GitHub quando ci sono novità (lo lancia cron ogni 30 minuti).
+# Aggiorna il server da GitHub quando ci sono novità (lo lancia cron una volta al giorno alle 9 ora italiana; si può lanciare anche a mano).
 # - i file in dati/ modificati dall'app sul server hanno la precedenza su quelli del repo
 # - il container si ricostruisce solo se è cambiato del codice (i dati sono un volume)
 cd "$(dirname "$0")/.." || exit 1

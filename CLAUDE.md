@@ -184,8 +184,8 @@ npm run render:giornata -- percorso/altra-giornata.json
 - Non usare `Math.random()` nei componenti: il render deve restare deterministico.
 
 ## Aggiornamento automatico del server
-- `tools/auto-aggiorna.sh` (cron ogni 30 minuti, installato una volta con `bash tools/installa-auto-aggiorna.sh`): se GitHub ha commit nuovi fa merge, tiene i file di `dati/` modificati sul server, e ricostruisce il container solo se è cambiato codice. Log in `~/fh-aggiorna.log`.
-- Quindi per portare qualcosa sul server (codice o `dati/giornata-N.json`, `formazioni-N.json`) basta il push su `main`.
+- `tools/auto-aggiorna.sh` (cron una volta al giorno alle 9 ora italiana: ogni ora cron controlla solo l'ora di Roma e parte alle 9, qualunque sia il fuso del server; installato una volta con `bash tools/installa-auto-aggiorna.sh`): se GitHub ha commit nuovi fa merge, tiene i file di `dati/` modificati sul server, e ricostruisce il container solo se è cambiato codice. Log in `~/fh-aggiorna.log`.
+- Quindi per portare qualcosa sul server (codice o `dati/giornata-N.json`, `formazioni-N.json`) basta il push su `main` (arriva entro le 9 del giorno dopo; subito: `bash tools/auto-aggiorna.sh` sul server).
 
 ## Online (server)
 `Dockerfile` + `docker-compose.yml` + `ONLINE.md`. Con `FH_SERVER=1` l'app esige `FH_PASSWORD` (login con cookie firmato, 5 tentativi sbagliati = blocco 1 minuto), nasconde "Apri cartella" e le voci di Windows. `/healthz` è pubblico. Volumi: `dati/`, `out/`, `voce/`. Tunnel https gratuito con `--profile online` (cloudflared). L'import automatico da leghe.fantacalcio.it NON gira sul server (usa il login del browser di Claude).
