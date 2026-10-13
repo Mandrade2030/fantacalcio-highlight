@@ -497,6 +497,8 @@ const creaJobPre = (pre) => {
 };
 
 const attesa = (ms) => new Promise((r) => setTimeout(r, ms));
+/** invii del bot in corso o recenti (per non mandare due volte la stessa cosa) */
+const invii = new Map();
 
 /** Sposta il file appena renderizzato al suo posto. Se il vecchio è bloccato (aperto in un player,
  *  in anteprima in Esplora risorse, ecc.) riprova; se resta bloccato salva con un nome nuovo. */
@@ -776,20 +778,46 @@ const server = http.createServer(async (req, res) => {
     // messaggi del bot: "pre" (carica pre-giornata) e "fine" (risultati + highlight). Anteprima e invio a "prova" (te) o "gruppo"
     const mMsg = path.match(/^\/api\/whatsapp\/messaggi\/(pre|fine)\/(\d+)$/);
     if (req.method === "GET" && mMsg) return json(res, 200, await passiBot(mMsg[1], Number(mMsg[2])));
+    // l'invio gira in background: la richiesta risponde subito (niente timeout del tunnel che fa ripartire tutto)
+    // e lo stesso invio non può partire due volte di fila (doppio tocco, richiesta ripetuta dal browser…)
     if (req.method === "POST" && path === "/api/whatsapp/messaggi") {
       const b = await corpo(req);
       const wa = leggiImpostazioni().whatsapp || {};
-      const dest = b.a === "gruppo" ? wa.gruppo : wa.prova;
-      if (!dest) throw new Error(b.a === "gruppo" ? "Scegli prima il gruppo." : "Scegli prima la chat di prova (la tua).");
-      const passi = await passiBot(b.tipo, Number(b.giornata));
+      const a = b.a === "gruppo" ? "gruppo" : "prova";
+      const dest = wa[a];
+      if (!dest) throw new Error(a === "gruppo" ? "Scegli prima il gruppo." : "Scegli prima la chat di prova (la tua).");
+      const n = Number(b.giornata);
+      const chiave = `${b.tipo}-${n}-${a}-${dest}`;
+      const prec = invii.get(chiave);
+      if (prec?.stato === "in corso") return json(res, 200, { ...prec, gia: "in corso" });
+      if (prec?.stato === "fatto" && Date.now() - prec.fine < 15 * 60000 && !b.ripeti) return json(res, 200, { ...prec, gia: "fatto" });
+      const passi = await passiBot(b.tipo, n);
       const manca = passi.find((p) => p.file && !existsSync(join(OUT, p.file)));
       if (manca) throw new Error(`Prima genera ${manca.file.split("/").pop()}.`);
-      for (const p of passi) {
-        const buffer = p.file ? readFileSync(join(OUT, p.file)) : null;
-        await inviaWhatsApp({ gruppo: dest, testo: p.testo, buffer, tipo: p.file ? MIME[extname(p.file).toLowerCase()] : null, scrive: p.file ? 1500 : Math.min(5000, 1200 + p.testo.length * 12) });
-        await attesa(p.file && p.file.endsWith(".mp4") ? 4000 : 1500);
-      }
-      return json(res, 200, { ok: true, messaggi: passi.length });
+      const inv = { chiave, tipo: b.tipo, giornata: n, a, stato: "in corso", fatti: 0, totale: passi.length, inizio: Date.now() };
+      invii.set(chiave, inv);
+      (async () => {
+        try {
+          for (const p of passi) {
+            if (inv.annulla) { inv.stato = "annullato"; break; }
+            const buffer = p.file ? readFileSync(join(OUT, p.file)) : null;
+            await inviaWhatsApp({ gruppo: dest, testo: p.testo, buffer, tipo: p.file ? MIME[extname(p.file).toLowerCase()] : null, scrive: p.file ? 1500 : Math.min(5000, 1200 + p.testo.length * 12) });
+            inv.fatti++;
+            await attesa(p.file && p.file.endsWith(".mp4") ? 4000 : 1500);
+          }
+          if (inv.stato === "in corso") inv.stato = "fatto";
+        } catch (e) {
+          inv.stato = "errore";
+          inv.errore = e.message;
+        }
+        inv.fine = Date.now();
+      })();
+      return json(res, 200, inv);
+    }
+    if (req.method === "GET" && path === "/api/whatsapp/invii") return json(res, 200, [...invii.values()].sort((x, y) => y.inizio - x.inizio).slice(0, 10));
+    if (req.method === "POST" && path === "/api/whatsapp/annulla") {
+      for (const inv of invii.values()) if (inv.stato === "in corso") inv.annulla = true;
+      return json(res, 200, { ok: true });
     }
     if (req.method === "POST" && path === "/api/whatsapp/esci") {
       await esciWhatsApp();

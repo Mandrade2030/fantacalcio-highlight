@@ -86,10 +86,14 @@
       const dove = $(a === "gruppo" ? "#waGruppo" : "#waProva").selectedOptions[0]?.textContent || "";
       if (a === "gruppo" && !confirm(`Mandare i messaggi ${tipo === "pre" ? "pre-giornata" : "di fine giornata"} (giornata ${num(tipo)}) a ${dove}?`)) return;
       document.querySelectorAll(".wa-manda").forEach((x) => (x.disabled = true));
-      nota(`Il bot sta scrivendo a ${dove}… (${tipo === "fine" ? "1-2 minuti, i video sono pesanti" : "circa 30 secondi"})`);
       try {
         const r = await api("/api/whatsapp/messaggi", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tipo, giornata: num(tipo), a }) });
-        nota(`Mandati ${r.messaggi} messaggi a ${dove} ✔`);
+        if (r.gia === "fatto" && !confirm(`Questi messaggi sono già stati mandati a ${dove} pochi minuti fa. Rimandarli?`)) {
+          nota("Non rimandati.");
+        } else {
+          if (r.gia === "fatto") await api("/api/whatsapp/messaggi", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tipo, giornata: num(tipo), a, ripeti: true }) });
+          await segui(r.chiave, dove);
+        }
       } catch (e) {
         nota(e.message, true);
       } finally {
@@ -97,6 +101,27 @@
       }
     }),
   );
+
+  // segue l'invio che gira sul server (anche se la pagina si chiude, il server continua da solo)
+  const segui = async (chiave, dove) => {
+    $("#waFerma").hidden = false;
+    for (let i = 0; i < 400; i++) {
+      const lista = await api("/api/whatsapp/invii").catch(() => []);
+      const inv = lista.find((x) => x.chiave === chiave);
+      if (!inv) break;
+      if (inv.stato === "in corso") nota(`Il bot sta scrivendo a ${dove}… ${inv.fatti}/${inv.totale}`);
+      else {
+        nota(inv.stato === "fatto" ? `Mandati ${inv.totale} messaggi a ${dove} ✔` : inv.stato === "annullato" ? `Invio fermato dopo ${inv.fatti}/${inv.totale}.` : `Errore: ${inv.errore}`, inv.stato === "errore");
+        break;
+      }
+      await new Promise((r) => setTimeout(r, 3000));
+    }
+    $("#waFerma").hidden = true;
+  };
+  $("#waFerma").addEventListener("click", async () => {
+    await api("/api/whatsapp/annulla", { method: "POST" });
+    nota("Fermo l'invio dopo il messaggio in corso…");
+  });
 
   $("#waEsci").addEventListener("click", async () => {
     if (!confirm("Scollegare il bot da WhatsApp? Dovrai riscansionare il QR.")) return;
