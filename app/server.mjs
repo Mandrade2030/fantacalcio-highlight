@@ -5,7 +5,7 @@
 import http from "node:http";
 import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, rmSync, statSync, unlinkSync, writeFileSync } from "node:fs";
-import { dirname, extname, join, normalize, resolve, sep } from "node:path";
+import { basename, dirname, extname, join, normalize, resolve, sep } from "node:path";
 import { createRequire } from "node:module";
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -497,6 +497,22 @@ const creaJobPre = (pre) => {
 };
 
 const attesa = (ms) => new Promise((r) => setTimeout(r, ms));
+/** Miniatura JPEG (piccola) di un video per l'anteprima su WhatsApp: un fotogramma dell'intro, niente spoiler.
+ *  Usa l'ffmpeg incluso in Remotion; salvata accanto al video come _miniatura-<nome>.jpg. Se fallisce, null. */
+const miniaturaVideo = (file) =>
+  new Promise((ok) => {
+    const dest = join(dirname(file), `_miniatura-${basename(file, extname(file))}.jpg`);
+    if (existsSync(dest) && statSync(dest).mtimeMs >= statSync(file).mtimeMs) return ok(readFileSync(dest));
+    const cmd = ["npx", "remotion", "ffmpeg", "-y", "-loglevel", "error", "-ss", "1.5", "-i", q(file), "-frames:v", "1", "-vf", "scale=240:-2", "-q:v", "5", q(dest)].join(" ");
+    const child = spawn(cmd, { cwd: ROOT, shell: true });
+    const t = setTimeout(() => child.kill(), 30000);
+    child.on("close", () => {
+      clearTimeout(t);
+      ok(existsSync(dest) ? readFileSync(dest) : null);
+    });
+    child.on("error", () => ok(null));
+  });
+
 /** invii del bot in corso o recenti (per non mandare due volte la stessa cosa) */
 const invii = new Map();
 
@@ -801,7 +817,8 @@ const server = http.createServer(async (req, res) => {
           for (const p of passi) {
             if (inv.annulla) { inv.stato = "annullato"; break; }
             const buffer = p.file ? readFileSync(join(OUT, p.file)) : null;
-            await inviaWhatsApp({ gruppo: dest, testo: p.testo, buffer, tipo: p.file ? MIME[extname(p.file).toLowerCase()] : null, scrive: p.file ? 1500 : Math.min(5000, 1200 + p.testo.length * 12) });
+            const miniatura = p.file?.endsWith(".mp4") ? await miniaturaVideo(join(OUT, p.file)) : null;
+            await inviaWhatsApp({ gruppo: dest, testo: p.testo, buffer, tipo: p.file ? MIME[extname(p.file).toLowerCase()] : null, scrive: p.file ? 1500 : Math.min(5000, 1200 + p.testo.length * 12), miniatura });
             inv.fatti++;
             await attesa(p.file && p.file.endsWith(".mp4") ? 4000 : 1500);
           }
@@ -836,7 +853,8 @@ const server = http.createServer(async (req, res) => {
           buffer = readFileSync(f);
           mime = MIME[extname(f).toLowerCase()] || "application/octet-stream";
         }
-        await inviaWhatsApp({ gruppo: b.gruppo || gruppoDef, testo: String(b.testo || ""), buffer, tipo: mime });
+        const miniatura = mime === "video/mp4" ? await miniaturaVideo(normalize(join(OUT, String(b.file)))) : null;
+        await inviaWhatsApp({ gruppo: b.gruppo || gruppoDef, testo: String(b.testo || ""), buffer, tipo: mime, miniatura });
         return json(res, 200, { ok: true });
       }
       // file caricato dal browser (immagine o video), testo e gruppo nella query

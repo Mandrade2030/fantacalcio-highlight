@@ -197,6 +197,8 @@ npm run render:giornata -- percorso/altra-giornata.json
 - Destinazioni: gruppi + chat private di chi ha scritto al bot (salvate in `dati/whatsapp-chat.json`, utile per le prove); `inviaWhatsApp` accetta anche un numero. `scrive: ms` mostra "sta scrivendo…" prima del messaggio.
 - Messaggi del bot (`app/messaggi.mjs`): `messaggiPregiornata` (carica + copertina + programma) e `messaggiFineGiornata` (apertura, immagine risultati+classifica, i 4 highlight col commento, top/flop). API: `GET /api/whatsapp/messaggi/:tipo/:n` (tipo `pre`|`fine`, anteprima), `POST /api/whatsapp/messaggi {tipo, giornata, a:"prova"|"gruppo"}`. Due destinazioni salvate in impostazioni: `whatsapp.gruppo` e `whatsapp.prova` (la chat di Davide): prima si manda a sé, poi al gruppo.
 - (vecchio) Carica pre-giornata: `app/messaggi.mjs` → `messaggiPregiornata(pre, lega)` (frasi deterministiche in base a classifica, capolista, ultimo, zero punti, capitani). `GET /api/whatsapp/pregiornata/:n` anteprima, `POST /api/whatsapp/pregiornata {giornata, chat?}` manda apertura + copertina + programma + chiusura. Pulsanti nel pannello del bot.
+- Video: si mandano con `jpegThumbnail` (fotogramma a 1,5 s dell'intro, niente spoiler) generato da `miniaturaVideo()` con l'ffmpeg di Remotion (`npx remotion ffmpeg`), salvato come `_miniatura-<nome>.jpg`: senza miniatura WhatsApp mostra un riquadro sfocato. Il download automatico dipende dalle impostazioni di chi riceve.
+- Invii in background (`invii`, `GET /api/whatsapp/invii`, `POST /api/whatsapp/annulla`): lo stesso invio non parte due volte (in corso, o già fatto negli ultimi 15 minuti senza `ripeti`).
 - Prova rapida sul server: `sudo docker exec fantacalcio-highlight-app-1 node tools/prova-whatsapp.mjs`.
 
 ## Locandina pre-giornata

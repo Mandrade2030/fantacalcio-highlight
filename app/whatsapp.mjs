@@ -138,7 +138,7 @@ export const gruppiWhatsApp = async () => {
 };
 
 /** Manda testo, immagine o video a un gruppo (jid ...@g.us) o a una chat privata (jid o numero) */
-export const inviaWhatsApp = async ({ gruppo, testo = "", buffer = null, tipo = null, scrive = 0 }) => {
+export const inviaWhatsApp = async ({ gruppo, testo = "", buffer = null, tipo = null, scrive = 0, miniatura = null }) => {
   if (!sock || !stato.connesso) throw new Error("Il bot WhatsApp non è collegato.");
   const jid = jidDa(gruppo);
   if (!jid) throw new Error("Scegli il gruppo (o la chat) a cui mandare.");
@@ -153,7 +153,11 @@ export const inviaWhatsApp = async ({ gruppo, testo = "", buffer = null, tipo = 
   }
   let msg;
   if (buffer && tipo?.startsWith("image/")) msg = { image: buffer, caption: testo, mimetype: tipo };
-  else if (buffer && tipo?.startsWith("video/")) msg = { video: buffer, caption: testo, mimetype: "video/mp4" };
+  else if (buffer && tipo?.startsWith("video/")) {
+    // con la miniatura WhatsApp mostra subito l'anteprima del video (senza resta un riquadro sfocato)
+    msg = { video: buffer, caption: testo, mimetype: "video/mp4", width: 1080, height: 1920 };
+    if (miniatura) msg.jpegThumbnail = miniatura;
+  }
   else if (testo.trim()) msg = { text: testo };
   else throw new Error("Niente da mandare.");
   await sock.sendMessage(gruppo, msg);
