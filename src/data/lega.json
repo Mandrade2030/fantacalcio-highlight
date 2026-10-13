@@ -209,6 +209,43 @@
         "pianto": "allenatori/do-flamengo/pianto.webp",
         "rabbia": "allenatori/do-flamengo/rabbia.webp",
         "grinta": "allenatori/do-flamengo/grinta.webp"
+      },
+      "persona": {
+        "nome": "Matteo",
+        "pupilli": [
+          "Martinez L.",
+          "Paz N."
+        ],
+        "tratti": [
+          "simpaticissimo, grande carisma",
+          "amico di Ema",
+          "all'asta attento e organizzato, con una tattica precisa e un occhio per i giocatori esotici",
+          "squadra fortissima quest'anno"
+        ],
+        "pre": [
+          "Matteo arriva con tattica, organizzazione e un sorriso: un avversario simpaticissimo, purtroppo. 😄",
+          "Il Do Flamengo di Matteo: esotico, organizzato e pericolosissimo. 🌴",
+          "Matteo ha preparato l'asta come una finale mondiale. Ora si raccoglie. 🗂️"
+        ],
+        "vince": [
+          "Matteo vince col sorriso: carisma, organizzazione e bonus a pioggia. 😎",
+          "Il Do Flamengo balla la samba sulla lega. 💃🌴"
+        ],
+        "perde": [
+          "Anche le squadre fortissime inciampano: Matteo ride lo stesso, gli altri un po' di più. 😅",
+          "Samba stonata per il Do Flamengo. Matteo, offri tu la caipirinha. 🍹"
+        ],
+        "pupilloTop": "🌴 *{giocatore} trascina il Do Flamengo*: {fv} di fantavoto. L'asta di Matteo dà i suoi frutti."
+      },
+      "tormentoni": {
+        "quandoVince": [
+          "Matteo vince col sorriso: carisma, organizzazione e bonus a pioggia.",
+          "Il Do Flamengo balla la samba sulla lega."
+        ],
+        "quandoPerde": [
+          "Anche le squadre fortissime inciampano: Matteo ride lo stesso, gli altri un po' di più.",
+          "Samba stonata per il Do Flamengo. Matteo, offri tu la caipirinha."
+        ]
       }
     },
     {
@@ -410,6 +447,40 @@
         "pianto": "allenatori/manchester-squiddi/pianto.webp",
         "rabbia": "allenatori/manchester-squiddi/rabbia.webp",
         "grinta": "allenatori/manchester-squiddi/grinta.webp"
+      },
+      "persona": {
+        "nome": "Ale",
+        "tifo": "Inter",
+        "pupilli": [],
+        "tratti": [
+          "grande appassionato del Como, ne prende i giocatori e ci crede tantissimo",
+          "convinto che i suoi acquisti siano sempre colpi vincenti",
+          "bravo a gestire i crediti",
+          "interista"
+        ],
+        "pre": [
+          "Ale ha già spiegato a tutti perché i suoi acquisti sono colpi geniali. Oggi deve dimostrarlo. 🧠",
+          "Ale schiera la sua colonia del Como: sul lago si sentono già i cori. 🏞️",
+          "Bilancio perfetto, crediti gestiti al centesimo: Ale gioca il fanta come un amministratore delegato. 📊"
+        ],
+        "vince": [
+          "Ale aveva ragione (di nuovo) e ve lo ricorderà fino a Natale. 🧠📈",
+          "Bilancio in attivo e tre punti in tasca: Ale gestisce il fanta come una SPA. 💼"
+        ],
+        "perde": [
+          "Ale proverà a convincervi che in realtà era una vittoria. Non ascoltatelo. 🙉",
+          "Sconfitta per Ale: dal lago di Como arriva solo nebbia. 🌫️"
+        ]
+      },
+      "tormentoni": {
+        "quandoVince": [
+          "Ale aveva ragione (di nuovo) e ve lo ricorderà fino a Natale.",
+          "Bilancio in attivo e tre punti in tasca: Ale gestisce il fanta come una SPA."
+        ],
+        "quandoPerde": [
+          "Ale proverà a convincervi che in realtà era una vittoria. Non ascoltatelo.",
+          "Sconfitta per Ale: dal lago di Como arriva solo nebbia."
+        ]
       }
     },
     {
@@ -611,6 +682,40 @@
         "pianto": "allenatori/milano-boys/pianto.webp",
         "rabbia": "allenatori/milano-boys/rabbia.webp",
         "grinta": "allenatori/milano-boys/grinta.webp"
+      },
+      "persona": {
+        "nome": "Gianmarco",
+        "tifo": "Inter",
+        "pupilli": [],
+        "tratti": [
+          "campione in carica, ma nessuno lo ricorda come un grande campione",
+          "interista",
+          "acquisti spesso opinabili, quest'anno anche un giocatore rotto per 4 mesi",
+          "competitivo quasi al limite della truffa"
+        ],
+        "pre": [
+          "Il campione in carica Gianmarco scende in campo. Sì, ha vinto lui l'anno scorso. No, nessuno se lo ricorda. 🏆❓",
+          "Gianmarco è pronto a tutto pur di vincere: il VAR della lega è già allertato. 📺🚨",
+          "Gianmarco schiera la formazione. Quello rotto per quattro mesi, per fortuna, resta in infermeria. 🩼"
+        ],
+        "vince": [
+          "Gianmarco vince e il VAR della lega ricontrolla tutto due volte. 🧐",
+          "Il campione in carica si ricorda di esserlo. Gli altri un po' meno. 🏆"
+        ],
+        "perde": [
+          "Gianmarco perde: magari schierava quello in infermeria e andava meglio. 🩼",
+          "Campione in carica, dicono. Il fantacalcio ha la memoria corta. 🏆💨"
+        ]
+      },
+      "tormentoni": {
+        "quandoVince": [
+          "Gianmarco vince e il VAR della lega ricontrolla tutto due volte.",
+          "Il campione in carica si ricorda di esserlo. Gli altri un po' meno."
+        ],
+        "quandoPerde": [
+          "Gianmarco perde: magari schierava quello in infermeria e andava meglio.",
+          "Campione in carica, dicono. Il fantacalcio ha la memoria corta."
+        ]
       }
     },
     {
@@ -810,6 +915,42 @@
         "pianto": "allenatori/atletico-madrink/pianto.webp",
         "rabbia": "allenatori/atletico-madrink/rabbia.webp",
         "grinta": "allenatori/atletico-madrink/grinta.webp"
+      },
+      "persona": {
+        "nome": "Luca",
+        "pupilli": [
+          "Orsolini"
+        ],
+        "tratti": [
+          "porta e difesa sempre fortissime, forse troppo",
+          "Orsolini è il suo talismano: lo prende ogni anno a qualsiasi prezzo",
+          "ci mette tanto impegno",
+          "non sempre fortunato negli anni passati, ma quest'anno ha una buona squadra"
+        ],
+        "pre": [
+          "Luca blinda la porta: la sua difesa è un caveau e la chiave ce l'ha solo Orsolini. 🔐",
+          "Ogni anno, a qualsiasi prezzo: Orsolini è di Luca. Oggi il talismano deve brillare. 🍀",
+          "Luca ci mette l'anima: quest'anno la squadra c'è, ora servono i punti. 💪"
+        ],
+        "vince": [
+          "Muro difensivo + Orsolini = Luca felice. La formula non cambia mai. 🧱🍀",
+          "Luca ci mette impegno e oggi il fanta lo ripaga. Applausi. 👏"
+        ],
+        "perde": [
+          "Luca ha costruito una difesa da caveau, ma davanti qualcuno doveva pur segnare. 🔐❌",
+          "Orsolini, il talismano, stavolta è rimasto in tasca. 🍀💤"
+        ],
+        "pupilloTop": "🍀 *Orsolini non tradisce mai*: {fv} di fantavoto. Luca lo ricomprerà anche tra dieci anni, a qualsiasi prezzo.",
+        "pupilloFlop": "🍀 Il talismano Orsolini si è inceppato ({fv}). Luca, prova a strofinarlo."
+      },
+      "tormentoni": {
+        "quandoVince": [
+          "Luca ci mette impegno e oggi il fanta lo ripaga. Applausi.",
+          "Muro difensivo e tre punti: la formula di Luca non cambia mai."
+        ],
+        "quandoPerde": [
+          "Luca ha costruito una difesa da caveau, ma davanti qualcuno doveva pur segnare."
+        ]
       }
     },
     {
@@ -1015,6 +1156,42 @@
         "pianto": "allenatori/pan-fc/pianto.webp",
         "rabbia": "allenatori/pan-fc/rabbia.webp",
         "grinta": "allenatori/pan-fc/grinta.webp"
+      },
+      "persona": {
+        "nome": "Davide",
+        "tifo": "Milan",
+        "pupilli": [
+          "Krstovic"
+        ],
+        "tratti": [
+          "la squadra prende il nome da Pan, il suo cane",
+          "definisce Krstovic un fenomeno: il dio Krstovic",
+          "fantacalcio sempre equilibrato e di buon livello, a parte l'anno scorso",
+          "milanista"
+        ],
+        "pre": [
+          "Pan Fc scende in campo con la benedizione del cane Pan 🐶: chi gli tocca la ciotola, paga.",
+          "Davide ha acceso un cero al dio Krstovic 🕯️. Gli altri sono avvisati.",
+          "Davide vuole cancellare l'anno scorso: qui si torna al fanta equilibrato dei tempi d'oro. ⚖️"
+        ],
+        "vince": [
+          "Il dio Krstovic ha parlato e Pan esulta: stasera crocchette doppie 🐶🦴.",
+          "Davide torna quello degli anni d'oro: equilibrio, cervello e un pizzico di Krstovic. 🧠"
+        ],
+        "perde": [
+          "Pan ha ringhiato tutta la partita, ma non è bastato 🐶. Davide, l'anno scorso è finito: non ricominciare.",
+          "Sconfitta per Pan Fc: il dio Krstovic oggi era in ferie. 🏖️"
+        ],
+        "pupilloTop": "🕯️ *Il dio {giocatore} ha parlato*: {fv} di fantavoto. Davide l'aveva detto, e adesso non smetterà più di ripeterlo.",
+        "pupilloFlop": "🕯️ Il dio {giocatore} oggi ha preso un giorno di riposo ({fv}). Davide, la fede si vede nei momenti difficili."
+      },
+      "tormentoni": {
+        "quandoVince": [
+          "Davide torna quello degli anni d'oro: equilibrio e cervello. Il cane Pan approva."
+        ],
+        "quandoPerde": [
+          "Pan ha ringhiato tutta la partita, ma non è bastato. Davide, l'anno scorso è finito: non ricominciare."
+        ]
       }
     },
     {
@@ -1217,6 +1394,41 @@
         "pianto": "allenatori/aston-birra/pianto.webp",
         "rabbia": "allenatori/aston-birra/rabbia.webp",
         "grinta": "allenatori/aston-birra/grinta.webp"
+      },
+      "persona": {
+        "nome": "Erik",
+        "tifo": "Milan",
+        "pupilli": [],
+        "tratti": [
+          "Erik con la K",
+          "milanista sfegatato, a volte prende troppi giocatori del Milan",
+          "negli anni passati si è dimenticato la formazione",
+          "grande appassionato di calcio",
+          "quest'anno grande campagna acquisti"
+        ],
+        "pre": [
+          "Erik (con la K) ha messo la formazione? Qualcuno controlli, per sicurezza. ⏰",
+          "Erik schiera il suo cuore rossonero: più Milan che Aston Birra. 🔴⚫",
+          "Grande campagna acquisti per Erik: adesso basta ricordarsi di schierarla. 📝"
+        ],
+        "vince": [
+          "Erik si è ricordato la formazione ed ecco il risultato. Sveglia puntata anche la prossima. ⏰✅",
+          "Cin cin all'Aston Birra: Erik brinda con una bionda. 🍺"
+        ],
+        "perde": [
+          "L'Aston Birra stasera annega i dispiaceri. 🍺😢 Erik, almeno la formazione l'avevi messa.",
+          "Erik ha il cuore rossonero e la classifica in rosso. 🔴📉"
+        ]
+      },
+      "tormentoni": {
+        "quandoVince": [
+          "Erik si è ricordato la formazione ed ecco il risultato. Sveglia puntata anche la prossima.",
+          "Cin cin all'Aston Birra: Erik brinda con una bionda."
+        ],
+        "quandoPerde": [
+          "L'Aston Birra stasera annega i dispiaceri. Erik, almeno la formazione l'avevi messa.",
+          "Erik ha il cuore rossonero e la classifica in rosso."
+        ]
       }
     },
     {
@@ -1422,6 +1634,45 @@
         "pianto": "allenatori/aquafan/pianto.webp",
         "rabbia": "allenatori/aquafan/rabbia.webp",
         "grinta": "allenatori/aquafan/grinta.webp"
+      },
+      "persona": {
+        "nome": "Giuseppe",
+        "tifo": "Juventus",
+        "pupilli": [
+          "Malen"
+        ],
+        "tratti": [
+          "juventino",
+          "matricola: primo anno con il gruppo",
+          "ha puntato tutto su Malen",
+          "squadra competitiva con un grandissimo attacco",
+          "all'asta ha alzato i prezzi agli altri"
+        ],
+        "pre": [
+          "Giuseppe ha messo tutto su Malen: se segna è un genio, se no... è stato bello. 🎰",
+          "La matricola juventina carica l'attacco più pesante della lega. Fino alla fine? ⚪⚫",
+          "Giuseppe all'asta faceva salire i prezzi a tutti: oggi vediamo se sa anche vincere. 💸"
+        ],
+        "vince": [
+          "Giuseppe all-in su Malen e il banco salta: la matricola fa paura. 🎰💰",
+          "Fino alla fine, diceva Giuseppe. Aveva ragione. ⚪⚫"
+        ],
+        "perde": [
+          "Il piano Malen fa acqua (siamo pur sempre all'Aquafan). 💦",
+          "Battesimo di fuoco per la matricola Giuseppe: benvenuto nella Ciempions Fig. 🔥"
+        ],
+        "pupilloTop": "🎰 *All-in riuscito*: {giocatore} fa {fv} di fantavoto. Giuseppe incassa la vincita.",
+        "pupilloFlop": "🎰 L'all-in su {giocatore} oggi non paga ({fv}). Giuseppe, il banco vince sempre."
+      },
+      "tormentoni": {
+        "quandoVince": [
+          "Fino alla fine, diceva Giuseppe. Aveva ragione.",
+          "La matricola Giuseppe fa già paura a tutta la lega."
+        ],
+        "quandoPerde": [
+          "Battesimo di fuoco per la matricola Giuseppe: benvenuto nella Ciempions Fig.",
+          "Il piano di Giuseppe fa acqua: siamo pur sempre all'Aquafan."
+        ]
       }
     },
     {
@@ -1627,6 +1878,40 @@
         "pianto": "allenatori/si-gonfia-la-rete/pianto.webp",
         "rabbia": "allenatori/si-gonfia-la-rete/rabbia.webp",
         "grinta": "allenatori/si-gonfia-la-rete/grinta.webp"
+      },
+      "persona": {
+        "nome": "Ema",
+        "pupilli": [],
+        "tratti": [
+          "campione indiscusso del fantacalcio, sempre nelle prime posizioni",
+          "compra giocatori esotici e giovanissimi che diventano macchine da bonus",
+          "molto preparato, disponibile, aiuta tutti con le regole",
+          "all'asta alza i prezzi per disturbare gli altri",
+          "amico di Matteo"
+        ],
+        "pre": [
+          "Ema, il campione indiscusso, ha schierato tre giocatori che conosce solo lui. Tra un mese li vorrete tutti. 🔮",
+          "Attenzione: Ema è in campo. Quando si parla di fanta, gli altri prendono appunti. 📝",
+          "Ema all'asta vi ha fatto pagare tutto il doppio. Oggi vi fa pagare anche i punti. 💸"
+        ],
+        "vince": [
+          "Ema vince e nessuno si stupisce. Il maestro dà lezione anche oggi. 🎓",
+          "Un altro sconosciuto di Ema si trasforma in macchina da bonus. Come fa? 🔮"
+        ],
+        "perde": [
+          "Anche il maestro sbaglia: festeggiate, capita una volta a stagione. 🎉",
+          "Ema perde: il suo radar per i giocatori esotici stavolta ha preso un abbaglio. 🔭"
+        ]
+      },
+      "tormentoni": {
+        "quandoVince": [
+          "Ema vince e nessuno si stupisce. Il maestro dà lezione anche oggi.",
+          "Un altro sconosciuto di Ema si trasforma in macchina da bonus. Come fa?"
+        ],
+        "quandoPerde": [
+          "Anche il maestro sbaglia: festeggiate, capita una volta a stagione.",
+          "Ema perde: il suo radar per i giocatori esotici stavolta ha preso un abbaglio."
+        ]
       }
     }
   ],

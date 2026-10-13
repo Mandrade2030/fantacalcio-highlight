@@ -349,7 +349,8 @@ const creaJob = (g, scontri, tipi) => {
 const passiBot = async (tipo, n) => {
   if (tipo === "fine") {
     if (!existsSync(fileGiornata(n))) throw new Error(`La giornata ${n} non è ancora stata importata.`);
-    return messaggiFineGiornata(propsRisultati(JSON.parse(readFileSync(fileGiornata(n), "utf8"))), leggiLega());
+    const g = JSON.parse(readFileSync(fileGiornata(n), "utf8"));
+    return messaggiFineGiornata(propsRisultati(g), leggiLega(), true, g);
   }
   return messaggiPregiornata(applicaFormazioni(bozzaPre(n), await leggiFormazioni(n)), leggiLega());
 };

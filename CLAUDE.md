@@ -205,6 +205,10 @@ npm run render:giornata -- percorso/altra-giornata.json
 - **Formazioni vere**: `dati/formazioni-N.json` (`{giornata, aggiornato, squadre:{<id>:{capitano,vice,modulo,titolari[]}}}`), prodotto da `tools/formazioni-browser.js` eseguito nella pagina di leghe.fantacalcio.it loggata (imposta prima `window.__giornata = N`). Il server prende la copia più recente tra locale e GitHub raw (`main/dati/formazioni-N.json`, o `FH_FORMAZIONI_URL`): quindi per aggiornare il server basta fare push del file.
 - Regola 4 big: capitano + 3 titolari più pagati; senza formazione i 4 più pagati della rosa. Le formazioni si applicano sia all'apertura del pannello sia a ogni "Genera" (`applicaFormazioni`), tranne sulle squadre cambiate a mano nell'app (`manuale: true`).
 
+## Profili dei presidenti
+- `dati/PROFILI.md` (riassunto leggibile) e `lega.json` → `persona` per squadra: `nome` vero (usato nei messaggi del bot al posto del nickname), `tifo`, `pupilli` (es. Krstovic per Davide, Orsolini per Luca, Malen per Giuseppe), `tratti`, battute `pre` / `vince` / `perde`, `pupilloTop` / `pupilloFlop` ({giocatore}, {fv}).
+- `tormentoni` (quandoVince/quandoPerde) = versioni senza emoji per la telecronaca, senza citare i pupilli (per non contraddire i voti).
+
 ## Riepilogo fine giornata
 - Composizione `Risultati` (1080x1920, `src/compositions/RisultatiGiornata.tsx`): 4 risultati con presidenti "in emozione", fantapunti, e classifica aggiornata (frecce di movimento, +3/+1/+0, punti, fantapunti).
 - Props da `app/risultati.mjs` → `datiRisultati(lega, giornata, giornatePrecedenti)`; il server la aggiunge ai lavori quando si generano le locandine (`out/giornata-N/risultati-giornata-N.png`, props in `_risultati.json`, campo `props` del passo).
