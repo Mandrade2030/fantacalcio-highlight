@@ -190,7 +190,8 @@ npm run render:giornata -- percorso/altra-giornata.json
 - Pannello "📲 Bot WhatsApp" nell'app: QR, scelta del gruppo (salvato in `dati/impostazioni.json` → `whatsapp.gruppo`), invio di un file caricato + didascalia; tasto 📲 su ogni file della galleria.
 - API: `GET /api/whatsapp` (stato + QR), `GET /api/whatsapp/gruppi`, `POST /api/whatsapp/gruppo`, `POST /api/whatsapp/esci`, `POST /api/whatsapp/invia` (JSON `{testo, file:"giornata-N/x.mp4"}` oppure corpo binario immagine/video con `?testo=`).
 - Destinazioni: gruppi + chat private di chi ha scritto al bot (salvate in `dati/whatsapp-chat.json`, utile per le prove); `inviaWhatsApp` accetta anche un numero. `scrive: ms` mostra "sta scrivendo…" prima del messaggio.
-- Carica pre-giornata: `app/messaggi.mjs` → `messaggiPregiornata(pre, lega)` (frasi deterministiche in base a classifica, capolista, ultimo, zero punti, capitani). `GET /api/whatsapp/pregiornata/:n` anteprima, `POST /api/whatsapp/pregiornata {giornata, chat?}` manda apertura + copertina + programma + chiusura. Pulsanti nel pannello del bot.
+- Messaggi del bot (`app/messaggi.mjs`): `messaggiPregiornata` (carica + copertina + programma) e `messaggiFineGiornata` (apertura, immagine risultati+classifica, i 4 highlight col commento, top/flop). API: `GET /api/whatsapp/messaggi/:tipo/:n` (tipo `pre`|`fine`, anteprima), `POST /api/whatsapp/messaggi {tipo, giornata, a:"prova"|"gruppo"}`. Due destinazioni salvate in impostazioni: `whatsapp.gruppo` e `whatsapp.prova` (la chat di Davide): prima si manda a sé, poi al gruppo.
+- (vecchio) Carica pre-giornata: `app/messaggi.mjs` → `messaggiPregiornata(pre, lega)` (frasi deterministiche in base a classifica, capolista, ultimo, zero punti, capitani). `GET /api/whatsapp/pregiornata/:n` anteprima, `POST /api/whatsapp/pregiornata {giornata, chat?}` manda apertura + copertina + programma + chiusura. Pulsanti nel pannello del bot.
 - Prova rapida sul server: `sudo docker exec fantacalcio-highlight-app-1 node tools/prova-whatsapp.mjs`.
 
 ## Locandina pre-giornata
@@ -203,6 +204,10 @@ npm run render:giornata -- percorso/altra-giornata.json
 - Gemini NON disegna calciatori veri: per questo si usano i campioncini.
 - **Formazioni vere**: `dati/formazioni-N.json` (`{giornata, aggiornato, squadre:{<id>:{capitano,vice,modulo,titolari[]}}}`), prodotto da `tools/formazioni-browser.js` eseguito nella pagina di leghe.fantacalcio.it loggata (imposta prima `window.__giornata = N`). Il server prende la copia più recente tra locale e GitHub raw (`main/dati/formazioni-N.json`, o `FH_FORMAZIONI_URL`): quindi per aggiornare il server basta fare push del file.
 - Regola 4 big: capitano + 3 titolari più pagati; senza formazione i 4 più pagati della rosa. Le formazioni si applicano sia all'apertura del pannello sia a ogni "Genera" (`applicaFormazioni`), tranne sulle squadre cambiate a mano nell'app (`manuale: true`).
+
+## Riepilogo fine giornata
+- Composizione `Risultati` (1080x1920, `src/compositions/RisultatiGiornata.tsx`): 4 risultati con presidenti "in emozione", fantapunti, e classifica aggiornata (frecce di movimento, +3/+1/+0, punti, fantapunti).
+- Props da `app/risultati.mjs` → `datiRisultati(lega, giornata, giornatePrecedenti)`; il server la aggiunge ai lavori quando si generano le locandine (`out/giornata-N/risultati-giornata-N.png`, props in `_risultati.json`, campo `props` del passo).
 
 ## App Android
 - `android/`: app nativa minima (Java, WebView) "Ciempions Fig", `it.ciempionsfig.app`. Apre l'app web del server; l'indirizzo lo legge da `server-url.txt` (raw GitHub) → **aggiornare quel file se cambia il tunnel**. Scarica video/immagini di `/out/` in Download/Ciempions Fig e apre "Condividi". Upload file (pannello WhatsApp) supportato.

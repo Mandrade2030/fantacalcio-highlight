@@ -83,13 +83,36 @@
         </div>
         <div id="waOk" hidden>
           <div class="voce-riga">
-            <label style="flex:1">Dove mandare
+            <label style="flex:1">👥 Gruppo della lega
               <select id="waGruppo"><option value="">Scegli il gruppo…</option></select>
             </label>
-            <button class="btn ghost small" id="waRicarica" title="Aggiorna la lista">↻</button>
-            <button class="btn ghost small" id="waEsci">Scollega</button>
+            <label style="flex:1">👤 Prove (la tua chat)
+              <select id="waProva"><option value="">Scegli la tua chat…</option></select>
+            </label>
+            <button class="btn ghost small" id="waRicarica" title="Aggiorna le liste">↻</button>
           </div>
-          <p class="legenda">Per una prova in privato: scrivi un messaggio al numero del bot dal tuo WhatsApp e premi ↻, la tua chat compare nella lista (👤).</p>
+          <p class="legenda">La tua chat compare tra le 👤 dopo che hai scritto un messaggio al numero del bot (poi premi ↻). Prima mandi tutto a te, controlli, poi lo mandi al gruppo.</p>
+
+          <h4 class="wa-tit">🗓 Prima della giornata</h4>
+          <div class="voce-riga">
+            <label>Giornata <input type="number" id="waPreNum" min="1" max="38" style="width:80px" /></label>
+            <button class="btn ghost small wa-vedi" data-tipo="pre">Anteprima</button>
+            <button class="btn ghost small wa-manda" data-tipo="pre" data-a="prova">📱 Manda a me</button>
+            <button class="btn primary small wa-manda" data-tipo="pre" data-a="gruppo">📣 Manda al gruppo</button>
+          </div>
+          <p class="legenda">Messaggio di carica + copertina + programma con le frasi per ogni sfida.</p>
+
+          <h4 class="wa-tit">🏁 Fine giornata</h4>
+          <div class="voce-riga">
+            <label>Giornata <input type="number" id="waFineNum" min="1" max="38" style="width:80px" /></label>
+            <button class="btn ghost small wa-vedi" data-tipo="fine">Anteprima</button>
+            <button class="btn ghost small wa-manda" data-tipo="fine" data-a="prova">📱 Manda a me</button>
+            <button class="btn primary small wa-manda" data-tipo="fine" data-a="gruppo">📣 Manda al gruppo</button>
+          </div>
+          <p class="legenda">Risultati + classifica in un'immagine, poi i 4 highlight col commento, poi top e flop. Prima genera la giornata ("Genera tutto").</p>
+          <pre id="waAnteprima" class="legenda" style="white-space:pre-wrap;max-height:360px;overflow:auto" hidden></pre>
+
+          <h4 class="wa-tit">✍️ Messaggio libero (al gruppo)</h4>
           <div class="voce-riga">
             <label style="flex:1">Messaggio
               <textarea id="waTesto" rows="2" placeholder="Es. 🔥 Si parte! Giornata 3, ecco le sfide…"></textarea>
@@ -98,14 +121,9 @@
           <div class="voce-riga">
             <input type="file" id="waFile" accept="image/*,video/mp4" />
             <button class="btn primary small" id="waInvia">Manda</button>
+            <button class="btn ghost small" id="waEsci">Scollega il bot</button>
           </div>
-          <p class="legenda">Per i video e le locandine già generati usa il tasto 📲 sotto ogni file. Il messaggio scritto qui va come didascalia.</p>
-          <div class="voce-riga">
-            <label>Giornata <input type="number" id="waPreNum" min="1" max="38" style="width:80px" /></label>
-            <button class="btn ghost small" id="waPreVedi">Anteprima carica pre-giornata</button>
-            <button class="btn primary small" id="waPreManda">📣 Manda carica pre-giornata</button>
-          </div>
-          <pre id="waPreAnteprima" class="legenda" style="white-space:pre-wrap;max-height:320px;overflow:auto" hidden></pre>
+          <p class="legenda">Per i singoli file già generati usa il tasto 📲 sotto ogni file (vanno al gruppo; il messaggio scritto qui fa da didascalia).</p>
         </div>
         <p class="legenda" id="waErr"></p>
       </div>

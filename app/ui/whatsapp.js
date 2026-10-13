@@ -1,4 +1,4 @@
-// Pannello "Bot WhatsApp": collegamento con QR, scelta del gruppo, invio di file e messaggi.
+// Pannello "Bot WhatsApp": collegamento con QR, gruppo e chat di prova, messaggi pre/fine giornata, invio libero.
 (() => {
   const $ = (s) => document.querySelector(s);
   const api = async (u, o) => {
@@ -7,73 +7,97 @@
     if (!r.ok) throw new Error(j.errore || `Errore ${r.status}`);
     return j;
   };
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
   const nota = (t, err) => {
     $("#waErr").textContent = t || "";
     $("#waErr").style.color = err ? "#ff6b6b" : "";
   };
-  let gruppiCaricati = false;
-  let gruppoSalvato = null;
+  let caricati = false;
+  let salvati = { gruppo: null, prova: null };
+
+  const opzioni = (lista, scelto, vuoto) =>
+    `<option value="">${vuoto}</option>` +
+    lista
+      .map((x) => `<option value="${esc(x.id)}" ${x.id === scelto ? "selected" : ""}>${x.privata ? "👤 " : "👥 "}${esc(x.nome)}${x.privata ? "" : ` (${x.membri})`}</option>`)
+      .join("");
 
   const aggiorna = async () => {
     try {
       const s = await api("/api/whatsapp");
-      gruppoSalvato = s.gruppo;
+      salvati = { gruppo: s.gruppo, prova: s.prova };
       $("#waStato").textContent = s.connesso ? `collegato${s.numero ? " · +" + s.numero : ""}` : s.stato;
       $("#waQr").hidden = !s.qr;
       if (s.qr) $("#waQrImg").src = s.qr;
       $("#waOk").hidden = !s.connesso;
       if (!s.connesso && s.errore && !s.qr) nota(s.errore, true);
-      if (s.connesso && !gruppiCaricati) {
-        gruppiCaricati = true;
+      if (s.connesso && !caricati) {
+        caricati = true;
         const g = await api("/api/whatsapp/gruppi");
-        $("#waGruppo").innerHTML =
-          `<option value="">Scegli il gruppo…</option>` +
-          g.map((x) => `<option value="${x.id}" ${x.id === gruppoSalvato ? "selected" : ""}>${x.privata ? "👤 " : "👥 "}${x.nome.replace(/</g, "&lt;")}${x.privata ? " (privata)" : ` (${x.membri})`}</option>`).join("");
+        // il gruppo può essere anche una chat (per chi vuole), ma di solito è un gruppo; le prove di solito una chat privata
+        $("#waGruppo").innerHTML = opzioni([...g.filter((x) => !x.privata), ...g.filter((x) => x.privata)], salvati.gruppo, "Scegli il gruppo…");
+        $("#waProva").innerHTML = opzioni([...g.filter((x) => x.privata), ...g.filter((x) => !x.privata)], salvati.prova, "Scegli la tua chat…");
         if (!g.some((x) => !x.privata)) nota("Il bot non è in nessun gruppo: aggiungi il suo numero al gruppo della lega.");
       }
-      if (!s.connesso) gruppiCaricati = false;
+      if (!s.connesso) caricati = false;
     } catch (e) {
       $("#waStato").textContent = "non disponibile";
       nota(e.message, true);
     }
   };
 
-  $("#waGruppo").addEventListener("change", async (e) => {
-    await api("/api/whatsapp/gruppo", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ gruppo: e.target.value }) });
-    gruppoSalvato = e.target.value;
-    nota("Gruppo salvato.");
-  });
+  const salva = (campo) => async (e) => {
+    await api("/api/whatsapp/gruppo", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ campo, gruppo: e.target.value }) });
+    salvati[campo] = e.target.value;
+    nota(campo === "prova" ? "Chat di prova salvata." : "Gruppo salvato.");
+  };
+  $("#waGruppo").addEventListener("change", salva("gruppo"));
+  $("#waProva").addEventListener("change", salva("prova"));
   $("#waRicarica").addEventListener("click", () => {
-    gruppiCaricati = false;
+    caricati = false;
     aggiorna();
   });
-  const preNum = () => +$("#waPreNum").value || 1;
-  api("/api/pregiornata").then((x) => ($("#waPreNum").value = x.prossima)).catch(() => {});
-  $("#waPreVedi").addEventListener("click", async () => {
-    try {
-      const m = await api(`/api/whatsapp/pregiornata/${preNum()}`);
-      $("#waPreAnteprima").hidden = false;
-      $("#waPreAnteprima").textContent = m.map((x) => (x.file ? `🖼 [${x.file.split("/").pop()}]\n` : "") + x.testo).join("\n\n— — —\n\n");
-    } catch (e) {
-      nota(e.message, true);
-    }
-  });
-  $("#waPreManda").addEventListener("click", async () => {
-    if (!gruppoSalvato) return nota("Prima scegli dove mandare.", true);
-    const dove = $("#waGruppo").selectedOptions[0]?.textContent || "";
-    if (!confirm(`Mandare i messaggi della giornata ${preNum()} a ${dove}?`)) return;
-    const b = $("#waPreManda");
-    b.disabled = true;
-    nota("Il bot sta scrivendo… (circa 30 secondi)");
-    try {
-      const r = await api("/api/whatsapp/pregiornata", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ giornata: preNum() }) });
-      nota(`Mandati ${r.messaggi} messaggi ✔`);
-    } catch (e) {
-      nota(e.message, true);
-    } finally {
-      b.disabled = false;
-    }
-  });
+
+  // numeri di giornata di partenza: prossima da presentare / ultima giocata
+  api("/api/pregiornata")
+    .then((x) => {
+      $("#waPreNum").value = x.prossima;
+      $("#waFineNum").value = Math.max(1, x.prossima - 1);
+    })
+    .catch(() => {});
+  const num = (tipo) => +$(tipo === "pre" ? "#waPreNum" : "#waFineNum").value || 1;
+
+  document.querySelectorAll(".wa-vedi").forEach((b) =>
+    b.addEventListener("click", async () => {
+      try {
+        const m = await api(`/api/whatsapp/messaggi/${b.dataset.tipo}/${num(b.dataset.tipo)}`);
+        $("#waAnteprima").hidden = false;
+        $("#waAnteprima").textContent = m.map((x) => (x.file ? `${x.file.endsWith(".mp4") ? "🎬" : "🖼"} [${x.file.split("/").pop()}]\n` : "") + x.testo).join("\n\n— — —\n\n");
+        nota("");
+      } catch (e) {
+        nota(e.message, true);
+      }
+    }),
+  );
+  document.querySelectorAll(".wa-manda").forEach((b) =>
+    b.addEventListener("click", async () => {
+      const a = b.dataset.a;
+      const tipo = b.dataset.tipo;
+      if (!salvati[a]) return nota(a === "gruppo" ? "Prima scegli il gruppo." : "Prima scegli la tua chat di prova.", true);
+      const dove = $(a === "gruppo" ? "#waGruppo" : "#waProva").selectedOptions[0]?.textContent || "";
+      if (a === "gruppo" && !confirm(`Mandare i messaggi ${tipo === "pre" ? "pre-giornata" : "di fine giornata"} (giornata ${num(tipo)}) a ${dove}?`)) return;
+      document.querySelectorAll(".wa-manda").forEach((x) => (x.disabled = true));
+      nota(`Il bot sta scrivendo a ${dove}… (${tipo === "fine" ? "1-2 minuti, i video sono pesanti" : "circa 30 secondi"})`);
+      try {
+        const r = await api("/api/whatsapp/messaggi", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tipo, giornata: num(tipo), a }) });
+        nota(`Mandati ${r.messaggi} messaggi a ${dove} ✔`);
+      } catch (e) {
+        nota(e.message, true);
+      } finally {
+        document.querySelectorAll(".wa-manda").forEach((x) => (x.disabled = false));
+      }
+    }),
+  );
+
   $("#waEsci").addEventListener("click", async () => {
     if (!confirm("Scollegare il bot da WhatsApp? Dovrai riscansionare il QR.")) return;
     await api("/api/whatsapp/esci", { method: "POST" });
@@ -102,7 +126,7 @@
   document.addEventListener("click", async (e) => {
     const b = e.target.closest(".wa-send");
     if (!b) return;
-    if (!gruppoSalvato) {
+    if (!salvati.gruppo) {
       $("#boxWa").open = true;
       return nota("Prima collega il bot e scegli il gruppo.", true);
     }

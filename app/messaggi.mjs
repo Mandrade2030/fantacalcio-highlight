@@ -82,3 +82,67 @@ export const messaggiPregiornata = (pre, lega) => {
     { testo: chiusura },
   ];
 };
+
+const fp = (n) => String(Math.round(n * 10) / 10).replace(".", ",");
+
+/**
+ * Messaggi di fine giornata: apertura, riepilogo risultati+classifica, i 4 highlight con commento, chiusura con top e flop.
+ * @param ris  props della composizione Risultati (app/risultati.mjs → datiRisultati)
+ * @param lega lega.json
+ * @param conVideo se false salta gli highlight (es. non ancora generati)
+ */
+export const messaggiFineGiornata = (ris, lega, conVideo = true) => {
+  const n = ris.giornata;
+  const sq = (id) => lega.squadre.find((s) => s.id === id) || { nome: id, presidente: id };
+  const r = ris.risultati;
+  const scarto = (x) => Math.abs(x.golCasa - x.golTrasferta);
+  const piuLarga = [...r].sort((a, b) => scarto(b) - scarto(a))[0];
+
+  const titolo = scegli(
+    [`🏁 *GIORNATA ${n}: FISCHIO FINALE* 🏁`, `📺 *GIORNATA ${n} IN ARCHIVIO* 📺`, `🔔 *TRIPLICE FISCHIO SULLA GIORNATA ${n}* 🔔`],
+    `fine-${n}`,
+  );
+  const v = sq(piuLarga.golCasa >= piuLarga.golTrasferta ? piuLarga.casa : piuLarga.trasferta);
+  const p = sq(piuLarga.golCasa >= piuLarga.golTrasferta ? piuLarga.trasferta : piuLarga.casa);
+  const apertura =
+    scarto(piuLarga) >= 3
+      ? `${titolo}\nLa notizia del giorno: *${v.nome}* ne fa ${Math.max(piuLarga.golCasa, piuLarga.golTrasferta)} a *${p.nome}*. Mister ${p.presidente}, spegni il telefono. 📵`
+      : `${titolo}\nRisultati, classifica e highlight: è il momento della verità. Chi ha vinto si prepari a vantarsene, chi ha perso a leggere. 😏`;
+
+  const commento = (x, i) => {
+    const A = sq(x.casa), B = sq(x.trasferta);
+    const casaVince = x.golCasa > x.golTrasferta;
+    const W = casaVince ? A : B, L = casaVince ? B : A;
+    const ptL = casaVince ? x.ptTrasferta : x.ptCasa;
+    const d = scarto(x);
+    const seme = `${n}-${i}`;
+    let frase;
+    if (d === 0)
+      frase = x.golCasa >= 3
+        ? `Pari spettacolo: ${x.golCasa} gol a testa e nessuno che vuole offrire da bere. 🍻`
+        : scegli([`Pareggio: Mister ${A.presidente} e Mister ${B.presidente} si stringono la mano (a denti stretti). 🤝`, `Un punto a testa, zero soddisfazioni. 😐`], seme);
+    else if (d >= 3) frase = scegli([`Goleada di *${W.nome}*. Mister ${L.presidente}, ci sono partite da dimenticare: questa è una di quelle. 🧹`, `*${W.nome}* passa come un treno. ${L.nome} ancora sta cercando il pallone. 🚂`], seme);
+    else if (d === 1 && (ptL < 66 ? 66 - ptL : 4 - ((ptL - 66) % 4)) <= 1.5) frase = `*${W.nome}* la porta a casa di misura. Beffa per Mister ${L.presidente}: mezzo voto in più e cambiava tutto. 🫠`;
+    else if (d === 1) frase = scegli([`Vittoria di misura per *${W.nome}*: cuore, sudore e un pizzico di fortuna. 💪`, `*${W.nome}* soffre ma vince. Mister ${L.presidente} recrimina, ma il tabellone non ascolta. 📋`], seme);
+    else frase = scegli([`*${W.nome}* vince netto. Mister ${W.presidente} ringrazia, Mister ${L.presidente} riflette. 🤔`, `Partita senza storia: *${W.nome}* comanda, ${L.nome} subisce. ✅`], seme);
+    return `*${A.nome}* ${x.golCasa}-${x.golTrasferta} *${B.nome}* (${fp(x.ptCasa)} - ${fp(x.ptTrasferta)})\n${frase}`;
+  };
+
+  const tutti = r.flatMap((x) => [{ id: x.casa, pt: x.ptCasa }, { id: x.trasferta, pt: x.ptTrasferta }]).sort((a, b) => b.pt - a.pt);
+  const top = tutti[0], flop = tutti[tutti.length - 1];
+  const cl = [...ris.classifica].sort((a, b) => a.posizione - b.posizione);
+  const capo = cl[0], ultimo = cl[cl.length - 1];
+  const chiusura =
+    `🔝 *Top della giornata*: ${sq(top.id).nome} con ${fp(top.pt)} fantapunti. Mister ${sq(top.id).presidente}, offri tu.\n` +
+    `🥄 *Cucchiaio di legno*: ${sq(flop.id).nome} con ${fp(flop.pt)}. Mister ${sq(flop.id).presidente}, la formazione la fa il gatto?\n\n` +
+    `👑 In vetta c'è *${sq(capo.id).nome}* (${capo.punti} pt)${capo.prima === 1 ? ", ancora lì" : capo.prima ? `, che sale dal ${capo.prima}° posto` : ""}. ` +
+    `In fondo *${sq(ultimo.id).nome}* (${ultimo.punti} pt). Prossima giornata, nuove scuse. ⚽`;
+
+  const passi = [{ testo: apertura }, { file: `giornata-${n}/risultati-giornata-${n}.png`, testo: `Risultati e classifica dopo la *giornata ${n}* 👇` }];
+  r.forEach((x, i) => {
+    const testo = commento(x, i);
+    passi.push(conVideo ? { file: `giornata-${n}/highlight-${i + 1}-${x.casa}-vs-${x.trasferta}.mp4`, testo } : { testo });
+  });
+  passi.push({ testo: chiusura });
+  return passi;
+};

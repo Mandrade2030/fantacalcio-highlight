@@ -9,7 +9,8 @@ import { dirname, extname, join, normalize, resolve, sep } from "node:path";
 import { createRequire } from "node:module";
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { messaggiPregiornata } from "./messaggi.mjs";
+import { messaggiPregiornata, messaggiFineGiornata } from "./messaggi.mjs";
+import { datiRisultati } from "./risultati.mjs";
 import { avviaWhatsApp, esciWhatsApp, gruppiWhatsApp, inviaWhatsApp, statoWhatsApp } from "./whatsapp.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -330,11 +331,34 @@ const creaJob = (g, scontri, tipi) => {
       });
     }
   }
+  // riepilogo di fine giornata (risultati + classifica) insieme alle locandine
+  if (tipi.includes("locandina")) {
+    const propsRis = join(cartella, "_risultati.json");
+    writeFileSync(propsRis, JSON.stringify(propsRisultati(g)));
+    const file = `risultati-giornata-${g.giornata}.png`;
+    passi.push({ tipo: "risultati", nome: "Risultati e classifica", composizione: "Risultati", props: propsRis, file, url: `/out/giornata-${g.giornata}/${file}`, percorso: join(cartella, file), stato: "in coda", progresso: 0 });
+  }
   const job = { id: Date.now().toString(36), giornata: g.giornata, propsFile, passi, stato: "in coda", creato: Date.now() };
   jobs.unshift(job);
   if (jobs.length > 20) jobs.length = 20;
   setImmediate(prossimo);
   return job;
+};
+
+/** messaggi del bot per una giornata: "pre" = carica pre-giornata, "fine" = risultati + highlight */
+const passiBot = async (tipo, n) => {
+  if (tipo === "fine") {
+    if (!existsSync(fileGiornata(n))) throw new Error(`La giornata ${n} non è ancora stata importata.`);
+    return messaggiFineGiornata(propsRisultati(JSON.parse(readFileSync(fileGiornata(n), "utf8"))), leggiLega());
+  }
+  return messaggiPregiornata(applicaFormazioni(bozzaPre(n), await leggiFormazioni(n)), leggiLega());
+};
+
+/** props della composizione "Risultati": la giornata g + le giornate salvate prima di lei */
+const propsRisultati = (g) => {
+  const prima = [];
+  for (let k = 1; k < g.giornata; k++) if (existsSync(fileGiornata(k))) prima.push(JSON.parse(readFileSync(fileGiornata(k), "utf8")));
+  return datiRisultati(leggiLega(), g, prima);
 };
 
 /* ------------------------------------------------------------------ */
@@ -548,7 +572,7 @@ const eseguiPasso = (job, p) =>
       p.tipo === "video" ? "render" : "still",
       p.composizione,
       q(p.temporaneo),
-      `--props=${q(job.propsFile)}`,
+      `--props=${q(p.props || job.propsFile)}`,
     ].join(" ");
     const child = spawn(cmd, { cwd: ROOT, shell: true, env: { ...process.env, FORCE_COLOR: "0", CI: "1" } });
     processoAttivo = child;
@@ -737,32 +761,32 @@ const server = http.createServer(async (req, res) => {
     /* ---- bot WhatsApp ---- */
     if (req.method === "GET" && path === "/api/whatsapp") {
       avviaWhatsApp(DATI);
-      return json(res, 200, { ...statoWhatsApp(), gruppo: leggiImpostazioni().whatsapp?.gruppo || null });
+      const wa = leggiImpostazioni().whatsapp || {};
+      return json(res, 200, { ...statoWhatsApp(), gruppo: wa.gruppo || null, prova: wa.prova || null });
     }
     if (req.method === "GET" && path === "/api/whatsapp/gruppi") return json(res, 200, await gruppiWhatsApp());
     if (req.method === "POST" && path === "/api/whatsapp/gruppo") {
       const b = await corpo(req);
       const cur = leggiImpostazioni();
-      salvaImpostazioni({ ...cur, whatsapp: { ...(cur.whatsapp || {}), gruppo: String(b.gruppo || "") } });
+      const campo = b.campo === "prova" ? "prova" : "gruppo";
+      salvaImpostazioni({ ...cur, whatsapp: { ...(cur.whatsapp || {}), [campo]: String(b.gruppo || "") } });
       return json(res, 200, { ok: true });
     }
-    // messaggi pre-giornata: anteprima e invio (testo di carica + copertina + programma)
-    const mWa = path.match(/^\/api\/whatsapp\/pregiornata\/(\d+)$/);
-    if (req.method === "GET" && mWa) {
-      const n = Number(mWa[1]);
-      return json(res, 200, messaggiPregiornata(applicaFormazioni(bozzaPre(n), await leggiFormazioni(n)), leggiLega()));
-    }
-    if (req.method === "POST" && path === "/api/whatsapp/pregiornata") {
+    // messaggi del bot: "pre" (carica pre-giornata) e "fine" (risultati + highlight). Anteprima e invio a "prova" (te) o "gruppo"
+    const mMsg = path.match(/^\/api\/whatsapp\/messaggi\/(pre|fine)\/(\d+)$/);
+    if (req.method === "GET" && mMsg) return json(res, 200, await passiBot(mMsg[1], Number(mMsg[2])));
+    if (req.method === "POST" && path === "/api/whatsapp/messaggi") {
       const b = await corpo(req);
-      const n = Number(b.giornata);
-      const dest = b.chat || leggiImpostazioni().whatsapp?.gruppo;
-      const passi = messaggiPregiornata(applicaFormazioni(bozzaPre(n), await leggiFormazioni(n)), leggiLega());
+      const wa = leggiImpostazioni().whatsapp || {};
+      const dest = b.a === "gruppo" ? wa.gruppo : wa.prova;
+      if (!dest) throw new Error(b.a === "gruppo" ? "Scegli prima il gruppo." : "Scegli prima la chat di prova (la tua).");
+      const passi = await passiBot(b.tipo, Number(b.giornata));
       const manca = passi.find((p) => p.file && !existsSync(join(OUT, p.file)));
-      if (manca) throw new Error(`Prima genera la copertina (${manca.file.split("/").pop()}).`);
+      if (manca) throw new Error(`Prima genera ${manca.file.split("/").pop()}.`);
       for (const p of passi) {
         const buffer = p.file ? readFileSync(join(OUT, p.file)) : null;
         await inviaWhatsApp({ gruppo: dest, testo: p.testo, buffer, tipo: p.file ? MIME[extname(p.file).toLowerCase()] : null, scrive: p.file ? 1500 : Math.min(5000, 1200 + p.testo.length * 12) });
-        await attesa(1500);
+        await attesa(p.file && p.file.endsWith(".mp4") ? 4000 : 1500);
       }
       return json(res, 200, { ok: true, messaggi: passi.length });
     }

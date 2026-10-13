@@ -4,8 +4,10 @@ import { Highlight, type HighlightProps } from "./compositions/Highlight";
 import { Locandina, type LocandinaProps } from "./compositions/Locandina";
 import { Sfida, type SfidaProps } from "./compositions/Sfida";
 import { CopertinaGiornata, type CopertinaProps } from "./compositions/CopertinaGiornata";
+import { RisultatiGiornata, type RisultatiProps } from "./compositions/RisultatiGiornata";
 import preGiornata from "../dati/pregiornata-3.json";
 import datiGiornata from "./data/giornata.json";
+import lega from "./data/lega.json";
 import type { GiornataInput } from "./data/types";
 import { preparaGiornata } from "./lib/lega";
 import { calcolaTimeline } from "./lib/timeline";
@@ -61,6 +63,21 @@ export const RemotionRoot: React.FC = () => (
       width={1080}
       height={1920}
       defaultProps={{ lega: (preGiornata as any).lega, giornata: (preGiornata as any).giornata, sfide: (preGiornata as any).sfide }}
+    />
+    {/* Riepilogo di fine giornata: 4 risultati + classifica (props da app/risultati.mjs → datiRisultati) */}
+    <Still<any, RisultatiProps>
+      id="Risultati"
+      component={RisultatiGiornata}
+      width={1080}
+      height={1920}
+      defaultProps={{
+        giornata: giornata.giornata,
+        risultati: giornata.scontri.map((s: any) => {
+          const g = (pt: number) => (pt < 66 ? 0 : Math.floor((pt - 66) / 4) + 1);
+          return { casa: s.casa, trasferta: s.trasferta, golCasa: s.golCasa ?? g(s.punteggioCasa), golTrasferta: s.golTrasferta ?? g(s.punteggioTrasferta), ptCasa: s.punteggioCasa, ptTrasferta: s.punteggioTrasferta };
+        }),
+        classifica: (lega as any).squadre.map((s: any, i: number) => ({ id: s.id, posizione: i + 1, punti: 0 })),
+      }}
     />
     {/* Locandine pre-giornata: i 4 big per squadra (dati/pregiornata-N.json, sostituibili con --props) */}
     {(preGiornata as any).sfide.map((sf: any, i: number) => (
