@@ -1,0 +1,152 @@
+{
+  "giornata": 4,
+  "giornataSerieA": 7,
+  "aggiornato": "2026-10-16T18:43:02.740Z",
+  "fonte": "leghe.fantacalcio.it",
+  "squadre": {
+    "do-flamengo": {
+      "capitano": "Paz N.",
+      "vice": "Pulisic",
+      "modulo": "442",
+      "titolari": [
+        "Meret",
+        "Mancini",
+        "Belghali",
+        "Ramon",
+        "Rrahmani",
+        "Zaccagni",
+        "Pulisic",
+        "Paz N.",
+        "Romano",
+        "Varela G.",
+        "Scamacca"
+      ]
+    },
+    "aquafan": {
+      "capitano": "Politano",
+      "vice": "Solet",
+      "modulo": "433",
+      "titolari": [
+        "Caprile",
+        "Tiago Gabriel",
+        "Delprato",
+        "Lucumì",
+        "Solet",
+        "Conceicao",
+        "Politano",
+        "Samardzic",
+        "Castro S.",
+        "Simeone",
+        "Noslin"
+      ]
+    },
+    "milano-boys": {
+      "capitano": "Da Cunha",
+      "vice": "Bremer",
+      "modulo": "442",
+      "titolari": [
+        "Muric",
+        "Hermoso",
+        "Bremer",
+        "Pavard",
+        "Vasquez",
+        "Da Cunha",
+        "Zielinski",
+        "Mandragora",
+        "Calhanoglu",
+        "Esposito F.P.",
+        "Douvikas"
+      ]
+    },
+    "aston-birra": {
+      "capitano": "Barella",
+      "vice": "Gila",
+      "modulo": "343",
+      "titolari": [
+        "Butez",
+        "Oyono A.",
+        "Gila",
+        "Valle",
+        "Koopmeiners",
+        "Pisilli",
+        "Barella",
+        "Gonzalez N.",
+        "Berardi",
+        "Soulè",
+        "Thuram"
+      ]
+    },
+    "pan-fc": {
+      "capitano": "Rabiot",
+      "vice": "Dimarco",
+      "modulo": "343",
+      "titolari": [
+        "Provedel",
+        "Spinazzola",
+        "Vojvoda",
+        "Dimarco",
+        "Taylor K.",
+        "Mora",
+        "Rabiot",
+        "Modric",
+        "Mota",
+        "Ramos G.",
+        "Krstovic"
+      ]
+    },
+    "manchester-squiddi": {
+      "capitano": "Diouf",
+      "vice": "Goncalves P.",
+      "modulo": "343",
+      "titolari": [
+        "Gollini",
+        "Couto",
+        "Di Lorenzo",
+        "Molina N.",
+        "Moreira",
+        "Goncalves P.",
+        "Diouf",
+        "McTominay",
+        "Laurientè",
+        "Kolo Muani",
+        "Kvernadze"
+      ]
+    },
+    "atletico-madrink": {
+      "capitano": "Frattesi",
+      "vice": "Carlos Augusto",
+      "modulo": "433",
+      "titolari": [
+        "Carnesecchi",
+        "Bastoni",
+        "Carlos Augusto",
+        "Bisseck",
+        "Mangas",
+        "Frattesi",
+        "Ederson D.S.",
+        "Musah",
+        "Lang",
+        "Raimondo",
+        "Bonny"
+      ]
+    },
+    "si-gonfia-la-rete": {
+      "capitano": "Ekkelenkamp",
+      "vice": "Wesley",
+      "modulo": "343",
+      "titolari": [
+        "Falcone",
+        "Tavares N.",
+        "Pavlovic",
+        "Wesley",
+        "Cissè A.",
+        "Baturina",
+        "Ekkelenkamp",
+        "Mastantuono",
+        "Davis K.",
+        "Hojlund",
+        "Maldini"
+      ]
+    }
+  }
+}
