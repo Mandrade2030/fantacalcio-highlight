@@ -512,19 +512,29 @@ const creaJobPre = (pre) => {
 const attesa = (ms) => new Promise((r) => setTimeout(r, ms));
 /** Miniatura JPEG (piccola) di un video per l'anteprima su WhatsApp: un fotogramma dell'intro, niente spoiler.
  *  Usa l'ffmpeg incluso in Remotion; salvata accanto al video come _miniatura-<nome>.jpg. Se fallisce, null. */
-const miniaturaVideo = (file) =>
-  new Promise((ok) => {
-    const dest = join(dirname(file), `_miniatura-${basename(file, extname(file))}.jpg`);
-    if (existsSync(dest) && statSync(dest).mtimeMs >= statSync(file).mtimeMs) return ok(readFileSync(dest));
-    const cmd = ["npx", "remotion", "ffmpeg", "-y", "-loglevel", "error", "-ss", "1.5", "-i", q(file), "-frames:v", "1", "-vf", "scale=240:-2", "-q:v", "5", q(dest)].join(" ");
-    const child = spawn(cmd, { cwd: ROOT, shell: true });
-    const t = setTimeout(() => child.kill(), 30000);
-    child.on("close", () => {
-      clearTimeout(t);
-      ok(existsSync(dest) ? readFileSync(dest) : null);
+const miniaturaVideo = async (file) => {
+  const dest = join(dirname(file), `_miniatura-${basename(file, extname(file))}.jpg`);
+  if (existsSync(dest) && statSync(dest).mtimeMs >= statSync(file).mtimeMs) return readFileSync(dest);
+  const args = ["-y", "-loglevel", "error", "-ss", "1.5", "-i", q(file), "-frames:v", "1", "-vf", "scale=240:-2", "-q:v", "5", q(dest)].join(" ");
+  // prima l'ffmpeg di sistema (nel Docker), poi quello incluso in Remotion
+  for (const ff of ["ffmpeg", "npx remotion ffmpeg"]) {
+    const errore = await new Promise((ok) => {
+      const child = spawn(`${ff} ${args}`, { cwd: ROOT, shell: true });
+      let err = "";
+      child.stderr?.on("data", (d) => (err += d));
+      const t = setTimeout(() => child.kill(), 30000);
+      child.on("close", (code) => {
+        clearTimeout(t);
+        ok(code === 0 ? null : err.slice(-300) || `uscita ${code}`);
+      });
+      child.on("error", (e) => ok(e.message));
     });
-    child.on("error", () => ok(null));
-  });
+    if (!errore && existsSync(dest)) return readFileSync(dest);
+    ultimoErroreMiniatura = `${ff}: ${errore}`;
+  }
+  return null;
+};
+let ultimoErroreMiniatura = null;
 
 /** invii del bot in corso o recenti (per non mandare due volte la stessa cosa) */
 const invii = new Map();
@@ -549,6 +559,7 @@ const avviaInvio = async (tipo, n, a, ripeti = false) => {
         if (inv.annulla) { inv.stato = "annullato"; break; }
         const buffer = p.file ? readFileSync(join(OUT, p.file)) : null;
         const miniatura = p.file?.endsWith(".mp4") ? await miniaturaVideo(join(OUT, p.file)) : null;
+        if (p.file?.endsWith(".mp4") && !miniatura) inv.avviso = `Video senza anteprima (${ultimoErroreMiniatura || "miniatura non creata"})`;
         await inviaWhatsApp({ gruppo: dest, testo: p.testo, buffer, tipo: p.file ? MIME[extname(p.file).toLowerCase()] : null, scrive: p.file ? 1500 : Math.min(5000, 1200 + p.testo.length * 12), miniatura });
         inv.fatti++;
         await attesa(p.file && p.file.endsWith(".mp4") ? 4000 : 1500);

@@ -111,7 +111,7 @@
       if (!inv) break;
       if (inv.stato === "in corso") nota(`Il bot sta scrivendo a ${dove}… ${inv.fatti}/${inv.totale}`);
       else {
-        nota(inv.stato === "fatto" ? `Mandati ${inv.totale} messaggi a ${dove} ✔` : inv.stato === "annullato" ? `Invio fermato dopo ${inv.fatti}/${inv.totale}.` : `Errore: ${inv.errore}`, inv.stato === "errore");
+        nota(inv.stato === "fatto" ? `Mandati ${inv.totale} messaggi a ${dove} ✔${inv.avviso ? " ⚠️ " + inv.avviso : ""}` : inv.stato === "annullato" ? `Invio fermato dopo ${inv.fatti}/${inv.totale}.` : `Errore: ${inv.errore}`, inv.stato === "errore");
         break;
       }
       await new Promise((r) => setTimeout(r, 3000));
