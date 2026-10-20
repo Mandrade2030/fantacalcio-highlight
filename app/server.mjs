@@ -513,9 +513,9 @@ const attesa = (ms) => new Promise((r) => setTimeout(r, ms));
 /** Miniatura JPEG (piccola) di un video per l'anteprima su WhatsApp: un fotogramma dell'intro, niente spoiler.
  *  Usa l'ffmpeg incluso in Remotion; salvata accanto al video come _miniatura-<nome>.jpg. Se fallisce, null. */
 const miniaturaVideo = async (file) => {
-  const dest = join(dirname(file), `_miniatura-${basename(file, extname(file))}.jpg`);
+  const dest = join(dirname(file), `_mini32-${basename(file, extname(file))}.jpg`);
   if (existsSync(dest) && statSync(dest).mtimeMs >= statSync(file).mtimeMs) return readFileSync(dest);
-  const args = ["-y", "-loglevel", "error", "-ss", "1.5", "-i", q(file), "-frames:v", "1", "-vf", "scale=240:-2", "-q:v", "5", q(dest)].join(" ");
+  const args = ["-y", "-loglevel", "error", "-ss", "1.5", "-i", q(file), "-frames:v", "1", "-vf", "scale=32:-1", "-f", "image2", q(dest)].join(" ");
   // prima l'ffmpeg di sistema (nel Docker), poi quello incluso in Remotion
   for (const ff of ["ffmpeg", "npx remotion ffmpeg"]) {
     const errore = await new Promise((ok) => {

@@ -4,9 +4,9 @@
 # - il container si ricostruisce solo se è cambiato del codice (i dati sono un volume)
 cd "$(dirname "$0")/.." || exit 1
 exec 9>/tmp/fh-aggiorna.lock
-flock -n 9 || exit 0
-git fetch -q origin main || exit 0
-[ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ] && exit 0
+flock -n 9 || { echo "Un altro aggiornamento è già in corso: riprova tra qualche minuto."; exit 0; }
+git fetch -q origin main || { echo "GitHub non raggiungibile."; exit 0; }
+[ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ] && { echo "Già aggiornato: $(git log --oneline -1)"; exit 0; }
 
 NUOVI=$(git diff --name-only HEAD origin/main)
 LOCALI=$(git diff --name-only -- dati)
