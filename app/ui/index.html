@@ -30,6 +30,43 @@
 
 <main>
   <section class="blocco">
+    <details id="boxFanta">
+      <summary>
+        <span>🔗 Fantacalcio</span>
+        <span class="hint" id="fcStato">…</span>
+      </summary>
+      <div class="voce">
+        <div id="fcOk" hidden>
+          <p class="legenda" id="fcInfo"></p>
+          <div class="voce-riga">
+            <button class="btn primary small" id="fcImporta">📥 Importa giornate e genera tutto</button>
+            <button class="btn ghost small" id="fcSoloImporta">Solo importa</button>
+          </div>
+          <label class="legenda"><input type="checkbox" id="fcAuto" /> Automatico: ogni ora controlla se c'è una giornata nuova, la genera e ti manda il riepilogo in privato col bot</label>
+          <p class="legenda">Le formazioni della pre-giornata vengono lette da fantacalcio ogni volta che apri il pannello o premi "Genera".</p>
+        </div>
+        <div id="fcSetup">
+          <p class="legenda"><b>Collega la lega (una volta all'anno, dal PC):</b></p>
+          <ol class="legenda">
+            <li>Apri <a href="https://leghe.fantacalcio.it/ciempions-fig" target="_blank">leghe.fantacalcio.it/ciempions-fig</a> col tuo account.</li>
+            <li>Premi <b>F12</b> → scheda <b>Console</b>. (La prima volta Chrome chiede di scrivere <code>allow pasting</code> e invio.)</li>
+            <li>Copia questo comando, incollalo nella console e premi invio: <button class="btn ghost small" id="fcCopia">📋 Copia comando</button></li>
+            <li>Compare un codice (è già copiato): incollalo qui sotto.</li>
+          </ol>
+          <textarea id="fcComando" rows="2" readonly style="width:100%;font-size:11px"></textarea>
+          <div class="voce-riga">
+            <label style="flex:1">Codice<textarea id="fcCodice" rows="2" placeholder="Incolla qui il codice"></textarea></label>
+            <button class="btn primary small" id="fcSalva">Collega</button>
+          </div>
+          <p class="legenda">Il codice è la chiave di lega del tuo account (vale circa un anno): resta solo sul server, non va su GitHub.</p>
+        </div>
+        <div class="voce-riga"><button class="btn ghost small" id="fcScollega" hidden>Scollega</button></div>
+        <p class="legenda" id="fcMsg"></p>
+      </div>
+    </details>
+  </section>
+
+  <section class="blocco">
     <details id="boxVoce">
       <summary>
         <span>🎙 Telecronaca parlata</span>
@@ -209,6 +246,7 @@
 
 <script src="/ui/app.js"></script>
 <script src="/ui/whatsapp.js"></script>
+<script src="/ui/fantacalcio.js"></script>
 <script src="/ui/pregiornata.js"></script>
 </body>
 </html>

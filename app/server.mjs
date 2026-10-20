@@ -11,6 +11,7 @@ import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { messaggiPregiornata, messaggiFineGiornata } from "./messaggi.mjs";
 import { datiRisultati } from "./risultati.mjs";
+import { COMANDO_CONSOLE, creaClient, leggiCodice, scadenzaToken } from "./fantacalcio.mjs";
 import { avviaWhatsApp, esciWhatsApp, gruppiWhatsApp, inviaWhatsApp, statoWhatsApp } from "./whatsapp.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -415,6 +416,18 @@ const fileFormazioni = (n) => join(DATI, `formazioni-${n}.json`);
 const URL_FORMAZIONI = (n) =>
   `${process.env.FH_FORMAZIONI_URL || "https://raw.githubusercontent.com/Mandrade2030/fantacalcio-highlight/main/dati"}/formazioni-${n}.json`;
 const leggiFormazioni = async (n) => {
+  const fc = clientFanta();
+  if (fc) {
+    try {
+      const f = await fc.formazioni(n);
+      if (Object.keys(f.squadre).length) {
+        writeFileSync(fileFormazioni(n), JSON.stringify(f, null, 2));
+        return f;
+      }
+    } catch (e) {
+      statoFanta.errore = e.message;
+    }
+  }
   let locale = null;
   try {
     if (existsSync(fileFormazioni(n))) locale = JSON.parse(readFileSync(fileFormazioni(n), "utf8"));
@@ -515,6 +528,40 @@ const miniaturaVideo = (file) =>
 
 /** invii del bot in corso o recenti (per non mandare due volte la stessa cosa) */
 const invii = new Map();
+
+/** Fa partire in background l'invio dei messaggi "pre" o "fine" della giornata n a "prova" (Davide) o "gruppo" */
+const avviaInvio = async (tipo, n, a, ripeti = false) => {
+  const wa = leggiImpostazioni().whatsapp || {};
+  const dest = wa[a];
+  if (!dest) throw new Error(a === "gruppo" ? "Scegli prima il gruppo." : "Scegli prima la chat di prova (la tua).");
+  const chiave = `${tipo}-${n}-${a}-${dest}`;
+  const prec = invii.get(chiave);
+  if (prec?.stato === "in corso") return { ...prec, gia: "in corso" };
+  if (prec?.stato === "fatto" && Date.now() - prec.fine < 15 * 60000 && !ripeti) return { ...prec, gia: "fatto" };
+  const passi = await passiBot(tipo, n);
+  const manca = passi.find((p) => p.file && !existsSync(join(OUT, p.file)));
+  if (manca) throw new Error(`Prima genera ${manca.file.split("/").pop()}.`);
+  const inv = { chiave, tipo, giornata: n, a, stato: "in corso", fatti: 0, totale: passi.length, inizio: Date.now() };
+  invii.set(chiave, inv);
+  (async () => {
+    try {
+      for (const p of passi) {
+        if (inv.annulla) { inv.stato = "annullato"; break; }
+        const buffer = p.file ? readFileSync(join(OUT, p.file)) : null;
+        const miniatura = p.file?.endsWith(".mp4") ? await miniaturaVideo(join(OUT, p.file)) : null;
+        await inviaWhatsApp({ gruppo: dest, testo: p.testo, buffer, tipo: p.file ? MIME[extname(p.file).toLowerCase()] : null, scrive: p.file ? 1500 : Math.min(5000, 1200 + p.testo.length * 12), miniatura });
+        inv.fatti++;
+        await attesa(p.file && p.file.endsWith(".mp4") ? 4000 : 1500);
+      }
+      if (inv.stato === "in corso") inv.stato = "fatto";
+    } catch (e) {
+      inv.stato = "errore";
+      inv.errore = e.message;
+    }
+    inv.fine = Date.now();
+  })();
+  return inv;
+};
 
 /** Sposta il file appena renderizzato al suo posto. Se il vecchio è bloccato (aperto in un player,
  *  in anteprima in Esplora risorse, ecc.) riprova; se resta bloccato salva con un nome nuovo. */
@@ -640,6 +687,70 @@ async function prossimo() {
   inCorso = false;
   prossimo();
 }
+
+
+/* ------------------------------------------------------------------ */
+/* Collegamento diretto a fantacalcio (chiave di lega in impostazioni)  */
+/* ------------------------------------------------------------------ */
+const statoFanta = { ultimoControllo: null, ultimoImport: null, errore: null, inCorso: false };
+const mappaFanta = () => Object.fromEntries(leggiLega().squadre.filter((s) => s.idFantacalcio).map((s) => [s.idFantacalcio, s.id]));
+const clientFanta = () => {
+  const f = leggiImpostazioni().fantacalcio;
+  return f?.appKey && f?.token ? creaClient(f, mappaFanta()) : null;
+};
+
+/** Importa da fantacalcio le giornate calcolate che mancano (o i cui punteggi sono cambiati).
+ *  Con genera=true mette in coda "Genera tutto" per le nuove e, a lavoro finito, manda il riepilogo a Davide. */
+const importaDaFanta = async ({ genera = false } = {}) => {
+  const fc = clientFanta();
+  if (!fc) throw new Error("Fantacalcio non è collegato: incolla la chiave nel pannello 🔗 Fantacalcio.");
+  if (statoFanta.inCorso) throw new Error("Import già in corso, aspetta qualche secondo.");
+  statoFanta.inCorso = true;
+  try {
+    const cal = await fc.calendario();
+    const calcolate = cal.filter((g) => g.calculated).map((g) => g.matchDay);
+    // da scaricare: quelle mancanti + l'ultima (per i ricalcoli)
+    const daFare = calcolate.filter((n) => !existsSync(fileGiornata(n)) || n === Math.max(...calcolate));
+    const nuove = [], aggiornate = [];
+    if (daFare.length) {
+      const giornate = await fc.giornateCalcolate(Math.min(...daFare));
+      for (const g of giornate.filter((x) => daFare.includes(x.giornata))) {
+        const f = fileGiornata(g.giornata);
+        const prima = existsSync(f) ? JSON.parse(readFileSync(f, "utf8")) : null;
+        const firma = (x) => JSON.stringify(x?.scontri?.map((s) => [s.punteggioCasa, s.punteggioTrasferta]));
+        if (prima && firma(prima) === firma(g)) continue;
+        writeFileSync(f, JSON.stringify(g, null, 2));
+        (prima ? aggiornate : nuove).push(g.giornata);
+        if (genera) {
+          const job = creaJob(g, g.scontri.map((_, i) => i), ["locandina", "presentazione", "video"]);
+          job.automatico = true;
+          // a lavoro finito, il riepilogo arriva in privato a Davide (che poi lo manda al gruppo dall'app)
+          const aspetta = setInterval(() => {
+            if (["fatto", "con errori", "annullato"].includes(job.stato)) {
+              clearInterval(aspetta);
+              if (job.stato === "fatto" && leggiImpostazioni().whatsapp?.prova && statoWhatsApp().connesso) avviaInvio("fine", g.giornata, "prova").catch(() => {});
+            }
+          }, 15000);
+        }
+      }
+    }
+    statoFanta.ultimoImport = { quando: new Date().toISOString(), nuove, aggiornate };
+    statoFanta.errore = null;
+    return { calcolate, nuove, aggiornate };
+  } catch (e) {
+    statoFanta.errore = e.message;
+    throw e;
+  } finally {
+    statoFanta.inCorso = false;
+    statoFanta.ultimoControllo = new Date().toISOString();
+  }
+};
+
+// Controllo automatico: ogni ora dalle 8 alle 23 (ora italiana) guarda se c'è una giornata nuova calcolata.
+setInterval(() => {
+  const ora = Number(new Intl.DateTimeFormat("it-IT", { hour: "2-digit", hour12: false, timeZone: "Europe/Rome" }).format(new Date()));
+  if (ora >= 8 && ora <= 23 && clientFanta() && leggiImpostazioni().fantacalcio?.automatico !== false) importaDaFanta({ genera: true }).catch(() => {});
+}, 3600e3);
 
 /* ------------------------------------------------------------------ */
 /* HTTP                                                                 */
@@ -798,38 +909,35 @@ const server = http.createServer(async (req, res) => {
     // e lo stesso invio non può partire due volte di fila (doppio tocco, richiesta ripetuta dal browser…)
     if (req.method === "POST" && path === "/api/whatsapp/messaggi") {
       const b = await corpo(req);
-      const wa = leggiImpostazioni().whatsapp || {};
-      const a = b.a === "gruppo" ? "gruppo" : "prova";
-      const dest = wa[a];
-      if (!dest) throw new Error(a === "gruppo" ? "Scegli prima il gruppo." : "Scegli prima la chat di prova (la tua).");
-      const n = Number(b.giornata);
-      const chiave = `${b.tipo}-${n}-${a}-${dest}`;
-      const prec = invii.get(chiave);
-      if (prec?.stato === "in corso") return json(res, 200, { ...prec, gia: "in corso" });
-      if (prec?.stato === "fatto" && Date.now() - prec.fine < 15 * 60000 && !b.ripeti) return json(res, 200, { ...prec, gia: "fatto" });
-      const passi = await passiBot(b.tipo, n);
-      const manca = passi.find((p) => p.file && !existsSync(join(OUT, p.file)));
-      if (manca) throw new Error(`Prima genera ${manca.file.split("/").pop()}.`);
-      const inv = { chiave, tipo: b.tipo, giornata: n, a, stato: "in corso", fatti: 0, totale: passi.length, inizio: Date.now() };
-      invii.set(chiave, inv);
-      (async () => {
-        try {
-          for (const p of passi) {
-            if (inv.annulla) { inv.stato = "annullato"; break; }
-            const buffer = p.file ? readFileSync(join(OUT, p.file)) : null;
-            const miniatura = p.file?.endsWith(".mp4") ? await miniaturaVideo(join(OUT, p.file)) : null;
-            await inviaWhatsApp({ gruppo: dest, testo: p.testo, buffer, tipo: p.file ? MIME[extname(p.file).toLowerCase()] : null, scrive: p.file ? 1500 : Math.min(5000, 1200 + p.testo.length * 12), miniatura });
-            inv.fatti++;
-            await attesa(p.file && p.file.endsWith(".mp4") ? 4000 : 1500);
-          }
-          if (inv.stato === "in corso") inv.stato = "fatto";
-        } catch (e) {
-          inv.stato = "errore";
-          inv.errore = e.message;
-        }
-        inv.fine = Date.now();
-      })();
-      return json(res, 200, inv);
+      return json(res, 200, await avviaInvio(b.tipo, Number(b.giornata), b.a === "gruppo" ? "gruppo" : "prova", !!b.ripeti));
+    }
+    /* ---- fantacalcio ---- */
+    if (req.method === "GET" && path === "/api/fantacalcio") {
+      const f = leggiImpostazioni().fantacalcio || {};
+      return json(res, 200, { collegato: !!(f.appKey && f.token), scade: f.token ? scadenzaToken(f.token) : null, automatico: f.automatico !== false, comando: COMANDO_CONSOLE, ...statoFanta });
+    }
+    if (req.method === "POST" && path === "/api/fantacalcio/chiave") {
+      const b = await corpo(req);
+      const cur = leggiImpostazioni();
+      if (b.scollega) {
+        delete cur.fantacalcio;
+        salvaImpostazioni(cur);
+        return json(res, 200, { ok: true });
+      }
+      const k = leggiCodice(b.codice);
+      await creaClient(k, mappaFanta()).calendario(); // prova subito che funzioni
+      salvaImpostazioni({ ...cur, fantacalcio: { ...(cur.fantacalcio || {}), ...k } });
+      return json(res, 200, { ok: true, scade: scadenzaToken(k.token) });
+    }
+    if (req.method === "POST" && path === "/api/fantacalcio/automatico") {
+      const b = await corpo(req);
+      const cur = leggiImpostazioni();
+      salvaImpostazioni({ ...cur, fantacalcio: { ...(cur.fantacalcio || {}), automatico: !!b.attivo } });
+      return json(res, 200, { ok: true });
+    }
+    if (req.method === "POST" && path === "/api/fantacalcio/importa") {
+      const b = await corpo(req);
+      return json(res, 200, await importaDaFanta({ genera: !!b.genera }));
     }
     if (req.method === "GET" && path === "/api/whatsapp/invii") return json(res, 200, [...invii.values()].sort((x, y) => y.inizio - x.inizio).slice(0, 10));
     if (req.method === "POST" && path === "/api/whatsapp/annulla") {
@@ -998,6 +1106,8 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, HOST, () => {
   const url = `http://localhost:${PORT}`;
+  // se il bot WhatsApp era già collegato, si ricollega subito (serve per gli invii automatici)
+  if (existsSync(join(DATI, "whatsapp", "creds.json"))) avviaWhatsApp(DATI);
   console.log(`\n  ⚽ Fantacalcio Highlights è pronto: ${url}\n  (chiudi questa finestra per spegnere l'app)\n`);
   if (process.argv.includes("--apri")) {
     const c = isWin ? spawn("cmd", ["/c", "start", "", url], { detached: true, stdio: "ignore" }) : spawn("xdg-open", [url], { detached: true, stdio: "ignore" });
