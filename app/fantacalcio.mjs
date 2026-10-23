@@ -39,8 +39,14 @@ export const creaClient = ({ appKey, token }, mappa) => {
       headers: { app_key: appKey, Authorization: token, Accept: "application/json" },
       signal: AbortSignal.timeout(20000),
     });
-    if (r.status === 401 || r.status === 403) throw new Error("Fantacalcio ha rifiutato la chiave (scaduta?): ricollegala dall'app.");
-    if (!r.ok) throw new Error(`Fantacalcio: errore ${r.status} su ${path.split("?")[0]}`);
+    if (!r.ok) {
+      // il dettaglio serve a capire se è la chiave (401) o il sito che non accetta richieste dal server (403 / pagina HTML)
+      const corpo = (await r.text().catch(() => "")).replace(/\s+/g, " ").slice(0, 160);
+      const html = /<html|<!doctype/i.test(corpo);
+      if (r.status === 401) throw new Error(`Fantacalcio ha rifiutato la chiave (401${corpo && !html ? ": " + corpo : ""}).`);
+      if (r.status === 403) throw new Error(`Fantacalcio non accetta richieste dal server (403${html ? ", pagina di blocco" : corpo ? ": " + corpo : ""}).`);
+      throw new Error(`Fantacalcio: errore ${r.status} su ${path.split("?")[0]}${corpo && !html ? " (" + corpo + ")" : ""}`);
+    }
     return r.json();
   };
 
