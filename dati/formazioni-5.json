@@ -1,0 +1,134 @@
+{
+  "giornata": 5,
+  "giornataSerieA": 8,
+  "aggiornato": "2026-10-23T12:42:50.472Z",
+  "fonte": "leghe.fantacalcio.it",
+  "squadre": {
+    "do-flamengo": {
+      "capitano": "Pulisic",
+      "vice": "Paz N.",
+      "modulo": "442",
+      "titolari": [
+        "Maignan",
+        "De Winter",
+        "Belghali",
+        "Ramon",
+        "Mancini",
+        "Vlasic",
+        "Zaccagni",
+        "Pulisic",
+        "Paz N.",
+        "Adams A.",
+        "Varela G."
+      ]
+    },
+    "milano-boys": {
+      "capitano": "Calhanoglu",
+      "vice": "Bremer",
+      "modulo": "442",
+      "titolari": [
+        "Stankovic F.",
+        "Hermoso",
+        "Bremer",
+        "Akanji",
+        "Vasquez",
+        "Da Cunha",
+        "Calhanoglu",
+        "Mandragora",
+        "Alajbegovic",
+        "Esposito F.P.",
+        "Douvikas"
+      ]
+    },
+    "aston-birra": {
+      "capitano": "Barella",
+      "vice": "Gila",
+      "modulo": "343",
+      "titolari": [
+        "Mandas",
+        "Comuzzo",
+        "Gila",
+        "Oyono A.",
+        "El Shaarawy",
+        "Pisilli",
+        "Barella",
+        "Gonzalez N.",
+        "Soulè",
+        "Thuram",
+        "Berardi"
+      ]
+    },
+    "pan-fc": {
+      "capitano": "Rabiot",
+      "vice": "Modric",
+      "modulo": "343",
+      "titolari": [
+        "Vicario",
+        "Zortea",
+        "Miranda J.",
+        "Dimarco",
+        "Modric",
+        "Taylor K.",
+        "Rabiot",
+        "McKennie",
+        "Kean",
+        "Ramos G.",
+        "Krstovic"
+      ]
+    },
+    "manchester-squiddi": {
+      "capitano": "Diouf",
+      "vice": "Moreira",
+      "modulo": "433",
+      "titolari": [
+        "Gollini",
+        "Couto",
+        "Di Lorenzo",
+        "Molina N.",
+        "Bellanova",
+        "Moreira",
+        "McTominay",
+        "Diouf",
+        "Laurientè",
+        "Kolo Muani",
+        "Kvernadze"
+      ]
+    },
+    "atletico-madrink": {
+      "capitano": "Frattesi",
+      "vice": "Carlos Augusto",
+      "modulo": "433",
+      "titolari": [
+        "Carnesecchi",
+        "Bastoni",
+        "Carlos Augusto",
+        "Bisseck",
+        "Mangas",
+        "Frattesi",
+        "Ederson D.S.",
+        "Pobega",
+        "Lang",
+        "Raimondo",
+        "Bonny"
+      ]
+    },
+    "si-gonfia-la-rete": {
+      "capitano": "Tavares N.",
+      "vice": "Baturina",
+      "modulo": "343",
+      "titolari": [
+        "Skorupski",
+        "Tavares N.",
+        "Pavlovic",
+        "Wesley",
+        "Cissè A.",
+        "Baturina",
+        "Sucic P.",
+        "Mastantuono",
+        "Robinson J.",
+        "Hojlund",
+        "Maldini"
+      ]
+    }
+  }
+}
