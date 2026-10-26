@@ -157,3 +157,31 @@ export const creaClient = ({ appKey, token } = {}, mappa, dati = null) => {
 
 /** Il comando da incollare nella console del browser su leghe.fantacalcio.it (lo mostra l'app) */
 export const COMANDO_CONSOLE = `(async()=>{const H={};const o=XMLHttpRequest.prototype.open,s=XMLHttpRequest.prototype.setRequestHeader;XMLHttpRequest.prototype.open=function(m,u){this.__u=String(u);return o.apply(this,arguments)};XMLHttpRequest.prototype.setRequestHeader=function(k,v){if(/apileague/.test(this.__u)&&(k==='app_key'||k==='Authorization'))H[k]=v;return s.apply(this,arguments)};const l=[...document.querySelectorAll('a,button')].find(e=>/^\\s*Classifica\\s*$/i.test(e.textContent));if(l)l.click();for(let i=0;i<60&&!(H.app_key&&H.Authorization);i++)await new Promise(r=>setTimeout(r,100));if(!H.Authorization){alert('Non trovato: apri la pagina della lega (Dashboard) e riprova');return}const c=btoa(JSON.stringify({a:H.app_key,t:H.Authorization}));try{await navigator.clipboard.writeText(c)}catch(e){}prompt('Codice copiato! Incollalo nell\\'app Ciempions Fig:',c)})()`;
+
+/** Segnalibro per il telefono: lo avvii TU sulla pagina della tua lega (sei già loggato) e raccoglie calendario, voti e
+ *  formazioni; poi li copi e li incolli nell'app. Stessa cosa del comando da console, ma da cellulare. */
+const CODICE_SEGNALIBRO = `(async()=>{
+try{
+var H={};var o=XMLHttpRequest.prototype.open,s=XMLHttpRequest.prototype.setRequestHeader;
+XMLHttpRequest.prototype.open=function(m,u){this.__u=String(u);return o.apply(this,arguments)};
+XMLHttpRequest.prototype.setRequestHeader=function(k,v){if(/apileague/.test(this.__u)&&(k==='app_key'||k==='Authorization'))H[k]=v;return s.apply(this,arguments)};
+var box=document.createElement('div');box.style.cssText='position:fixed;z-index:99999;left:8px;right:8px;top:8px;background:#121629;color:#fff;border:2px solid #c6ff2e;border-radius:12px;padding:12px;font:15px sans-serif';
+box.textContent='Leggo la lega... un attimo';document.body.appendChild(box);
+var l=[].slice.call(document.querySelectorAll('a,button')).find(function(e){return /^\\s*Classifica\\s*$/i.test(e.textContent)});if(l)l.click();
+for(var i=0;i<100&&!(H.app_key&&H.Authorization);i++)await new Promise(function(r){setTimeout(r,100)});
+if(!H.Authorization){box.textContent='Apri prima la pagina della tua lega (Dashboard), con il login fatto, e riprova.';return}
+var g=async function(p){var r=await fetch('https://apileague.fantacalcio.it'+p,{headers:{app_key:H.app_key,Authorization:H.Authorization,Accept:'application/json'}});if(!r.ok)throw new Error(r.status+' '+p);return r.json()};
+var C=645622,K='/onboarding/v1/league/competition/calendar/'+C,D={};
+var cal=await g(K);D[K]=cal;D['/onboarding/v1/league/players']=await g('/onboarding/v1/league/players');
+var last=0;cal.forEach(function(x){if(x.calculated)last=x.matchDay});
+for(var j=0;j<cal.length;j++){var x=cal[j];if(x.matchDay>last+1)break;box.textContent='Scarico giornata '+x.matchDay+'...';
+try{D['/gaming/v1/teamLineup/'+C+'/'+x.matchDay+'/'+x.championshipMatchDay]=await g('/gaming/v1/teamLineup/'+C+'/'+x.matchDay+'/'+x.championshipMatchDay)}catch(e){if(x.matchDay<=last)throw e}}
+var txt=JSON.stringify(D);box.textContent='';
+var m=document.createElement('div');m.textContent='Fatto (giornate fino alla '+last+'). Premi Copia, poi apri l\\'app Ciempions Fig e incolla.';box.appendChild(m);
+var ta=document.createElement('textarea');ta.value=txt;ta.rows=2;ta.style.cssText='width:100%;margin:8px 0';box.appendChild(ta);
+var b=document.createElement('button');b.textContent='Copia';b.style.cssText='padding:10px 18px;font-size:16px;font-weight:700;background:#c6ff2e;border:0;border-radius:8px';
+b.onclick=function(){ta.select();ta.setSelectionRange(0,txt.length+1);var ok=false;try{ok=document.execCommand('copy')}catch(e){}if(!ok&&navigator.clipboard)navigator.clipboard.writeText(txt);b.textContent='Copiato! Ora apri l\\'app'};
+box.appendChild(b);
+}catch(e){var bx=document.querySelector('div[style*="99999"]');if(bx)bx.textContent='Errore: '+e.message}
+})();`;
+export const SEGNALIBRO = "javascript:" + CODICE_SEGNALIBRO.replace(/\s*\n\s*/g, "");

@@ -11,7 +11,7 @@ import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { messaggiPregiornata, messaggiFineGiornata } from "./messaggi.mjs";
 import { datiRisultati } from "./risultati.mjs";
-import { COMANDO_CONSOLE, creaClient, leggiCodice, scadenzaToken } from "./fantacalcio.mjs";
+import { COMANDO_CONSOLE, SEGNALIBRO, creaClient, leggiCodice, scadenzaToken } from "./fantacalcio.mjs";
 import { avviaWhatsApp, esciWhatsApp, gruppiWhatsApp, inviaWhatsApp, statoWhatsApp } from "./whatsapp.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -777,7 +777,7 @@ const corpo = (req) =>
     let b = "";
     req.on("data", (c) => {
       b += c;
-      if (b.length > 5e6) ko(new Error("troppo grande"));
+      if (b.length > 40e6) ko(new Error("troppo grande"));
     });
     req.on("end", () => {
       try {
@@ -925,7 +925,7 @@ const server = http.createServer(async (req, res) => {
     /* ---- fantacalcio ---- */
     if (req.method === "GET" && path === "/api/fantacalcio") {
       const f = leggiImpostazioni().fantacalcio || {};
-      return json(res, 200, { collegato: !!(f.appKey && f.token), scade: f.token ? scadenzaToken(f.token) : null, automatico: f.automatico !== false, comando: COMANDO_CONSOLE, ...statoFanta });
+      return json(res, 200, { collegato: !!(f.appKey && f.token), scade: f.token ? scadenzaToken(f.token) : null, automatico: f.automatico !== false, comando: COMANDO_CONSOLE, segnalibro: SEGNALIBRO, ...statoFanta });
     }
     if (req.method === "POST" && path === "/api/fantacalcio/chiave") {
       const b = await corpo(req);

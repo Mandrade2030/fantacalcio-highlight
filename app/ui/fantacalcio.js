@@ -15,7 +15,8 @@
   const data = (iso) => (iso ? new Date(iso).toLocaleString("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "mai");
 
   // Dentro l'app Android la chiave sta sul telefono e i dati li scarica il telefono (il server è bloccato da fantacalcio)
-  const tel = window.AndroidFanta || null;
+  const tel = null; // (vecchia app Android: il telefono non può leggere fantacalcio, vedi segnalibro)
+  let segnalibro = "";
   const statoTel = () => {
     try {
       return JSON.parse(tel.stato());
@@ -36,6 +37,7 @@
         $("#fcSetup").hidden = !!t.chiave;
         $("#fcScollega").hidden = !t.chiave;
         $("#fcComando").value = s.comando;
+      segnalibro = s.segnalibro;
         $("#fcAuto").checked = s.automatico;
         $("#fcInfo").textContent = `Il telefono controlla fantacalcio ogni ora (8–23) anche ad app chiusa. Ultimo controllo: ${data(t.quando ? new Date(t.quando).toISOString() : null)} · ${t.esito || "nessun esito"}`;
         return;
@@ -57,6 +59,29 @@
     }
   };
 
+  $("#fcCopiaSegn").addEventListener("click", async () => {
+    if (!segnalibro) await aggiorna();
+    try {
+      await navigator.clipboard.writeText(segnalibro);
+      msg("Segnalibro copiato ✔ Ora salvalo in Chrome come descritto qui sopra.");
+    } catch {
+      msg("Non riesco a copiare da qui: apri l'app nel browser Chrome e riprova.", true);
+    }
+  });
+  $("#fcCarica").addEventListener("click", async () => {
+    const t = $("#fcDati").value.trim();
+    if (!t.startsWith("{")) return msg("Incolla prima i dati copiati dal segnalibro.", true);
+    msg("Carico i dati…");
+    try {
+      const r = await api("/api/fantacalcio/dati", { method: "POST", headers: { "Content-Type": "application/json" }, body: t });
+      $("#fcDati").value = "";
+      const n = [...r.nuove, ...r.aggiornate];
+      msg(n.length ? `Importate: giornata ${n.join(", ")} ✔ Generazione in corso (qualche minuto): alla fine ti arriva il riepilogo in privato.` : `Niente di nuovo: già tutto nell'app.${r.formazioniSalvate ? " Formazioni della giornata " + r.formazioniSalvate + " aggiornate." : ""}`);
+      aggiorna();
+    } catch (e) {
+      msg(e.message, true);
+    }
+  });
   $("#fcCopia").addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText($("#fcComando").value);
