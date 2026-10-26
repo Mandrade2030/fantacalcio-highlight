@@ -86,6 +86,11 @@
   $("#fcCarica").addEventListener("click", async () => {
     const t = $("#fcDati").value.trim();
     if (!t.startsWith("{")) return msg("Incolla prima i dati copiati dal segnalibro.", true);
+    try {
+      JSON.parse(t);
+    } catch {
+      return msg(`I dati sono incompleti (${Math.round(t.length / 1000)} KB incollati). Rifai il segnalibro e la copia.`, true);
+    }
     msg("Carico i dati…");
     try {
       const r = await api("/api/fantacalcio/dati", { method: "POST", headers: { "Content-Type": "application/json" }, body: t });

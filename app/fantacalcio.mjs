@@ -172,10 +172,15 @@ for(var i=0;i<100&&!(H.app_key&&H.Authorization);i++)await new Promise(function(
 if(!H.Authorization){box.textContent='Apri prima la pagina della tua lega (Dashboard), con il login fatto, e riprova.';return}
 var g=async function(p){var r=await fetch('https://apileague.fantacalcio.it'+p,{headers:{app_key:H.app_key,Authorization:H.Authorization,Accept:'application/json'}});if(!r.ok)throw new Error(r.status+' '+p);return r.json()};
 var C=645622,K='/onboarding/v1/league/competition/calendar/'+C,D={};
-var cal=await g(K);D[K]=cal;D['/onboarding/v1/league/players']=await g('/onboarding/v1/league/players');
+var cal=await g(K);
+D[K]=cal.map(function(x){return{matchDay:x.matchDay,championshipMatchDay:x.championshipMatchDay,calculated:x.calculated,matches:(x.matches||[]).map(function(m){return{tIdH:m.tIdH,tIdA:m.tIdA,ptH:m.ptH,ptA:m.ptA,result:m.result,standingPtH:m.standingPtH,standingPtA:m.standingPtA}})}});
+var pl=await g('/onboarding/v1/league/players');
+D['/onboarding/v1/league/players']={players:(pl.players||[]).map(function(p){return{id:p.id,name:p.name,fcrle:p.fcrle,tname:p.tname,img:p.img}})};
+var P=function(x){return x&&typeof x==='object'?{pid:x.pid,scr:x.scr,cscr:x.cscr,ptype:x.ptype,b:x.b}:x};
 var last=0;cal.forEach(function(x){if(x.calculated)last=x.matchDay});
-for(var j=0;j<cal.length;j++){var x=cal[j];if(x.matchDay>last+1)break;box.textContent='Scarico giornata '+x.matchDay+'...';
-try{D['/gaming/v1/teamLineup/'+C+'/'+x.matchDay+'/'+x.championshipMatchDay]=await g('/gaming/v1/teamLineup/'+C+'/'+x.matchDay+'/'+x.championshipMatchDay)}catch(e){if(x.matchDay<=last)throw e}}
+for(var j=0;j<cal.length;j++){var x=cal[j];if(x.matchDay>last+1)break;if(x.matchDay<last-1)continue;box.textContent='Scarico giornata '+x.matchDay+'...';
+var path='/gaming/v1/teamLineup/'+C+'/'+x.matchDay+'/'+x.championshipMatchDay;
+try{var L=await g(path);D[path]=L.map(function(t){return{tid:t.tid,tot:t.tot,capt:t.capt,mdl:t.mdl,starts:(t.starts||[]).map(P),bench:(t.bench||[]).map(P)}})}catch(e){if(x.matchDay<=last)throw e}}
 var txt=JSON.stringify(D);box.textContent='';
 var m=document.createElement('div');m.textContent='Fatto (giornate fino alla '+last+'). Premi Copia, poi apri l\\'app Ciempions Fig e incolla.';box.appendChild(m);
 var ta=document.createElement('textarea');ta.value=txt;ta.rows=2;ta.style.cssText='width:100%;margin:8px 0';box.appendChild(ta);
