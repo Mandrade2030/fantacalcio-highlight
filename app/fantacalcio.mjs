@@ -171,7 +171,7 @@ var l=[].slice.call(document.querySelectorAll('a,button')).find(function(e){retu
 for(var i=0;i<100&&!(H.app_key&&H.Authorization);i++)await new Promise(function(r){setTimeout(r,100)});
 if(!H.Authorization){box.textContent='Apri prima la pagina della tua lega (Dashboard), con il login fatto, e riprova.';return}
 var g=async function(p){var r=await fetch('https://apileague.fantacalcio.it'+p,{headers:{app_key:H.app_key,Authorization:H.Authorization,Accept:'application/json'}});if(!r.ok)throw new Error(r.status+' '+p);return r.json()};
-var C=645622,K='/onboarding/v1/league/competition/calendar/'+C,D={};
+var UP='__UP__';var C=645622,K='/onboarding/v1/league/competition/calendar/'+C,D={};
 var cal=await g(K);
 D[K]=cal.map(function(x){return{matchDay:x.matchDay,championshipMatchDay:x.championshipMatchDay,calculated:x.calculated,matches:(x.matches||[]).map(function(m){return{tIdH:m.tIdH,tIdA:m.tIdA,ptH:m.ptH,ptA:m.ptA,result:m.result,standingPtH:m.standingPtH,standingPtA:m.standingPtA}})}});
 var pl=await g('/onboarding/v1/league/players');
@@ -182,6 +182,7 @@ for(var j=0;j<cal.length;j++){var x=cal[j];if(x.matchDay>last+1)break;if(x.match
 var path='/gaming/v1/teamLineup/'+C+'/'+x.matchDay+'/'+x.championshipMatchDay;
 try{var L=await g(path);D[path]=L.map(function(t){return{tid:t.tid,tot:t.tot,capt:t.capt,mdl:t.mdl,starts:(t.starts||[]).map(P),bench:(t.bench||[]).map(P)}})}catch(e){if(x.matchDay<=last)throw e}}
 var txt=JSON.stringify(D);box.textContent='';
+if(UP){box.textContent='Invio al server...';try{var rr=await fetch(UP,{method:'POST',headers:{'Content-Type':'text/plain'},body:txt});var jj=await rr.json();if(!rr.ok)throw new Error(jj.errore||rr.status);var nn=(jj.nuove||[]).concat(jj.aggiornate||[]);box.textContent=nn.length?'Fatto! Importata la giornata '+nn.join(', ')+'. Sto generando tutto: ti arriva il riepilogo su WhatsApp.':'Fatto: niente di nuovo, e' + String.fromCharCode(39) + ' gia tutto aggiornato (calcolate fino alla '+last+').';return}catch(e){box.textContent='Invio non riuscito ('+e.message+'). Copia a mano.';await new Promise(function(r){setTimeout(r,1500)});box.textContent=''}}
 var m=document.createElement('div');m.textContent='Fatto (giornate fino alla '+last+'). Premi Copia, poi apri l\\'app Ciempions Fig e incolla.';box.appendChild(m);
 var ta=document.createElement('textarea');ta.value=txt;ta.rows=2;ta.style.cssText='width:100%;margin:8px 0';box.appendChild(ta);
 var b=document.createElement('button');b.textContent='Copia';b.style.cssText='padding:10px 18px;font-size:16px;font-weight:700;background:#c6ff2e;border:0;border-radius:8px';
@@ -189,4 +190,6 @@ b.onclick=function(){ta.select();ta.setSelectionRange(0,txt.length+1);var ok=fal
 box.appendChild(b);
 }catch(e){var bx=document.querySelector('div[style*="99999"]');if(bx)bx.textContent='Errore: '+e.message}
 })();`;
-export const SEGNALIBRO = "javascript:" + CODICE_SEGNALIBRO.replace(/\s*\n\s*/g, "");
+/** Lo script che il segnalibro carica dal server (una riga corta sul telefono); `up` = indirizzo di caricamento diretto */
+export const scriptSegnalibro = (up) => CODICE_SEGNALIBRO.replace("__UP__", up).replace(/\s*\n\s*/g, "");
+export const SEGNALIBRO = "javascript:" + scriptSegnalibro("");

@@ -7,11 +7,11 @@ import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, rmSync, statSync, unlinkSync, writeFileSync } from "node:fs";
 import { basename, dirname, extname, join, normalize, resolve, sep } from "node:path";
 import { createRequire } from "node:module";
-import { createHash, createHmac, timingSafeEqual } from "node:crypto";
+import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { messaggiPregiornata, messaggiFineGiornata } from "./messaggi.mjs";
 import { datiRisultati } from "./risultati.mjs";
-import { COMANDO_CONSOLE, SEGNALIBRO, creaClient, leggiCodice, scadenzaToken } from "./fantacalcio.mjs";
+import { COMANDO_CONSOLE, scriptSegnalibro, creaClient, leggiCodice, scadenzaToken } from "./fantacalcio.mjs";
 import { avviaWhatsApp, esciWhatsApp, gruppiWhatsApp, inviaWhatsApp, statoWhatsApp } from "./whatsapp.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -868,12 +868,40 @@ const html = (res, code, txt, extra = {}) => {
   res.end(txt);
 };
 
+/* Segnalibro del telefono: carica lo script dal server e rimanda i dati con un codice segreto (nel segnalibro). */
+const tokenCarico = () => {
+  const cur = leggiImpostazioni();
+  if (cur.tokenCarico) return cur.tokenCarico;
+  const t = randomBytes(18).toString("hex");
+  salvaImpostazioni({ ...cur, tokenCarico: t });
+  return t;
+};
+const origine = (req) => `${req.headers["x-forwarded-proto"] || "http"}://${req.headers.host}`;
+const CORS_FANTA = { "Access-Control-Allow-Origin": "https://leghe.fantacalcio.it", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type", "Cache-Control": "no-store" };
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const path = url.pathname;
   try {
     if (path === "/healthz") return json(res, 200, { ok: true });
-    if (PASSWORD) {
+    // segnalibro: fuori dalla password, ma serve il codice segreto
+    if (path === "/segnalibro.js" || (path === "/api/fantacalcio/dati" && (req.method === "OPTIONS" || url.searchParams.has("k")))) {
+      if (req.method === "OPTIONS") {
+        res.writeHead(204, CORS_FANTA);
+        return res.end();
+      }
+      if (!uguali(url.searchParams.get("k") || "", tokenCarico())) {
+        res.writeHead(403, { ...CORS_FANTA, "Content-Type": "application/json" });
+        return res.end(JSON.stringify({ errore: "codice non valido: rifai il segnalibro dal pannello" }));
+      }
+      if (path === "/segnalibro.js") {
+        res.writeHead(200, { "Content-Type": "application/javascript; charset=utf-8", "Cache-Control": "no-store" });
+        return res.end(scriptSegnalibro(`${origine(req)}/api/fantacalcio/dati?k=${tokenCarico()}`));
+      }
+      req.__ok = true; // POST dei dati col codice: prosegue senza cookie
+      for (const [k, v] of Object.entries(CORS_FANTA)) res.setHeader(k, v);
+    }
+    if (PASSWORD && !req.__ok) {
       if (path === "/login" && req.method === "POST") {
         if (Date.now() < bloccoFinoA) return html(res, 429, PAGINA_LOGIN("Troppi tentativi: riprova tra un minuto."));
         const pw = (await corpoForm(req)).get("password") || "";
@@ -925,7 +953,7 @@ const server = http.createServer(async (req, res) => {
     /* ---- fantacalcio ---- */
     if (req.method === "GET" && path === "/api/fantacalcio") {
       const f = leggiImpostazioni().fantacalcio || {};
-      return json(res, 200, { collegato: !!(f.appKey && f.token), scade: f.token ? scadenzaToken(f.token) : null, automatico: f.automatico !== false, comando: COMANDO_CONSOLE, segnalibro: SEGNALIBRO, ...statoFanta });
+      return json(res, 200, { collegato: !!(f.appKey && f.token), scade: f.token ? scadenzaToken(f.token) : null, automatico: f.automatico !== false, comando: COMANDO_CONSOLE, segnalibro: `javascript:(function(){var s=document.createElement('script');s.src='${origine(req)}/segnalibro.js?k=${tokenCarico()}&t='+Date.now();document.body.appendChild(s)})()`, ...statoFanta });
     }
     if (req.method === "POST" && path === "/api/fantacalcio/chiave") {
       const b = await corpo(req);
