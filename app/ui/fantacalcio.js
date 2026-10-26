@@ -28,6 +28,7 @@
   const aggiorna = async () => {
     try {
       const s = await api("/api/fantacalcio");
+      segnalibro = s.segnalibro || "";
       if (tel) {
         const t = statoTel();
         s.collegato = !!t.chiave;
@@ -63,7 +64,8 @@
     const m = $("#fcMsgTel");
     if (!segnalibro) await aggiorna();
     const ta = $("#fcSegn");
-    ta.value = segnalibro || "";
+    if (!segnalibro) return (m.textContent = " Non riesco a leggere il segnalibro dal server: aggiorna la pagina e riprova.");
+    ta.value = segnalibro;
     ta.hidden = false;
     ta.focus();
     ta.select();
