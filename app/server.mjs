@@ -712,8 +712,8 @@ const clientFanta = () => {
 
 /** Importa da fantacalcio le giornate calcolate che mancano (o i cui punteggi sono cambiati).
  *  Con genera=true mette in coda "Genera tutto" per le nuove e, a lavoro finito, manda il riepilogo a Davide. */
-const importaDaFanta = async ({ genera = false } = {}) => {
-  const fc = clientFanta();
+const importaDaFanta = async ({ genera = false, client = null } = {}) => {
+  const fc = client || clientFanta();
   if (!fc) throw new Error("Fantacalcio non è collegato: incolla la chiave nel pannello 🔗 Fantacalcio.");
   if (statoFanta.inCorso) throw new Error("Import già in corso, aspetta qualche secondo.");
   statoFanta.inCorso = true;
@@ -880,7 +880,7 @@ const server = http.createServer(async (req, res) => {
         if (uguali(createHmac("sha256", "x").update(pw).digest("hex"), createHmac("sha256", "x").update(PASSWORD).digest("hex"))) {
           falliti = 0;
           const sicuro = req.headers["x-forwarded-proto"] === "https" ? "; Secure" : "";
-          return html(res, 302, "", { Location: "/", "Set-Cookie": `fh=${TOKEN}; HttpOnly; SameSite=Lax; Path=/; Max-Age=2592000${sicuro}` });
+          return html(res, 302, "", { Location: "/", "Set-Cookie": `fh=${TOKEN}; HttpOnly; SameSite=Lax; Path=/; Max-Age=31536000${sicuro}` });
         }
         if (++falliti >= 5) { bloccoFinoA = Date.now() + 60000; falliti = 0; }
         return html(res, 401, PAGINA_LOGIN("Password sbagliata."));
@@ -945,6 +945,39 @@ const server = http.createServer(async (req, res) => {
       const cur = leggiImpostazioni();
       salvaImpostazioni({ ...cur, fantacalcio: { ...(cur.fantacalcio || {}), automatico: !!b.attivo } });
       return json(res, 200, { ok: true });
+    }
+    /* Il server AWS è bloccato da fantacalcio (403): i dati li scarica l'app Android sul telefono e li carica qui. */
+    if (req.method === "GET" && path === "/api/fantacalcio/mancanti") {
+      const calcolate = (url.searchParams.get("calcolate") || "").split(",").map(Number).filter(Boolean);
+      if (!calcolate.length) return json(res, 200, { giornate: [] });
+      const ultima = Math.max(...calcolate);
+      const daFare = calcolate.filter((n) => !existsSync(fileGiornata(n)) || n === ultima);
+      const da = daFare.length ? Math.min(...daFare) : ultima;
+      const giornate = [];
+      for (let n = da; n <= ultima + 1; n++) giornate.push(n); // + la prossima, per le formazioni della pre-giornata
+      return json(res, 200, { giornate });
+    }
+    if (req.method === "POST" && path === "/api/fantacalcio/dati") {
+      const dati = await corpo(req);
+      const fc = creaClient({}, mappaFanta(), dati);
+      statoFanta.ultimoTelefono = new Date().toISOString();
+      const cal = await fc.calendario();
+      const ultima = Math.max(0, ...cal.filter((g) => g.calculated).map((g) => g.matchDay));
+      let formazioniSalvate = null;
+      const prossima = cal.find((g) => g.matchDay === ultima + 1);
+      if (prossima && dati[fc.percorsoFormazioni(prossima)]) {
+        try {
+          const f = await fc.formazioni(prossima.matchDay);
+          if (Object.keys(f.squadre).length) {
+            writeFileSync(fileFormazioni(f.giornata), JSON.stringify(f, null, 2));
+            formazioniSalvate = f.giornata;
+          }
+        } catch (e) {
+          statoFanta.errore = e.message;
+        }
+      }
+      const r = await importaDaFanta({ genera: leggiImpostazioni().fantacalcio?.automatico !== false, client: fc });
+      return json(res, 200, { ...r, formazioniSalvate });
     }
     if (req.method === "POST" && path === "/api/fantacalcio/importa") {
       const b = await corpo(req);

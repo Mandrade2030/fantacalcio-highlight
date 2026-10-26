@@ -14,9 +14,32 @@
   };
   const data = (iso) => (iso ? new Date(iso).toLocaleString("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "mai");
 
+  // Dentro l'app Android la chiave sta sul telefono e i dati li scarica il telefono (il server è bloccato da fantacalcio)
+  const tel = window.AndroidFanta || null;
+  const statoTel = () => {
+    try {
+      return JSON.parse(tel.stato());
+    } catch {
+      return {};
+    }
+  };
+
   const aggiorna = async () => {
     try {
       const s = await api("/api/fantacalcio");
+      if (tel) {
+        const t = statoTel();
+        s.collegato = !!t.chiave;
+        s.scade = null;
+        $("#fcStato").textContent = t.chiave ? `telefono · ${t.esito ? t.esito.slice(0, 40) : "in attesa del primo controllo"}` : "non collegato: aprimi per collegare";
+        $("#fcOk").hidden = !t.chiave;
+        $("#fcSetup").hidden = !!t.chiave;
+        $("#fcScollega").hidden = !t.chiave;
+        $("#fcComando").value = s.comando;
+        $("#fcAuto").checked = s.automatico;
+        $("#fcInfo").textContent = `Il telefono controlla fantacalcio ogni ora (8–23) anche ad app chiusa. Ultimo controllo: ${data(t.quando ? new Date(t.quando).toISOString() : null)} · ${t.esito || "nessun esito"}`;
+        return;
+      }
       $("#fcStato").textContent = s.collegato ? `collegato · chiave valida fino al ${s.scade ? new Date(s.scade).toLocaleDateString("it-IT") : "?"}` : "non collegato";
       $("#fcOk").hidden = !s.collegato;
       $("#fcSetup").hidden = s.collegato;
@@ -45,6 +68,16 @@
   });
   $("#fcSalva").addEventListener("click", async () => {
     msg("Provo la chiave…");
+    if (tel) {
+      const r = tel.salvaChiave($("#fcCodice").value);
+      if (r === "ok") {
+        $("#fcCodice").value = "";
+        msg("Chiave salvata sul telefono ✔ Sto controllando fantacalcio, tra qualche secondo vedi l'esito qui sopra.");
+        setTimeout(aggiorna, 4000);
+        setTimeout(aggiorna, 12000);
+      } else msg(r, true);
+      return;
+    }
     try {
       const r = await post("/api/fantacalcio/chiave", { codice: $("#fcCodice").value });
       $("#fcCodice").value = "";
@@ -56,6 +89,10 @@
   });
   $("#fcScollega").addEventListener("click", async () => {
     if (!confirm("Scollegare fantacalcio? Dovrai rifare la procedura con la console.")) return;
+    if (tel) {
+      tel.scollega();
+      return aggiorna();
+    }
     await post("/api/fantacalcio/chiave", { scollega: true });
     aggiorna();
   });
@@ -64,6 +101,13 @@
     msg(e.target.checked ? "Automatico attivo." : "Automatico spento: importa a mano col tasto.");
   });
   const importa = (genera) => async () => {
+    if (tel) {
+      tel.importaOra();
+      msg("Il telefono sta controllando fantacalcio… tra qualche secondo vedi l'esito.");
+      setTimeout(aggiorna, 5000);
+      setTimeout(aggiorna, 15000);
+      return;
+    }
     msg("Chiedo a fantacalcio…");
     try {
       const r = await post("/api/fantacalcio/importa", { genera });

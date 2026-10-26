@@ -97,6 +97,8 @@ public class MainActivity extends Activity {
             @Override
             public void onPageFinished(WebView v, String url) {
                 CookieManager.getInstance().flush();
+                String ck = CookieManager.getInstance().getCookie(url);
+                if (ck != null && url.startsWith(serverAttuale())) pref.edit().putString("cookie", ck).apply();
             }
         });
 
@@ -114,6 +116,33 @@ public class MainActivity extends Activity {
                 return true;
             }
         });
+
+        web.addJavascriptInterface(new Object() {
+            @android.webkit.JavascriptInterface
+            public String salvaChiave(String codice) {
+                try {
+                    FantaSync.salvaChiave(MainActivity.this, codice);
+                    FantaJob.programma(MainActivity.this);
+                    new Thread(() -> FantaSync.esegui(MainActivity.this)).start();
+                    return "ok";
+                } catch (Exception e) {
+                    return "errore: " + e.getMessage();
+                }
+            }
+
+            @android.webkit.JavascriptInterface
+            public String stato() { return FantaSync.stato(MainActivity.this); }
+
+            @android.webkit.JavascriptInterface
+            public void importaOra() { new Thread(() -> FantaSync.esegui(MainActivity.this)).start(); }
+
+            @android.webkit.JavascriptInterface
+            public void scollega() {
+                pref.edit().remove("fk_a").remove("fk_t").apply();
+                ((android.app.job.JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE)).cancel(FantaJob.ID);
+            }
+        }, "AndroidFanta");
+        if (FantaSync.haChiave(this)) FantaJob.programma(this);
 
         web.setDownloadListener((url, ua, disp, mime, len) -> scarica(url, ua, disp, mime));
 

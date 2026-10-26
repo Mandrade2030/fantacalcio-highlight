@@ -33,8 +33,15 @@ export const leggiCodice = (codice) => {
   return { appKey, token: /^Bearer /i.test(token) ? token : `Bearer ${token}` };
 };
 
-export const creaClient = ({ appKey, token }, mappa) => {
+/** Con `dati` ({percorso: json}) non chiama il sito: usa le risposte già scaricate dal telefono di Davide
+ *  (il server AWS è bloccato da fantacalcio, il telefono no). */
+export const creaClient = ({ appKey, token } = {}, mappa, dati = null) => {
   const get = async (path) => {
+    if (dati) {
+      const k = path.split("?")[0];
+      if (dati[k] === undefined) throw new Error(`Dato mancante dal telefono: ${k}`);
+      return dati[k];
+    }
     const r = await fetch(API + path, {
       headers: { app_key: appKey, Authorization: token, Accept: "application/json" },
       signal: AbortSignal.timeout(20000),
@@ -143,7 +150,9 @@ export const creaClient = ({ appKey, token }, mappa) => {
     return { giornata: n, giornataSerieA: g.championshipMatchDay, aggiornato: new Date().toISOString(), fonte: "leghe.fantacalcio.it", squadre };
   };
 
-  return { get, calendario, giornateCalcolate, formazioni };
+  /** giornate di cui servono le formazioni, dato il calendario: quelle mancanti fino all'ultima calcolata + la prossima (pre-giornata) */
+  const percorsoFormazioni = (g) => `/gaming/v1/teamLineup/${COMPETIZIONE}/${g.matchDay}/${g.championshipMatchDay}`;
+  return { get, calendario, giornateCalcolate, formazioni, percorsoFormazioni };
 };
 
 /** Il comando da incollare nella console del browser su leghe.fantacalcio.it (lo mostra l'app) */
