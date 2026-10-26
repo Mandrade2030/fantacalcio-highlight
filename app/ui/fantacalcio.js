@@ -60,13 +60,26 @@
   };
 
   $("#fcCopiaSegn").addEventListener("click", async () => {
+    const m = $("#fcMsgTel");
     if (!segnalibro) await aggiorna();
+    const ta = $("#fcSegn");
+    ta.value = segnalibro || "";
+    ta.hidden = false;
+    ta.focus();
+    ta.select();
+    ta.setSelectionRange(0, ta.value.length);
+    let ok = false;
     try {
-      await navigator.clipboard.writeText(segnalibro);
-      msg("Segnalibro copiato ✔ Ora salvalo in Chrome come descritto qui sopra.");
-    } catch {
-      msg("Non riesco a copiare da qui: apri l'app nel browser Chrome e riprova.", true);
+      ok = document.execCommand("copy");
+    } catch {}
+    if (!ok) {
+      try {
+        await navigator.clipboard.writeText(ta.value);
+        ok = true;
+      } catch {}
     }
+    m.textContent = ok ? " ✔ Copiato! Ora salvalo in Chrome come descritto qui sotto." : " Il testo qui sotto è selezionato: tienilo premuto e scegli «Copia».";
+    m.style.color = ok ? "" : "#ffb347";
   });
   $("#fcCarica").addEventListener("click", async () => {
     const t = $("#fcDati").value.trim();
